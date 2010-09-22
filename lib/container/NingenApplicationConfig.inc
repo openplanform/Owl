@@ -360,6 +360,23 @@ class NingenApplicationConfig{
 		
 	}
 	
+	/**
+	 * Optiene la configuración de la base de datos si fue especificada, 
+	 * si no es así devuelve null
+	 * @return array
+	 */
+	public function getDatabaseConfiguration(){
+		
+		if (array_key_exists('db', $this->_configDataArray['system']) && is_array($this->_configDataArray['system']['db'])){
+			return $this->_configDataArray['system']['db'];
+		}
+		
+		return null;		
+		
+	}	
+	
+	
+	
 }
 
 ?>
