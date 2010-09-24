@@ -100,11 +100,11 @@ class NingenDogen{
 	    echo "\n    /**";
 	    echo "\n     * Constructor";
 	    echo "\n     */";
-	    echo "\n    public function __construct( \$db, \$data=null ){";
+	    echo "\n    public function __construct( \$db, \$data=null ){\n";
 	    echo "\n        if( \$data ){";
 	    echo "\n            \$this->_setData(\$data);";
 	    echo "\n        }";
-	    echo "\n        \$this->_db = \$db;";
+	    echo "\n        \$this->_db = \$db;\n";
 	    echo "\n    }";
 	    
 	}
@@ -128,9 +128,11 @@ class NingenDogen{
 	    echo "\n/**";
 	    echo "\n * Archivos requeridos.";
 	    echo "\n */";
-	    echo "\nrequire_once( INCLUDE_DIR.'sql/ConnectionCfg.inc');";
-	    echo "\nrequire_once( INCLUDE_DIR.'sql/Connection.inc');";
-	    echo "\nrequire_once( INCLUDE_DIR.'dataAccess/GenericDO.inc');";
+	    
+	    //echo "\nrequire_once( INCLUDE_DIR.'sql/ConnectionCfg.inc');";
+	    
+	    echo "\nrequire_once( 'dbase/NingenConnection.inc');";
+	    echo "\nrequire_once( 'dbase/NingenGenericDO.inc');";
 	    echo "\nrequire_once( '${className}Search.inc' );";
 	    echo "\nrequire_once( '${className}PK.inc' );";
 	    
@@ -144,7 +146,7 @@ class NingenDogen{
 	    echo "<?php";
 
 	    echo "\n/**";
-	    echo "\n * Este archivo ha sido generado con dslDoGen ".$this->getVersion();
+	    echo "\n * Este archivo ha sido generado con NingenDogen ".$this->getVersion();
 	    echo "\n * el ".strftime("%d de %B de %Y a las %H:%M:%S");
 	    echo "\n * @package dataAccess";
 	    echo "\n */";
@@ -159,7 +161,7 @@ class NingenDogen{
 	    echo "<?php";
 
 	    echo "\n/**";
-	    echo "\n * Este archivo ha sido generado con dslDoGen ".$this->getVersion();
+	    echo "\n * Este archivo ha sido generado con NingenDogen ".$this->getVersion();
 	    echo "\n * el ".strftime("%d de %B de %Y a las %H:%M:%S");
 	    echo "\n * @package dataAccess";
 	    echo "\n */";
@@ -180,7 +182,7 @@ class NingenDogen{
 	 * @param string $tableName
 	 * @param string $baseClass Clase de la que deriva el DO. Por defecto GenericDO.
 	 */
-	private function _echoDOClassBegin( $tableName, $baseClass="GenericDO" ){
+	private function _echoDOClassBegin( $tableName, $baseClass="NingenGenericDO" ){
 	    
 	    $className = $this->_appPrefix.$this->_strToClass($tableName);
 	    $fields = $this->_databaseMetaData->getTableFields( $tableName );
@@ -307,9 +309,9 @@ class NingenDogen{
 	    echo "\n     * @param Connection \$db Conexión con la base de datos.";
 	    echo "\n     * @param string \$orderBy Cadena con los campos de ordenación separados por comas.";
 	    echo "\n     */";
-	    echo "\n    public function get".$this->_strToClassPlural( $relatedTable )."( \$orderBy='' ){";
+	    echo "\n    public function get".$this->_strToClassPlural( $relatedTable )."( \$orderBy='' ){\n";
 	    echo "\n        include_once('${relatedClass}.inc');";
-	    echo "\n        return $relatedClass::findBy$class( \$this->_db, $params, \$orderBy );";
+	    echo "\n        return $relatedClass::findBy$class( \$this->_db, $params, \$orderBy );\n";
 	    echo "\n    }";
 	    
 	}
@@ -328,11 +330,11 @@ class NingenDogen{
 	    echo "\n      * Obtiene el valor de la atributo '$fieldName' según el idioma activo.";
 	    echo "\n      *";
 	    echo "\n      * @return $fieldType";
-	    echo "\n      * @see GenericDO::setLang()";
+	    echo "\n      * @see NingenGenericDO::setLang()";
 	    echo "\n      */";
-	    echo "\n    public function ".$this->_strToGetMethod($fieldName)."(){";
+	    echo "\n    public function ".$this->_strToGetMethod($fieldName)."(){\n";
 	    echo "\n        \$attribute = '".$this->_strToVariable($fieldName)."'.ucfirst(\$this->_lang);";
-        echo "\n        return \$this->\$attribute;";
+        echo "\n        return \$this->\$attribute;\n";
         echo "\n    }";
         
 	}
@@ -351,14 +353,14 @@ class NingenDogen{
 	    echo "\n     *";
 	    echo "\n     * @param array \$data";
 	    echo "\n     */";
-	    echo "\n    private function _setData( \$data ){";
+	    echo "\n    private function _setData( \$data ){\n";
 	    echo "\n        \$this->_data = \$data;";
 
 	    foreach( $fields as $fieldName ){
 	        echo "\n        \$this->".$this->_strToVariable($fieldName)." = \$data['$fieldName'];";
 	    }
 
-	    echo "\n    }";
+	    echo "\n\n    }";
 	    
 	}
 
@@ -376,8 +378,8 @@ class NingenDogen{
 	    echo "\n      *";
 	    echo "\n      * @param $fieldType Valor.";
 	    echo "\n      */";
-        echo "\n    public function ".$this->_strToSetMethod($fieldName)."( \$value ){";
-        echo "\n        \$this->".$this->_strToVariable($fieldName)." = \$value;";
+        echo "\n    public function ".$this->_strToSetMethod($fieldName)."( \$value ){\n";
+        echo "\n        \$this->".$this->_strToVariable($fieldName)." = \$value;\n";
 	    echo "\n    }";
 	    
 	}
@@ -396,11 +398,11 @@ class NingenDogen{
 	    echo "\n      * Establece el valor del atributo '$fieldName' según el idioma activo.";
 	    echo "\n      *";
 	    echo "\n      * @param $fieldType \$value Valor.";
-	    echo "\n      * @see GenericDO::setLang()";
+	    echo "\n      * @see NingenGenericDO::setLang()";
 	    echo "\n      */";
-        echo "\n    public function ".$this->_strToSetMethod($fieldName)."( \$value ){";
+        echo "\n    public function ".$this->_strToSetMethod($fieldName)."( \$value ){\n";
         echo "\n        \$attribute = '".$this->_strToVariable($fieldName)."'.ucfirst(\$this->_lang);";
-        echo "\n        \$this->\$attribute = \$value;";
+        echo "\n        \$this->\$attribute = \$value;\n";
 	    echo "\n    }";
 	    
 	}
@@ -443,10 +445,10 @@ class NingenDogen{
 
 	    echo "\n     * @return $className";
 	    echo "\n     */";
-	    echo "\n    public function findByPrimaryKey( \$db, $paramsStr ){";
+	    echo "\n    public function findByPrimaryKey( \$db, $paramsStr ){\n";
         echo "\n       \$db->executeQuery(\"SELECT * FROM $tableName WHERE $whereStr\");";
 	    echo "\n       \$data = \$db->fetchRow();";
-        echo "\n       return GenericDO::createDO( \$db, \$data, '$className');";
+        echo "\n       return NingenGenericDO::createDO( \$db, \$data, '$className');\n";
         echo "\n    }";
 
 	    // Método findByPKObject
@@ -459,7 +461,7 @@ class NingenDogen{
 	    echo "\n     * @param ${className}PK \$pk Objeto de la clave primaria.";
 	    echo "\n     * @return $className";
 	    echo "\n     */";
-	    echo "\n    public function findByPKObject( \$db, \$pk ){";
+	    echo "\n    public function findByPKObject( \$db, \$pk ){\n";
 	    echo "\n        \$where = array();";
 
 	    foreach( $fields as $fieldName ){
@@ -470,7 +472,7 @@ class NingenDogen{
 	    echo "\n        \$where = implode(' AND ',\$where);";
         echo "\n        \$db->executeQuery(\"SELECT * FROM $tableName WHERE \$where\");";
 	    echo "\n        \$data = \$db->fetchRow();";
-        echo "\n        return GenericDO::createDO( \$db, \$data, '$className');";
+        echo "\n        return NingenGenericDO::createDO( \$db, \$data, '$className');\n";
         echo "\n    }";
         
 	}
@@ -492,7 +494,7 @@ class NingenDogen{
 	    echo "\n     * @param ${className}Search \$searchItem Objeto con los atributos de búsqueda.";
 	    echo "\n     * @param string \$orderBy Cadena con los campos de ordenación separados por comas.";
 	    echo "\n     */";
-	    echo "\n    public function find( \$db , \$searchItem, \$orderBy='' ){";
+	    echo "\n    public function find( \$db , \$searchItem, \$orderBy='' ){\n";
 	    echo "\n        \$sql = 'SELECT * FROM $tableName';";
 	    echo "\n        \$where = array();";
 
@@ -509,7 +511,7 @@ class NingenDogen{
 	    echo "\n        if( \$orderBy != '' ){";
 	    echo "\n            \$sql.=\" ORDER BY \$orderBy\";";
 	    echo "\n        }";
-	    echo "\n        return GenericDO::createCollection( \$db, \$sql, '$className' );";
+	    echo "\n        return NingenGenericDO::createCollection( \$db, \$sql, '$className' );";
 	    echo "\n}";
 	    
 	}
@@ -535,7 +537,7 @@ class NingenDogen{
         echo "\n         if( \$orderBy != '' ){";
         echo "\n             \$sql .= \" ORDER BY \$orderBy\";";
         echo "\n         }";
-        echo "\n         return GenericDO::createCollection( \$db, \$sql, '$className' );";
+        echo "\n         return NingenGenericDO::createCollection( \$db, \$sql, '$className' );";
         echo "\n    }";
         
 	}
@@ -580,7 +582,7 @@ class NingenDogen{
 	    echo "\n         if( \$orderBy != '' ){";
 	    echo "\n             \$sql .= \" ORDER BY \$orderBy\";";
 	    echo "\n         }";
-	    echo "\n         return GenericDO::createCollection( \$db, \$sql, '$className' );";
+	    echo "\n         return NingenGenericDO::createCollection( \$db, \$sql, '$className' );";
 	    echo "\n     }";
 	    
     }

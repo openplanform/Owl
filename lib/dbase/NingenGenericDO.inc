@@ -51,7 +51,7 @@ class NingenGenericDO{
         $elemsCOL = array();
         $db->executeQuery($sql);
         while( $row = $db->fetchRow() ){
-            $elemsCOL[] = GenericDO::createDO( $db, $row, $className );
+            $elemsCOL[] = NingenGenericDO::createDO( $db, $row, $className );
         }
         return $elemsCOL;
         
@@ -62,7 +62,7 @@ class NingenGenericDO{
      * @param Connection $db
      * @param array $data
      * @param string $className
-     * @return GenericDO
+     * @return NingenGenericDO
      */
     public function createDO( $db, $data, $className){
         
@@ -78,7 +78,7 @@ class NingenGenericDO{
      * @param Connection $db
      * @param string $sql
      * @param string $className
-     * @return GenericDO
+     * @return NingenGenericDO
      */
     public function createFromQuery( $db, $sql, $className ){
         

@@ -51,6 +51,9 @@ define('NINGENCMS_LAYOUTDIR', NINGENCMS_APPDIR . 'layouts/');
 // Directorio de vistas
 define('NINGENCMS_VIEWDIR', NINGENCMS_APPDIR . 'views/');
 
+// Directorio de modelos
+define('NINGENCMS_MODELDIR', NINGENCMS_APPDIR . 'models/');
+
 // Directorio de modulos
 define('NINGENCMS_MODULEDIR', NINGENCMS_APPDIR . 'modules/');
 
