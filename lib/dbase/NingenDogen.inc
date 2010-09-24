@@ -17,8 +17,8 @@
  * 
  **/
 
-require_once NINGENCMS_INCDIR . 'dbase/NingenDatabaseMetaData.inc';
-require_once NINGENCMS_INCDIR . 'dbase/NingenConnection.inc';
+require_once 'dbase/NingenDatabaseMetaData.inc';
+require_once 'dbase/NingenConnection.inc';
 
 
 class NingenDogen{
@@ -997,16 +997,17 @@ class NingenDogen{
 		chdir($rootDir);
 
 		// Copiamos los archivos necesarios.
-		$files = array(
+		/*$files = array(
 		    "config.inc",
 		);
 		foreach( $files as $file ){
 
 		    $this->_copyFile( $file, $this->_generatedCodeDir."/".$file );
 
-		}
+		}*/
+		
 		echo "<p>Completado.</p>";
-		echo '<p>Archivos creados en el directorio "<strong>/'.$this->_generatedCodeDir.'</strong></strong>"</p>';
+		echo '<p>Archivos creados en el directorio "<strong>'.$this->_generatedCodeDir.'</strong></strong>"</p>';
 		return true;
 		
 	}

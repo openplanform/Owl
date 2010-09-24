@@ -5,7 +5,7 @@
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
- * Objeto que contiene meta-información de una base de datos.
+ * Data Object genérico.
  * 
  * @category dslDoGen
  * @package dslDoGen
@@ -17,90 +17,82 @@
  * 
  **/
 
-/**
- * Archivos requeridos
- */
-require_once( INCLUDE_DIR . "/sql/Connection.inc");
+require_once 'dbase/NingenConnection.inc';
 
-/**
- * Data Object genérico.
- *
- * @package dataAccess
- */
-class GenericDO{
+
+class NingenGenericDO{
 
     /**
      * Conexión con la base de datos.
-     *
      * @var Connection
      */
     protected $_db;
 
     /**
      * ISO del idioma actual, por defecto español.
-     *
      * @var string
      */
     private $_lang = "es";
 
     /**
      * Contiene los datos extraidos de la base de datos.
-     *
      * @var array
      */
     private $_data = array();
 
     /**
      * Genera una colección de elementos de clase $className a partir de una sentencia sql.
-     *
      * @param Connection $db
      * @param string $sql
      * @param string $className
      */
     public function createCollection( $db, $sql, $className ){
+        
         $elemsCOL = array();
         $db->executeQuery($sql);
         while( $row = $db->fetchRow() ){
             $elemsCOL[] = GenericDO::createDO( $db, $row, $className );
         }
         return $elemsCOL;
+        
     }
 
     /**
      * Genera un Data Object de la clase $className utilizando un array indexado con los datos.
-     *
      * @param Connection $db
      * @param array $data
      * @param string $className
      * @return GenericDO
      */
     public function createDO( $db, $data, $className){
+        
         if( !empty($data) ){
             return new $className( $db, $data );
         }
         return false;
+        
     }
 
     /**
      * Genera un Data Object de la clase $className utilizando los datos obtenidos de una sentencia sql.
-     *
      * @param Connection $db
      * @param string $sql
      * @param string $className
      * @return GenericDO
      */
     public function createFromQuery( $db, $sql, $className ){
+        
         $db->executeQuery($sql);
         if( $row = $db->fetchRow() ){
             return new $className( $db, $row );
         }else{
             return null;
         }
+        
     }
 
     /**
      * Devuelve la conexión con la base de datos.
-     *
      * @return Connection
      */
     public function getDb(){
@@ -109,7 +101,6 @@ class GenericDO{
 
     /**
      * Devuelve la ISO del idioma actual.
-     *
      * @return string
      */
     public function getLang(){
@@ -118,21 +109,21 @@ class GenericDO{
 
     /**
      * Establece el idioma para una colección de data objects.
-     *
      * @param array $col Array de data objects.
      * @param string $lang Iso del idioma.
      */
     public function setCollectionLang( $col, $lang ){
+        
         $length = count($col);
         for($i=0; $i<$length; $i++){
             $do = $col[$i];
             $do->setLang( $lang );
         }
+        
     }
 
     /**
      * Asigna una conexión de bbdd con el objeto.
-     *
      * @param Connection $db Conexión con la base de datos.
      */
     public function setDb( $db ){
@@ -141,7 +132,6 @@ class GenericDO{
 
     /**
      * Establece el idioma actual.
-     *
      * @param string $lang Cadena con el ISO del idioma actual, "es", "en", "de", "ca", ...
      */
     public function setLang( $lang ){

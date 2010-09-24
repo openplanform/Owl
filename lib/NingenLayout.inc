@@ -148,7 +148,7 @@ class NingenLayout{
 			
 			if ($moduleSlot != ''){
 				$this->addSlot($moduleSlot);
-				$this->prepareContentForSlot($module->getModuleSlot(), $moduleContent);	
+				$this->prepareContentForSlot($module->getModuleSlot(), $moduleContent);
 			} else {
 				throw new NingenException('Se ha procesado un módulo que no contiene slot designado.');
 			}

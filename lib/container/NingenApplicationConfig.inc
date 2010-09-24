@@ -371,6 +371,10 @@ class NingenApplicationConfig{
 			return $this->_configDataArray['system']['db'];
 		}
 		
+		/**
+		 * @TODO procesar la config, y verificar que todos los campos estan completos
+		 */
+		
 		return null;		
 		
 	}	

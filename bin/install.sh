@@ -60,6 +60,8 @@ else
 		cp $NINGENCMSDIR"bin/resources/indexController.php" app/controllers/ 
 		
 		mkdir app/models
+
+		chmod 777 app/models
 		
 		mkdir app/layouts
 		

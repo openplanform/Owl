@@ -17,7 +17,7 @@
  * 
  **/
 
-require_once NINGENCMS_INCDIR . 'dbase/NingenConnection.inc';
+require_once 'dbase/NingenConnection.inc';
 
 
 class NingenDatabaseMetaData{

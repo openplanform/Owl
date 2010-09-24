@@ -17,6 +17,7 @@
  **/
 
 require_once 'NingenException.inc';
+require_once 'dbase/NingenConnection.inc';
 
 
 class NingenController{
@@ -58,6 +59,13 @@ class NingenController{
 	protected $actionName;
 	
 	/**
+	 * Objeto de referencia a la conexion
+	 * de base de datos
+	 * @var NingenConnection
+	 */
+	protected $db;
+	
+	/**
 	 * Metodo llamado excusivamente por el dispatcher, no debe ser sobrecargado
 	 * @param $layout
 	 * @param $view
@@ -75,6 +83,9 @@ class NingenController{
 			$this->view = $view;
 		}
 		
+		// Se inicia la conexión a la base de datos
+		$this->_initDatabase();
+		
 	}
 	
 	/**
@@ -86,6 +97,31 @@ class NingenController{
 		
 		
 	}
+	
+	/**
+	 * Verifica si existe una configuración de conexión
+	 * a base de datos, si es así, conecta y propaga al
+	 * objecto de abstracción en la clase
+	 */
+	private function _initDatabase(){
+	    
+	    // Se intentará obtener la configuración de la aplicación
+        if (array_key_exists('app_config', $GLOBALS['NINGEN_CMS']) && $GLOBALS['NINGEN_CMS']['app_config'] instanceof NingenApplicationConfig){
+
+            // Verificaremos si hay configurada una conexión a base de datos
+            $appConfig = $GLOBALS['NINGEN_CMS']['app_config'];
+            $dbaseConfig = $appConfig->getDatabaseConfiguration();
+            
+            if (is_null($dbaseConfig)){
+                return;
+            }
+            
+            // Finalmente se realiza la conexión
+            $this->db = new NingenConnection($dbaseConfig);
+            
+        }
+        
+	} 
 	
 	/**
 	 * Agrega un modulo a la pila, este método siempre debe llamarse antes del dispatch

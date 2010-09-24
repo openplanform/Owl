@@ -17,7 +17,7 @@
  * 
  **/
 
-require_once NINGENCMS_INCDIR . 'dbase/NingenDatabaseMetaData.inc';
+require_once 'dbase/NingenDatabaseMetaData.inc';
 
 
 class NingenConnection{
@@ -42,20 +42,21 @@ class NingenConnection{
 
 	/**
 	 * Constructor
-	 * @param $config ConnectionCfg Objeto de configuración.
+	 * @param $config array 
 	 */
 	public function __construct( $config ){
 	    
-		$this->_link = mysql_connect( $config->hostname, $config->username, $config->password );
+		$this->_link = mysql_connect( $config['host'], $config['username'], $config['password'] );
+		
 		if (!$this->_link ) {
-    		die('No se ha podido conectar con la base de datos: '.mysql_error());
+    		throw new NingenException('No se ha podido conectar con la base de datos: '.mysql_error(), 500);
 		}
-		if( $config->dbname ){
-		  mysql_select_db( $config->dbname, $this->_link);
+		if( $config['dbname'] != '' ){
+            mysql_select_db( $config['dbname'], $this->_link);
 		}
 
 		// Establecemos la codificación de caracteres de la conexión.
-		if( $config->charset ){
+		if( true ){
 		  mysql_query("SET NAMES utf8",$this->_link);
 		}
 		
@@ -169,7 +170,7 @@ class NingenConnection{
 	 * @return DatabaseMetaData
 	 */
 	public function getDatabaseMetaData(){
-	    return new DatabaseMetaData( $this );
+	    return new NingenDatabaseMetaData( $this );
 	}
 
 	/**
@@ -179,6 +180,16 @@ class NingenConnection{
 	 */
 	public function getLog(){
 	    return $this->_log;
+	}
+	
+	/**
+	 * Selecciona la base de datos actual
+	 * @param $databaseName
+	 */
+	public function setDatabase($databaseName){
+	    
+	    return mysql_select_db( $databaseName, $this->_link);
+	    
 	}
 }
 ?>
