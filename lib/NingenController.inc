@@ -66,6 +66,12 @@ class NingenController{
 	protected $db;
 	
 	/**
+	 * Nombre de layout alternativo
+	 * @var string
+	 */
+	protected $alternateLayout = null;
+	
+	/**
 	 * Metodo llamado excusivamente por el dispatcher, no debe ser sobrecargado
 	 * @param $layout
 	 * @param $view
@@ -172,13 +178,10 @@ class NingenController{
 		// Se ejecuta la acción, si por alguna razón (debug, etc), la acción devuelve código html, será capturado
 		// y enviado junto con el buffer de la vista y mostrado en el slot correspondiente
 		ob_start();
+		
 		$this->$actionName();
 		$actionCode = ob_get_clean();
 		
-		/**
-		 * @TODO Un tidy aqui para emprolijar el html
-		 */
-
 		// Se devuelve el buffer indicado
 		return $actionCode . $this->view->getBuffer();
 		
@@ -203,6 +206,15 @@ class NingenController{
 		
 		// Se carga el contenido
 		$this->layout->prepareContentForSlot($this->defaultSlot, $this->executeAction($this->_normalizeActionName($actionName)));
+		
+		/**
+		 * #0022 - Múltiples layouts
+		 */
+		if (!is_null($this->alternateLayout)){
+		    
+		    $this->layout = new NingenLayout($this->alternateLayout);
+		    
+		}		
 		
 		// Se procesan los modulos
 		$this->layout->processModules($this->moduleStack);
@@ -278,6 +290,26 @@ class NingenController{
 	protected function getControllerName(){
 		
 		return $this->controllerName;
+		
+	}
+	
+	/**
+	 * Devuelve el nombre del layout actual
+	 * @return string
+	 */
+	public function getAlternateLayout(){
+	    
+	    return $this->alternateLayout;
+	    
+	}
+	
+	/**
+	 * Establece el nombre del layout alternativo
+	 */
+	public function setAlternateLayout( $layoutName ){
+	    
+	    $this->alternateLayout = $layoutName;
+	    
 	}
 	 
 	

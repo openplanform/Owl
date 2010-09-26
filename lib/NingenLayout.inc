@@ -175,8 +175,6 @@ class NingenLayout{
 		
 	}
 	
-	
-	
 	/**
 	 * Establece el modo de maquetación
 	 * @param string $modo

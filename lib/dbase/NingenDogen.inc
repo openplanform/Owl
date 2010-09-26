@@ -120,7 +120,7 @@ class NingenDogen{
 	    echo "<?php";
 
 	    echo "\n/**";
-	    echo "\n * Este archivo ha sido generado con dslDoGen ".$this->getVersion();
+	    echo "\n * Este archivo ha sido generado con Ningen DoGen ".$this->getVersion();
 	    echo "\n * el ".strftime("%d de %B de %Y a las %H:%M:%S");
 	    echo "\n * @package dataAccess";
 	    echo "\n */";
@@ -146,7 +146,7 @@ class NingenDogen{
 	    echo "<?php";
 
 	    echo "\n/**";
-	    echo "\n * Este archivo ha sido generado con NingenDogen ".$this->getVersion();
+	    echo "\n * Este archivo ha sido generado con Ningen Dogen ".$this->getVersion();
 	    echo "\n * el ".strftime("%d de %B de %Y a las %H:%M:%S");
 	    echo "\n * @package dataAccess";
 	    echo "\n */";
@@ -161,7 +161,7 @@ class NingenDogen{
 	    echo "<?php";
 
 	    echo "\n/**";
-	    echo "\n * Este archivo ha sido generado con NingenDogen ".$this->getVersion();
+	    echo "\n * Este archivo ha sido generado con Ningen Dogen ".$this->getVersion();
 	    echo "\n * el ".strftime("%d de %B de %Y a las %H:%M:%S");
 	    echo "\n * @package dataAccess";
 	    echo "\n */";
@@ -199,7 +199,7 @@ class NingenDogen{
 	        echo "\n";
             echo "\n    /**";
             echo "\n     * Atributo que representa el campo \"$fieldName\"";
-            echo "\n     *";
+            //echo "\n     *";
             echo "\n     * @var ".$this->_databaseMetaData->getFieldType($tableName, $fieldName );
             echo "\n     */";
 	        echo "\n    public \$".$this->_strToVariable($fieldName).';';
