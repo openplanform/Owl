@@ -74,7 +74,7 @@ class NingenLocaleManager{
      */
     private function _setIdiomasDisponibles(){
         
-        $this->_idiomas = array( 'es', 'ct', 'en', 'de');
+        $this->_idiomas = array( 'es', 'ca', 'en', 'de');
         
     }
     

@@ -167,10 +167,6 @@ class NingenApplication{
 		
 	}
 
-	
-	
-	
-	
 }
 
 ?>

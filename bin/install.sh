@@ -63,7 +63,9 @@ else
 
 		chmod 777 app/models
 		
-		mkdir app/layouts
+		mkdir app/layout
+		
+		mkdir app/modules
 		
 		mkdir app/views
 		
