@@ -17,6 +17,7 @@
  **/
 
 require_once 'NingenException.inc';
+require_once 'NingenCmsSession.inc';
 
 class NingenLayout{
 	
@@ -384,6 +385,25 @@ class NingenLayout{
 		echo '<meta name="' . $name . '" content="' . $content . '" />' . "\n";
 		
 	}
+	
+	
+	/**
+	 * Imprime el log de base de datos si está diponible
+	 */
+	public function echoDatabaseLog(){
+	    
+	    // Obtendremos el log sql
+	    if (array_key_exists('dbLog', $GLOBALS)){
+	    
+	        echo '<div id="logSql">' . "\n";
+            echo $GLOBALS['dbLog'];
+            echo '</div>' . "\n";
+            
+	    } 
+	    
+	}
+	
+	
 	
 }
 

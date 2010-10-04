@@ -210,6 +210,11 @@ class NingenController{
 	 * @return void
 	 */
 	final public function render($actionName){
+	    
+	    // Si hay base de datos activa, se propaga el log sql
+	    if ($this->db instanceof NingenConnection){
+	        $GLOBALS['dbLog'] = $this->db->getLogHTML();
+	    }
 		
 		// Si no hay layout se llamara directamente a la acción
 		if (is_null($this->layout)){
@@ -337,7 +342,8 @@ class NingenController{
 	
 	/**
 	 * Redirecciona a un controlador y a una accion, siempre y
-	 * cuando no se hayan enviado las cabeceras
+	 * cuando no se hayan enviado las cabeceras, de lo contrari
+	 * intentará hacerlo mediante javascript
 	 * 
 	 * @param string $controllerName
 	 * @param string $actionName
@@ -349,18 +355,19 @@ class NingenController{
 	        $actionName = 'index';
 	    }
 	    
-	    $headerString = '/' . $controllerName . '/' . $actionName;
+	    $headerString = '/' . $controllerName . '/' . $actionName . '.html';
 	    
 	    
 	    if (!headers_sent()){
 	        
 	        header('Location: ' . $headerString);
-	        return true;
+	        
+	    } else {
+	        
+	        echo '<script type="text/javascript">window.location="' . $headerString . '"</script>';
 	        
 	    }
 
-	    return false;
-	    
 	}
 	 
 	
