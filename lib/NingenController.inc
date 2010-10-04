@@ -18,6 +18,7 @@
 
 require_once 'NingenException.inc';
 require_once 'dbase/NingenConnection.inc';
+require_once 'helper/NingenControllerHelper.inc';
 
 
 class NingenController{
@@ -72,6 +73,25 @@ class NingenController{
 	protected $alternateLayout = null;
 	
 	/**
+	 * Helper para controladores
+	 * @var NingenControllerHelper
+	 */
+	protected $helper;
+	
+	/**
+	 * Constructor, instancia algunos objetos necesarios 
+	 */
+	public function __construct(){
+	    
+	    // Se inicia la conexión a la base de datos
+        $this->_initDatabase();
+	    
+	    // Helper para controladores
+	    $this->helper = new NingenControllerHelper();
+	    
+	}
+	
+	/**
 	 * Metodo llamado excusivamente por el dispatcher, no debe ser sobrecargado
 	 * @param $layout
 	 * @param $view
@@ -88,9 +108,6 @@ class NingenController{
 		if (!is_null($view)){
 			$this->view = $view;
 		}
-		
-		// Se inicia la conexión a la base de datos
-		$this->_initDatabase();
 		
 	}
 	
@@ -196,25 +213,31 @@ class NingenController{
 		
 		// Si no hay layout se llamara directamente a la acción
 		if (is_null($this->layout)){
+		    
 			$actionMethodName = $this->_normalizeActionName($actionName);
 			$this->$actionMethodName();
+			
 			return;
 		}
-		
+
 		// Se inicia el doctype
 		$this->layout->echoDoctype();
 		
-		// Se carga el contenido
-		$this->layout->prepareContentForSlot($this->defaultSlot, $this->executeAction($this->_normalizeActionName($actionName)));
+		// Se obtiene el código de la acción ejecutada y el "merge" resultante con la vista
+		$actionCode = $this->executeAction($this->_normalizeActionName($actionName));
 		
-		/**
-		 * #0022 - Múltiples layouts
-		 */
-		if (!is_null($this->alternateLayout)){
-		    
-		    $this->layout = new NingenLayout($this->alternateLayout);
-		    
-		}		
+	    /**
+         * #0022 - Múltiples layouts
+         */
+        if (!is_null($this->alternateLayout)){
+            
+            $this->layout = new NingenLayout($this->alternateLayout);
+            
+        }		
+		
+		// Se carga el contenido
+		$this->layout->prepareContentForSlot($this->defaultSlot, $actionCode);
+		
 		
 		// Se procesan los modulos
 		$this->layout->processModules($this->moduleStack);
@@ -309,6 +332,34 @@ class NingenController{
 	public function setAlternateLayout( $layoutName ){
 	    
 	    $this->alternateLayout = $layoutName;
+	    
+	}
+	
+	/**
+	 * Redirecciona a un controlador y a una accion, siempre y
+	 * cuando no se hayan enviado las cabeceras
+	 * 
+	 * @param string $controllerName
+	 * @param string $actionName
+	 */
+	protected function redirectTo( $controllerName, $actionName = null){
+	    
+	    // La acción por defecto es index
+	    if (is_null($actionName)){
+	        $actionName = 'index';
+	    }
+	    
+	    $headerString = '/' . $controllerName . '/' . $actionName;
+	    
+	    
+	    if (!headers_sent()){
+	        
+	        header('Location: ' . $headerString);
+	        return true;
+	        
+	    }
+
+	    return false;
 	    
 	}
 	 

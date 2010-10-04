@@ -57,7 +57,7 @@ class NingenConnection{
 
 		// Establecemos la codificación de caracteres de la conexión.
 		if( true ){
-		  mysql_query("SET NAMES utf8",$this->_link);
+            mysql_query("SET NAMES utf8",$this->_link);
 		}
 		
 	}
@@ -191,5 +191,16 @@ class NingenConnection{
 	    return mysql_select_db( $databaseName, $this->_link);
 	    
 	}
+	
+	/**
+	 * Devuelve el identificador único de conexión
+	 * @return string
+	 */
+	public function getLinkIdentifier(){
+	    
+	    return $this->_link;
+	    
+	}
+	
 }
 ?>

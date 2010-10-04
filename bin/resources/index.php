@@ -19,23 +19,22 @@
 // Se incluyen las definiciones del sistema de archivos
 include_once '../app/configs/NingenGlobals.php';
 
-// Se inicia la sessión
-session_start();
-if (!array_key_exists('NINGEN_CMS', $_SESSION)){
-	$_SESSION['NINGEN_CMS'] = array();
-}
 
 // Se agregan las librerías al include_path
 set_include_path(get_include_path() . 
-	PATH_SEPARATOR . NINGENCMS_LIBDIR . 
-	PATH_SEPARATOR . NINGENCMS_EXTLIBDIR);
-	
+    PATH_SEPARATOR . NINGENCMS_LIBDIR . 
+    PATH_SEPARATOR . NINGENCMS_EXTLIBDIR);
+    
 // Control de errores
 if (NINGENCMS_DEV){
-	error_reporting(E_ALL);
+    error_reporting(E_ALL);
 } else {
-	error_reporting(!E_ALL);
+    error_reporting(!E_ALL);
 }
+
+// Se inicia la sessión
+require_once 'NingenCmsSession.inc';
+NingenCmsSession::create();
 
 // Se instancia la aplicación
 require_once 'NingenApplication.inc';

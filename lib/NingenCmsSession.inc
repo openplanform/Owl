@@ -16,7 +16,20 @@
  * 
  */
 
+require_once NINGENCMS_CLASSESDIR . 'PplUsuarioSesion.inc';
+
 class NingenCmsSession{
+    
+    /**
+     * Registra una clase y realiza el require necesario para evitar errores
+     * al almacenar objetos de tipo en la session
+     * @param $classPath
+     */
+    public static function registerClass( $classPath ){
+        
+        require_once $classPath;
+        
+    }
 	
 	
 	/**
@@ -57,6 +70,19 @@ class NingenCmsSession{
 		
 		return session_destroy();
 		
+	}
+
+	/**
+	 * Crea la sessión
+	 */
+	public static function create(){
+	    
+    	session_start();
+    	
+        if (!array_key_exists('NINGEN_CMS', $_SESSION)){
+            $_SESSION['NINGEN_CMS'] = array();
+        }	    
+	    
 	}
 	
 }

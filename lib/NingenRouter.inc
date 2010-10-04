@@ -130,7 +130,7 @@ class NingenRouter{
 				
 			default:
 				//Q: /acercade/index/key/value
-				$this->_collectParams();
+				$this->_collectParams($queryParts);
 				$this->_loadControllerAction($queryParts[0], $queryParts[1]);
 				break;
 			
@@ -144,8 +144,11 @@ class NingenRouter{
 	 * @return array
 	 */
 	private function _parseUri($request_uri){
-		
-		$queryParts = explode('/', $request_uri);
+	    
+	    $queryParams = explode('?', $request_uri);
+	    $cleanUri = $queryParams[0];
+	    
+		$queryParts = explode('/', $cleanUri);
 		$parts = array();
 		
 		foreach ($queryParts as $part){
@@ -168,6 +171,21 @@ class NingenRouter{
 	 */
 	private function _collectParams(){
 		
+//	    $url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+//        $query = explode("&", $_SERVER['QUERY_STRING']);
+//        
+//    	// modify/delete data
+//        foreach($query as $param) {
+//            list($key, $value) = explode("=", $param);
+//            if(array_key_exists($key, $mod)) {
+//                if($mod[$key]) {
+//                    $url = preg_replace('-'.$key.'='.$value.'-', $key.'='.$mod[$key], $url);
+//                } else {
+//                    $url = preg_replace('-&?'.$key.'='.$value.'-', '', $url);
+//                }
+//            }
+//        }
+        
 	}
 	
 	/**

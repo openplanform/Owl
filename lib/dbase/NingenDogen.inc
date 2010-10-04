@@ -445,7 +445,7 @@ class NingenDogen{
 
 	    echo "\n     * @return $className";
 	    echo "\n     */";
-	    echo "\n    public function findByPrimaryKey( \$db, $paramsStr ){\n";
+	    echo "\n    public static function findByPrimaryKey( \$db, $paramsStr ){\n";
         echo "\n       \$db->executeQuery(\"SELECT * FROM $tableName WHERE $whereStr\");";
 	    echo "\n       \$data = \$db->fetchRow();";
         echo "\n       return NingenGenericDO::createDO( \$db, \$data, '$className');\n";
@@ -461,7 +461,7 @@ class NingenDogen{
 	    echo "\n     * @param ${className}PK \$pk Objeto de la clave primaria.";
 	    echo "\n     * @return $className";
 	    echo "\n     */";
-	    echo "\n    public function findByPKObject( \$db, \$pk ){\n";
+	    echo "\n    public static function findByPKObject( \$db, \$pk ){\n";
 	    echo "\n        \$where = array();";
 
 	    foreach( $fields as $fieldName ){
@@ -494,7 +494,7 @@ class NingenDogen{
 	    echo "\n     * @param ${className}Search \$searchItem Objeto con los atributos de búsqueda.";
 	    echo "\n     * @param string \$orderBy Cadena con los campos de ordenación separados por comas.";
 	    echo "\n     */";
-	    echo "\n    public function find( \$db , \$searchItem, \$orderBy='' ){\n";
+	    echo "\n    public static function find( \$db , \$searchItem, \$orderBy='' ){\n";
 	    echo "\n        \$sql = 'SELECT * FROM $tableName';";
 	    echo "\n        \$where = array();";
 
@@ -532,7 +532,7 @@ class NingenDogen{
 	    echo "\n     * @param string \$orderBy Cadena con los campos de ordenación separados por comas.";
 	    echo "\n     * @return array";
 	    echo "\n     */";
-        echo "\n    public function findAll( \$db, \$orderBy='' ){";
+        echo "\n    public static function findAll( \$db, \$orderBy='' ){";
         echo "\n         \$sql = 'SELECT * FROM $tableName';" ;
         echo "\n         if( \$orderBy != '' ){";
         echo "\n             \$sql .= \" ORDER BY \$orderBy\";";
@@ -577,7 +577,7 @@ class NingenDogen{
 	    echo "\n     * @param string \$orderBy Cadena con los campos de ordenación separados por comas.";
 	    echo "\n     * @return array";
 	    echo "\n     */";
-	    echo "\n     public function findBy$relatedClass( \$db, $params, \$orderBy='' ){";
+	    echo "\n     public static function findBy$relatedClass( \$db, $params, \$orderBy='' ){";
 	    echo "\n         \$sql = \"SELECT * FROM $tableName WHERE $where\";";
 	    echo "\n         if( \$orderBy != '' ){";
 	    echo "\n             \$sql .= \" ORDER BY \$orderBy\";";
