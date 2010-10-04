@@ -16,20 +16,9 @@
  * 
  */
 
-require_once NINGENCMS_CLASSESDIR . 'PplUsuarioSesion.inc';
+require_once NINGENCMS_CONFIGDIR . 'SessionObjects.php';
 
 class NingenCmsSession{
-    
-    /**
-     * Registra una clase y realiza el require necesario para evitar errores
-     * al almacenar objetos de tipo en la session
-     * @param $classPath
-     */
-    public static function registerClass( $classPath ){
-        
-        require_once $classPath;
-        
-    }
 	
 	
 	/**

@@ -54,6 +54,8 @@ else
 		cp $NINGENCMSDIR"bin/resources/application.ini" app/configs/
 		
 		cp $NINGENCMSDIR"bin/resources/NingenGlobals.php" app/configs/
+
+		cp $NINGENCMSDIR"bin/resources/SessionObjects.php" app/configs/
 		
 		mkdir app/controllers
 		
