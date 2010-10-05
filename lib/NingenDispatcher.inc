@@ -59,6 +59,12 @@ class NingenDispatcher{
 	protected $actionName = null;
 	
 	/**
+	 * Parámetros de la url
+	 * @var array
+	 */
+	protected $urlParams = null;
+	
+	/**
 	 * Contructora, establece los valores iniciales 
 	 */
 	public function __construct($controllerName, $actionName){
@@ -153,6 +159,18 @@ class NingenDispatcher{
 	}
 	
 	/**
+	 * Establece los parámetros de la url
+	 * @param array $params
+	 */
+	public function setParams( $params ){
+	    
+	    if (!is_null($params)){
+    	    $this->urlParams = $params;
+	    }
+	    
+	}
+	
+	/**
 	 * Realiza el dispatch del controlador actual
 	 * y la accion actual
 	 * @param string $layoutName
@@ -177,10 +195,13 @@ class NingenDispatcher{
 		// 3 - Se efectúa el predispatch
 		$this->controller->preDispatch($this->layout, $this->view);
 		
-		// 4 - Inicio del controlador
+		// 4 - Se pasan los parámetros de la url al controlador
+		$this->controller->setParams($this->urlParams);
+		
+		// 5 - Inicio del controlador
 		$this->controller->initController();
 		
-		// 5 - Se renderiza la salida
+		// 6 - Se renderiza la salida
 		$this->controller->render($this->actionName);
 		
 	}

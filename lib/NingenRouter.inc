@@ -72,6 +72,12 @@ class NingenRouter{
 	 * @var NingenDispatcher
 	 */
 	private $_dispatcher;
+	
+	/**
+	 * Parámetros de la url
+	 * @var array
+	 */
+	private $_urlParams = null;
 
 	
 	/**
@@ -129,7 +135,7 @@ class NingenRouter{
 				break;
 				
 			default:
-				//Q: /acercade/index/key/value
+				//Q: /acercade/index/value/value/value
 				$this->_collectParams($queryParts);
 				$this->_loadControllerAction($queryParts[0], $queryParts[1]);
 				break;
@@ -169,22 +175,10 @@ class NingenRouter{
 	 * Obtiene los parámetros (si hay) del uri
 	 * @return void
 	 */
-	private function _collectParams(){
+	private function _collectParams($queryParts){
 		
-//	    $url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-//        $query = explode("&", $_SERVER['QUERY_STRING']);
-//        
-//    	// modify/delete data
-//        foreach($query as $param) {
-//            list($key, $value) = explode("=", $param);
-//            if(array_key_exists($key, $mod)) {
-//                if($mod[$key]) {
-//                    $url = preg_replace('-'.$key.'='.$value.'-', $key.'='.$mod[$key], $url);
-//                } else {
-//                    $url = preg_replace('-&?'.$key.'='.$value.'-', '', $url);
-//                }
-//            }
-//        }
+        $paramsARR = array_slice($queryParts, 2);
+        $this->_params = $paramsARR;
         
 	}
 	
@@ -273,6 +267,9 @@ class NingenRouter{
 			
 		// Se instancia el dispatcher
 		$this->_dispatcher = new NingenDispatcher($this->_controller, $this->_action);
+		
+		// Pasamos al dispatcher los parámetros de la url
+		$this->_dispatcher->setParams($this->_params);  
 		
 		// Se carga el controlador y la acción
 		if (!$this->_dispatcher->verifyRoute()){

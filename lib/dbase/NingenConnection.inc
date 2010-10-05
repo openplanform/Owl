@@ -57,7 +57,12 @@ class NingenConnection{
 
 		// Establecemos la codificación de caracteres de la conexión.
 		if( true ){
-            mysql_query("SET NAMES utf8",$this->_link);
+            mysql_query("SET NAMES utf8", $this->_link);
+		}
+		
+		// Se vaciará cualquier log existente
+		if (array_key_exists('dbLog', $GLOBALS)){
+		    $GLOBALS['dbLog'] = null;
 		}
 		
 	}
@@ -88,7 +93,6 @@ class NingenConnection{
 
     /**
      * Devuelve el log de consultas en formato HTML.
-     *
      * @return string
      */
     public function getLogHTML(){
@@ -106,10 +110,23 @@ class NingenConnection{
     public function rollback(){
         $this->executeQuery("ROLLBACK");
     }
+    
+    /**
+     * En caso de existir un valor global de almacenamiento para 
+     * el log de sql, lo actualizará
+     */
+    private function _updateLog(){
+        
+        if (array_key_exists('dbLog', $GLOBALS)){
+            $GLOBALS['dbLog'] = $this->getLogHTML();
+        }
+        
+    }
 
 	/**
 	 * Ejecuta una consulta en la base de datos.
 	 * Devuelve true si la consulta tuvo exito. En caso contrario devuelve false.
+	 * 
 	 * @param string $sql
 	 * @return boolean
 	 */
@@ -119,10 +136,12 @@ class NingenConnection{
 		if( $result ){
 		    $this->_lastResource =& $result;
 		    $this->_log[] = '<li class="correct">'.$sql.' (OK)</li>';
+		    $this->_updateLog();
 		    return true;
 		}
 		
 		$this->_log[] = '<li class="error"><strong>'.$sql.' (ERROR)</strong><br />'.mysql_error().'"</li>';
+		$this->_updateLog();
 		
 		return false;
 		

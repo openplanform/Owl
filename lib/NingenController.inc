@@ -77,6 +77,12 @@ class NingenController{
 	 * @var NingenControllerHelper
 	 */
 	protected $helper;
+
+	/**
+	 * Parámetros de la url
+	 * @var array
+	 */
+	protected $urlParams = null;
 	
 	/**
 	 * Constructor, instancia algunos objetos necesarios 
@@ -337,6 +343,26 @@ class NingenController{
 	public function setAlternateLayout( $layoutName ){
 	    
 	    $this->alternateLayout = $layoutName;
+	    
+	}
+	
+	/**
+	 * Establece los parámetros de la url
+	 * @param array $params
+	 */
+	public function setParams( $params ){
+	    
+	    $this->urlParams = $params;
+	    
+	}
+
+	/**
+	 * Devuelve los parámetros de la url ( si hay )
+	 * @return array
+	 */
+	public function getParams(){
+	    
+	    return $this->urlParams;
 	    
 	}
 	

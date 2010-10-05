@@ -208,7 +208,7 @@ class NingenApplicationConfig{
 	 * @return string
 	 */
 	public function get($keyName){
-		return $this->_configData->get($keyname, null);
+		return $this->_configData->get($keyName, null);
 	}
 	
 	/**
@@ -377,7 +377,18 @@ class NingenApplicationConfig{
 		
 		return null;		
 		
-	}	
+	}
+	
+	/**
+	 * Devuelve el flag que indica si se debe activar el debug del sistema
+	 * @return boolean
+	 */
+	public function getDebugFlag(){
+
+	    $systemConfig = $this->getSystemConfig();
+	    return intval($systemConfig->ningencms_debug);
+	    
+	}
 	
 	
 	

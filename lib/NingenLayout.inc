@@ -386,6 +386,24 @@ class NingenLayout{
 		
 	}
 	
+	/**
+	 * Intenta obtener la configuración de la aplicación
+	 * desde globals, si lo logra la devuevle en un array, de lo contrario
+	 * devuelve null.
+	 * 
+	 * @return array
+	 */
+	private function _getApplicationConfig(){
+	    
+	    if (array_key_exists('NINGEN_CMS', $GLOBALS) && array_key_exists('app_config', $GLOBALS['NINGEN_CMS']) && $GLOBALS['NINGEN_CMS']['app_config'] instanceof NingenApplicationConfig){
+	        
+	        return $GLOBALS['NINGEN_CMS']['app_config'];
+	         
+	    }
+	    
+	    return null;
+	    
+	}
 	
 	/**
 	 * Imprime el log de base de datos si está diponible
@@ -393,11 +411,16 @@ class NingenLayout{
 	public function echoDatabaseLog(){
 	    
 	    // Obtendremos el log sql
-	    if (array_key_exists('dbLog', $GLOBALS)){
+	    if (array_key_exists('dbLog', $GLOBALS) && $appConfig = $this->_getApplicationConfig()){
 	    
-	        echo '<div id="logSql">' . "\n";
-            echo $GLOBALS['dbLog'];
-            echo '</div>' . "\n";
+	        // Comprobaremos que el debug está activado
+	        if ($appConfig->getDebugFlag()){
+	        
+    	        echo '<div id="logSql">' . "\n";
+                echo $GLOBALS['dbLog'];
+                echo '</div>' . "\n";
+                
+	        }
             
 	    } 
 	    
