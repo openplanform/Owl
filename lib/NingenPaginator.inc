@@ -233,16 +233,21 @@ class NingenPaginator{
      */
     public function getPaginatorHtml(){
         
+        // Se no llegamos a la cantidad de items por página no hay nada que paginar
+        if ($this->itemsCount < $this->itemsPorPagina){
+            return;
+        }
+        
         $metadata = $this->metadataARR;
         $paginas = $metadata['paginas'];
         
         ob_start();
         
-        echo '<ul>';
+        echo '<ul id="paginador">';
         
             if ($metadata['anterior']){
                 echo '<li>';
-                echo '<a href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual - 1))) .'">anterior</a>';
+                echo '<a class="anterior" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual - 1))) .'"><span>anterior</span></a>';
                 echo '</li>';        
             }
             
@@ -252,7 +257,7 @@ class NingenPaginator{
                     if ($this->paginaActual == $x){
                         echo '<strong>' . $x . '</strong>';
                     } else {
-                        echo '<a href="' . $this->helper->getQueryString(array('p'=>$x)) . '">' . $x . '</a>';
+                        echo '<a class="pagina" href="' . $this->helper->getQueryString(array('p'=>$x)) . '">' . $x . '</a>';
                     }
                             
                 echo '</li>';
@@ -260,7 +265,7 @@ class NingenPaginator{
     
             if ($metadata['siguiente']){
                 echo '<li>';
-                echo '<a href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual + 1))) .'">siguiente</a>';        
+                echo '<a class="siguiente" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual + 1))) .'"><span>siguiente</span></a>';        
                 echo '</li>';
             }        
         

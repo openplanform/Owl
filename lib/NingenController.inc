@@ -367,6 +367,24 @@ class NingenController{
 	}
 	
 	/**
+	 * Devuelve un parámetro almacenado en la clave numérica del 
+	 * array de parámetros, si no existe devuelve null
+	 * @param integer $clave
+	 */
+	public function getParam($clave){
+	    
+	    // Obtendremos la clave del request
+        $params = $this->getParams();
+        
+        if (is_array($params) && array_key_exists($clave, $params) && intval($params[$clave]) != 0){
+            return $params[$clave];            
+        } 
+        
+        return null;
+	    
+	}
+	
+	/**
 	 * Redirecciona a un controlador y a una accion, siempre y
 	 * cuando no se hayan enviado las cabeceras, de lo contrari
 	 * intentará hacerlo mediante javascript
