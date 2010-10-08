@@ -14,7 +14,7 @@
  * @version 0.5
  * @since 0.5
  * 
- */
+ **/
 
 require_once 'Zend/Config/Ini.php';
 

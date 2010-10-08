@@ -51,6 +51,56 @@ class NingenControllerHelper{
         
     }
     
+    /**
+     * Devuelve los parámetros del query como un string, los parámetros
+     * enviados a $rewrites en forma de clave=>valor sobreescribirán a 
+     * las claves que existan, de lo contrario se agregarán.
+     * 
+     * @param $rewrites
+     * @return string
+     */
+    public function getQueryString($rewrites = null){
+        
+        $url = $_SERVER['REQUEST_URI'];
+        
+        $query = explode("&", $_SERVER['QUERY_STRING']);
+        $params = false;
+        
+        if ( !empty($query[0]) ){
+            $params = true;
+        }
+        
+        // modify/delete data
+        foreach($query as $q) {
+            if (!empty($q)){
+                list($key, $value) = explode("=", $q);
+                if(array_key_exists($key, $rewrites)) {
+                    if($rewrites[$key]) {
+                        $url = preg_replace('-'.$key.'='.$value.'-', $key.'='.$rewrites[$key], $url);
+                    } else {
+                        $url = preg_replace('-&?'.$key.'='.$value.'-', '', $url);
+                    }
+                }
+            }
+            
+        }
+        
+        // add new data
+        foreach($rewrites as $key => $value) {
+            if($value && !preg_match('-'.$key.'=-', $url)) {
+                if ( $params ) {
+                    $url .= '&'.$key.'='.$value;
+                } else {
+                    $url .= '?'.$key.'='.$value;
+                    $params = true;
+                }
+            }
+        }
+        
+        return $url;
+        
+    }
+    
 }
 
 
