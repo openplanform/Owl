@@ -192,7 +192,7 @@ class NingenPaginator{
         $this->itemsCount = intval($row['total']);
         
         // Calculamos las páginas
-        $this->pagesCount = round($this->itemsCount / $this->itemsPorPagina);
+        $this->pagesCount = ceil($this->itemsCount / $this->itemsPorPagina);
 
         // Generamos el array con los metadatos        
         $metadataARR = array();
@@ -233,8 +233,8 @@ class NingenPaginator{
      */
     public function getPaginatorHtml(){
         
-        // Se no llegamos a la cantidad de items por página no hay nada que paginar
-        if ($this->itemsCount < $this->itemsPorPagina){
+        // Si no llegamos a la cantidad de items por página no hay nada que paginar
+        if ($this->itemsCount <= $this->itemsPorPagina){
             return;
         }
         

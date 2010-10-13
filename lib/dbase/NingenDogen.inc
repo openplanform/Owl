@@ -333,7 +333,7 @@ class NingenDogen{
 	    echo "\n      * @see NingenGenericDO::setLang()";
 	    echo "\n      */";
 	    echo "\n    public function ".$this->_strToGetMethod($fieldName)."(){\n";
-	    echo "\n        \$attribute = '".$this->_strToVariable($fieldName)."'.ucfirst(\$this->_lang);";
+	    echo "\n        \$attribute = '".$this->_strToVariable($fieldName)."'.ucfirst(\$this->getLang());";
         echo "\n        return \$this->\$attribute;\n";
         echo "\n    }";
         
@@ -401,7 +401,7 @@ class NingenDogen{
 	    echo "\n      * @see NingenGenericDO::setLang()";
 	    echo "\n      */";
         echo "\n    public function ".$this->_strToSetMethod($fieldName)."( \$value ){\n";
-        echo "\n        \$attribute = '".$this->_strToVariable($fieldName)."'.ucfirst(\$this->_lang);";
+        echo "\n        \$attribute = '".$this->_strToVariable($fieldName)."'.ucfirst(\$this->getLang());";
         echo "\n        \$this->\$attribute = \$value;\n";
 	    echo "\n    }";
 	    

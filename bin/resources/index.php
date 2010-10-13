@@ -24,13 +24,6 @@ include_once '../app/configs/NingenGlobals.php';
 set_include_path(get_include_path() . 
     PATH_SEPARATOR . NINGENCMS_LIBDIR . 
     PATH_SEPARATOR . NINGENCMS_EXTLIBDIR);
-    
-// Control de errores
-if (NINGENCMS_DEV){
-    error_reporting(E_ALL);
-} else {
-    error_reporting(!E_ALL);
-}
 
 // Se inicia la sessión
 require_once 'NingenCmsSession.inc';

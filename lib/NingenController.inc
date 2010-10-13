@@ -391,8 +391,9 @@ class NingenController{
 	 * 
 	 * @param string $controllerName
 	 * @param string $actionName
+	 * @param string $params
 	 */
-	protected function redirectTo( $controllerName, $actionName = null){
+	protected function redirectTo( $controllerName, $actionName = null, $params = null){
 	    
 	    // La acción por defecto es index
 	    if (is_null($actionName)){
@@ -401,6 +402,10 @@ class NingenController{
 	    
 	    $headerString = '/' . $controllerName . '/' . $actionName . '.html';
 	    
+	    // Se verifican los parámetros
+	    if (!is_null($params)){
+	       $headerString = $headerString . '/' . $params;    
+	    }
 	    
 	    if (!headers_sent()){
 	        
