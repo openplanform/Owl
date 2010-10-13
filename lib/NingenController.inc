@@ -85,6 +85,12 @@ class NingenController{
 	protected $urlParams = null;
 	
 	/**
+	 * Si vale true, no se implementará el layout asignado
+	 * @var boolean
+	 */
+	private $_bypassLayoutValue = false;
+	
+	/**
 	 * Constructor, instancia algunos objetos necesarios 
 	 */
 	public function __construct(){
@@ -222,8 +228,9 @@ class NingenController{
 	        $GLOBALS['dbLog'] = $this->db->getLogHTML();
 	    }
 		
-		// Si no hay layout se llamara directamente a la acción
-		if (is_null($this->layout)){
+		// Si no hay layout o si se ha deshabilitado se llamara directamente a la acción
+		// empleado generalmente para peticiones ajax
+		if (is_null($this->layout) || $this->_bypassLayoutValue){
 		    
 			$actionMethodName = $this->_normalizeActionName($actionName);
 			$this->$actionMethodName();
@@ -417,6 +424,15 @@ class NingenController{
 	        
 	    }
 
+	}
+	
+	/**
+	 * Evita que se implemente el layout asignado
+	 */
+	protected function bypassLayout(){
+	    
+	    $this->_bypassLayoutValue = true;
+	    
 	}
 	 
 	

@@ -54,6 +54,12 @@ class NingenView{
 	 */
 	private $_resources = array();
 	
+    /**
+     * Flag que indica si se debe ignorar la vista
+     * @var boolean
+     */
+	private $_bypass = false;
+	
 	/**
 	 * Constructora, globaliza datos de la vista 
 	 * @param string $controllerName
@@ -65,9 +71,9 @@ class NingenView{
 		$this->controllerName = $controllerName;
 		$this->actionName = $actionName;
 		
-		if (!$this->viewExist()){
+		/*if (!$this->viewExist()){
 			throw new NingenException('No se ha encontrado la vista para la acción <strong>' . $this->actionName . '</strong> en el controlador <strong>' . $this->controllerName . '</strong>');
-		}
+		}*/
 		
 	}
 	
@@ -180,6 +186,15 @@ class NingenView{
 		
 		$this->_resources['title'] = trim($title);
 		
+	}
+	
+	/**
+	 * Realiza un bypass de la vista actual
+	 */
+	public function bypassView(){
+	    
+	    $this->_bypass = true;
+	    
 	}
 
 }
