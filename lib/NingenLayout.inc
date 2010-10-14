@@ -236,7 +236,30 @@ class NingenLayout{
 	 */
 	public function renderlayout(){
 		
+	    /** @TODO Implementar tidy **/ 
+	    
+	    /*ob_start();
 		include $this->layoutPath;
+		$codigo = ob_get_clean();
+		
+        $config = array(
+            'indent' => true,
+            'output-xhtml' => true,
+            'wrap' => 200,
+            'clean' => true,
+            'doctype' => 'strict',
+            'show-body-only' => false,
+            'markup' => true,
+            'tab-size' => 4,
+            'vertical-space' => true,
+            'new-inline-tags' => 'script',
+        );
+        
+        $tidy = tidy_parse_string($codigo, $config, 'UTF8');
+        $tidy->cleanRepair();
+        echo $tidy;*/
+	    
+	    include $this->layoutPath;
 		
 	}
 	

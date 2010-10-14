@@ -71,6 +71,9 @@ class NingenView{
 		$this->controllerName = $controllerName;
 		$this->actionName = $actionName;
 		
+		// Se genera el path
+		$this->generateViewPath();
+		
 		/*if (!$this->viewExist()){
 			throw new NingenException('No se ha encontrado la vista para la acción <strong>' . $this->actionName . '</strong> en el controlador <strong>' . $this->controllerName . '</strong>');
 		}*/
@@ -78,10 +81,11 @@ class NingenView{
 	}
 	
 	/**
-	 * Verifica la existencia de una vista
+	 * Verifica la existencia de una vista, si es así 
+	 * popula el path en el objeto
 	 * @return boolean
 	 */
-	private function viewExist(){
+	private function generateViewPath(){
 		
 		$viewPath = NINGENCMS_VIEWDIR . $this->controllerName . '/' . $this->actionName . '.phtml';
 		

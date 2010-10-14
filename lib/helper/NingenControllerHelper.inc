@@ -52,6 +52,19 @@ class NingenControllerHelper{
     }
     
     /**
+     * Devuelve el valor de clave desde el request escapado, o un string vacío
+     * en caso de no existir
+     * 
+     * @param $clave
+     * @return string
+     */
+    public function getAndEscape( $clave ){
+        
+        return $this->escapeInjection($this->get($clave));
+        
+    }
+    
+    /**
      * Devuelve los parámetros del query como un string, los parámetros
      * enviados a $rewrites en forma de clave=>valor sobreescribirán a 
      * las claves que existan, de lo contrario se agregarán.

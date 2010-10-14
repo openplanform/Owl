@@ -74,6 +74,18 @@ class NingenCmsSession{
 	    
 	}
 	
+	/**
+	 * Elimina un valor y su clave del array de sesión
+	 * @param string $clave
+	 */
+	public static function destroyValue($clave){
+	    
+	   if (array_key_exists('NINGEN_CMS', $_SESSION) && array_key_exists($clave, $_SESSION['NINGEN_CMS'])){
+            unset($_SESSION['NINGEN_CMS'][$clave]);
+        }
+	    
+	}
+	
 }
 
 ?>
