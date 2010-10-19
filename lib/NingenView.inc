@@ -182,14 +182,27 @@ class NingenView{
 	}
 	
 	/**
-	 * Establece el titulo de la página
+	 * Establece el titulo de la página. Si hay un basetitle
+	 * definido en application.ini, el título pasado a éste método
+	 * será añadido al título base.
+	 * 
 	 * @param string $title
 	 * @return void
 	 */
-	public function setPageTitle( $title ){
+	public function addTitle( $title ){
 		
 		$this->_resources['title'] = trim($title);
 		
+	}
+	
+	/**
+	 * Establece el título de la página
+	 * @deprecated utilizar addTitle en su lugar
+	 */
+	public function setPageTitle($title){
+	    
+	    $this->addTitle($title);
+	    
 	}
 	
 	/**

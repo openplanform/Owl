@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Valores variables
-NINGENCMSVERSION="0.5.0"
+NINGENCMSVERSION="0.5.2"
 
 # Se toman los argumentos
 if [ -z "$1" ]; then
@@ -65,7 +65,9 @@ else
 
 		chmod 777 app/models
 		
-		mkdir app/layout
+		mkdir app/layouts
+		
+		mkdir app/classes
 		
 		mkdir app/modules
 		
@@ -81,6 +83,11 @@ else
 		ln -s $NINGENCMSDIR ningencms
 		
 		ln -s $NINGENCMSDIR"share/captcha/images/" public/img/captcha
+		
+		
+		# Se establecen los permisos
+		
+		chmod -R 775 $TARGETDIR
 		
 		
 		# Todo ha ido bien

@@ -89,6 +89,13 @@ class NingenApplicationConfig{
 	private $_canonizeNames = false;
 	
 	/**
+	 * Titulo de base de la aplicación
+	 * @var string
+	 */
+	private $_baseTitle = null;
+	
+	
+	/**
 	 * Verifica la integridad del objeto de configuración
 	 * @param Zend_Config_Ini $configData
 	 * @return void
@@ -108,6 +115,7 @@ class NingenApplicationConfig{
 		$this->checkConfigRequirements();
 		
 	}
+	
 	
 	/**
 	 * Checkea lo requerientos para validar la configuración
@@ -387,6 +395,20 @@ class NingenApplicationConfig{
 
 	    $systemConfig = $this->getSystemConfig();
 	    return intval($systemConfig->ningencms_debug);
+	    
+	}
+	
+	/**
+	 * Devuelve el título base de la aplicación, si no fué configurado, devuelve null
+	 * @return string
+	 */
+	public function getBaseTitle(){
+
+	    if (array_key_exists('app', $this->_configDataArray) && array_key_exists('basetitle', $this->_configDataArray['app'])){
+	        return $this->_configDataArray['app']['basetitle'];
+	    }
+	    
+	    return null;
 	    
 	}
 	

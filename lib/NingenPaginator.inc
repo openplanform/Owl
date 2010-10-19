@@ -47,6 +47,18 @@ class NingenPaginator{
     protected $sqlWhere;
     
     /**
+     * Sentencia sql order
+     * @var string
+     */
+    protected $sqlOrder;
+    
+    /**
+     * Sentencia sql orderBy
+     * @var string
+     */
+    protected $sqlOrderBy;
+    
+    /**
      * Nombre de la tabla a tratar
      * @var string
      */
@@ -162,7 +174,17 @@ class NingenPaginator{
             $this->sqlWhere = '';
         } 
         
-        $sql = 'SELECT * FROM ' . $this->tableName . ' ' . $this->sqlWhere;
+        // Dirección de ordenación
+         if (is_null($this->sqlOrder)){
+            $this->sqlOrder = '';
+        }
+        
+	    // Campo de ordenación
+         if (is_null($this->sqlOrderBy)){
+            $this->sqlOrderBy = '';
+        }
+        
+        $sql = 'SELECT * FROM ' . $this->tableName . ' ' . $this->sqlWhere . ' ' . $this->sqlOrder . ' ' . $this->sqlOrderBy;
         
         // Se prepara el sql a ejecutar
         $limitSql = ' LIMIT ' . $this->itemsPorPagina;
@@ -274,6 +296,26 @@ class NingenPaginator{
         return ob_get_clean();
         
         
+    }
+    
+    /**
+     * Setea el orden de los resultados de búsqueda(ASC|DESC)
+     * @param string $order
+     */
+    function setOrder($order){
+    	
+    	$this->sqlOrder = $order;
+    	
+    }
+    
+	/**
+     * Setea el campo por el que ordenar los resultados de búsqueda
+     * @param string $campo
+     */
+    function setOrderBy($campo){
+    	
+    	$this->sqlOrderBy = 'ORDER BY ' . $campo;
+    	
     }
     
 }

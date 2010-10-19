@@ -153,7 +153,7 @@ class NingenNavigation extends NingenModule{
 		
 		// Se vuelve a verificar la configuración
 		if (!$this->applicationConfig instanceof NingenApplicationConfig){
-			throw new NingenException('El menu no ha sidio iniciado aún');
+			throw new NingenException('El menu no ha sido iniciado aún');
 		}
 		
 		// Se obtienen los items de menu
@@ -204,12 +204,12 @@ class NingenNavigation extends NingenModule{
 					// Se imprime la opción de menu
 					if ($controllerName == $this->controllerName && $actionName == $this->actionName ){
 						
-						$this->echoActiveItem($menuLabel, $this->prepareUri($controllerName, $actionName), $addClass);
+						$this->echoActiveItem($menuLabel, $this->prepareUri($controllerName, $actionName), $addClass, $i);
 						$this->_activeFound = true;
 						
 					} else {
 						
-						$this->echoItem($menuLabel, $this->prepareUri($controllerName, $actionName), $addClass);
+						$this->echoItem($menuLabel, $this->prepareUri($controllerName, $actionName), $addClass, $i);
 						
 					}
 					
@@ -221,12 +221,12 @@ class NingenNavigation extends NingenModule{
 				// Se imprime la opción de menu
 				if ($controllerName == $this->controllerName){
 				
-					$this->echoActiveItem($itemLabel, $this->prepareUri($controllerName), $addClass);
+					$this->echoActiveItem($itemLabel, $this->prepareUri($controllerName), $addClass, $i);
 					$this->_activeFound = true;
 					
 				} else {
 					
-					$this->echoItem($itemLabel, $this->prepareUri($controllerName), $addClass);
+					$this->echoItem($itemLabel, $this->prepareUri($controllerName), $addClass, $i);
 					
 				}
 				
@@ -291,7 +291,7 @@ class NingenNavigation extends NingenModule{
 	 */
 	protected function startMenu(){
 		
-		?><ul id="menuPrincipal">
+		?><ul class="menu">
 			<?
 		
 	}
@@ -313,11 +313,11 @@ class NingenNavigation extends NingenModule{
 	 * @param string $label
 	 * @param string $url
 	 */
-	protected function echoItem($label, $url, $class = ''){
+	protected function echoItem($label, $url, $class = '', $numItem){
 
 		$classStr = $class == '' ? '' : ' class="' . $class .'" ';
 		
-		echo '<li' . $classStr . '><a href="' . $url . '">' . $label . '</a></li>';
+		echo '<li' . $classStr . '><a href="' . $url . '">' . $label . '</a></li>' . "\n";
 		
 	}
 	
@@ -327,9 +327,9 @@ class NingenNavigation extends NingenModule{
 	 * @param string $label
 	 * @param string $url
 	 */
-	protected function echoActiveItem($label, $url, $class = ''){
+	protected function echoActiveItem($label, $url, $class = '', $numItem){
 
-		echo '<li class="activo ' . $class . '"><a href="' . $url . '">' . $label . '</a></li>';
+		echo '<li class="activo ' . $class . '"><a href="' . $url . '">' . $label . '</a></li>' . "\n";
 		
 	}
 	
@@ -366,7 +366,12 @@ class NingenNavigation extends NingenModule{
 		return $retStr;
 		
 	}
-		
+	
+	public function runModule(){
+       
+	    echo $this->getNavigationHtml();
+	    
+	}
 }
 
 ?>

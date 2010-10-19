@@ -135,7 +135,7 @@ class NingenLayout{
 	 * @param array $moduleStack
 	 * @return void
 	 */
-	public function processModules( $moduleStack ){
+	final public function processModules( $moduleStack ){
 		
 		foreach ($moduleStack as $module){
 
@@ -269,7 +269,7 @@ class NingenLayout{
 	 * @return void
 	 */
 	public function hereSlot($slotName){
-		
+	    
 		if(array_key_exists($slotName, $this->_slotStack)){
 			echo $this->_slotStack[$slotName];
 		}
@@ -348,7 +348,7 @@ class NingenLayout{
 		
 		// Se verificará el titulo de página
 		if (array_key_exists('title', $this->_resourcesStack)){
-			
+
 			$this->_pageTitle = $this->_resourcesStack['title'];
 			
 		}
@@ -360,11 +360,25 @@ class NingenLayout{
 	 * @return void
 	 */
 	public function echoPageTitle(){
+	    
+        $appConfig = $GLOBALS['NINGEN_CMS']['app_config'];
+        $baseTitle = '';
+        
+        // Fallo grave, no se ha obtenido la configuración
+        if ($appConfig instanceof NingenApplicationConfig){
 		
-		if (!is_null($this->_pageTitle)){
+            $baseTitle = $appConfig->getBaseTitle();
+    		
+        } 
+        
+        if (!is_null($this->_pageTitle)){
 			
-			echo '<title>' . $this->_resourcesStack['title'] . '</title>' . "\n";
+            $baseTitle .= ' - ' . $this->_pageTitle;
 			
+		}
+		
+		if (strlen($baseTitle) > 0){
+            echo '<title>' . $baseTitle . '</title>' . "\n";
 		}
 		
 	}
