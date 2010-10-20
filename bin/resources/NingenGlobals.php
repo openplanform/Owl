@@ -16,7 +16,7 @@
  */
 
 // Versión del cms
-define('NINGENCMS_VERSION', '0.5.0');
+define('NINGENCMS_VERSION', '0.5.2-dev');
 
 // Directorio base de la instalación
 define('NINGENCMS_BASEDIR', realpath('../'));

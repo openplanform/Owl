@@ -10,7 +10,7 @@
  * @category NingenNowl
  * @package NingenNowl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
-* @author Aaron Amengual Arranz <aaron@ningen.es>, Nicolás Daniel Palumbo <nico@ningen.es> 
+ * @author Aaron Amengual Arranz <aaron@ningen.es>, Nicolás Daniel Palumbo <nico@ningen.es> 
  * @version 0.5
  * @since 0.5
  * 

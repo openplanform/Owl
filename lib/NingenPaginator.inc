@@ -184,7 +184,7 @@ class NingenPaginator{
             $this->sqlOrderBy = '';
         }
         
-        $sql = 'SELECT * FROM ' . $this->tableName . ' ' . $this->sqlWhere . ' ' . $this->sqlOrder . ' ' . $this->sqlOrderBy;
+        $sql = 'SELECT * FROM ' . $this->tableName . ' ' . $this->sqlWhere . ' ' . $this->sqlOrderBy  . ' ' . $this->sqlOrder ;
         
         // Se prepara el sql a ejecutar
         $limitSql = ' LIMIT ' . $this->itemsPorPagina;
@@ -196,7 +196,7 @@ class NingenPaginator{
             $limitSql .= ' OFFSET ' . $offset ;
         }
         
-        $this->itemsCOL = $genericDO->createCollection($this->db, $sql . $limitSql , ucfirst($this->tableName));
+        $this->itemsCOL = $genericDO->createCollection($this->db, $sql . $limitSql, ucfirst($this->tableName));
         
         
         
