@@ -29,8 +29,12 @@ class NingenControllerHelper{
     public function get( $clave ){
         
         if (array_key_exists($clave, $_REQUEST) && $_REQUEST[$clave] != ''){
+
+            if (!is_array($_REQUEST[$clave])){
+                return trim($_REQUEST[$clave]);
+            }
             
-            return trim($_REQUEST[$clave]);
+            return $_REQUEST[$clave];
             
         }
         
@@ -40,12 +44,23 @@ class NingenControllerHelper{
     
     /**
      * Escapa una cadena para su correcta inserción en 
-     * la base de datos.
+     * la base de datos. También soporta arrays unidimensionales
      * 
-     * @param string $cadena
+     * @param mixed $cadena
      * @return string
      */
     public function escapeInjection( $cadena ){
+        
+        if (is_array($cadena)){
+            
+            $returnARR = array();
+            
+            foreach ($cadena as $strPart){
+                $returnARR[] = mysql_real_escape_string(htmlspecialchars($strPart, ENT_QUOTES));
+            }
+            
+            return $returnARR;
+        }
         
         return mysql_real_escape_string(htmlspecialchars($cadena, ENT_QUOTES));        
         

@@ -134,7 +134,7 @@ class NingenConnection{
 	    
 	    $result = mysql_query( $sql, $this->_link );
 		if( $result ){
-		    $this->_lastResource =& $result;
+		    $this->_lastResource = $result;
 		    $afectedRows = mysql_affected_rows();
 		    $this->_log[] = '<li class="correct">'.$sql.' (OK) <strong>[' . $afectedRows . ' ' . (intval($afectedRows) == 1 ? 'row' : 'rows') .']</strong></li>';
 		    $this->_updateLog();

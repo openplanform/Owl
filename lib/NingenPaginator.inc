@@ -94,6 +94,13 @@ class NingenPaginator{
      */
     protected $helper;
     
+    /**
+     * Parámetros extra de la url
+     * propagados 
+     * @var string
+     */
+    protected $extraParams;
+    
     
     /**
      * Constructor, establece los parámetros de funcionamiento. 
@@ -269,7 +276,7 @@ class NingenPaginator{
         
             if ($metadata['anterior']){
                 echo '<li>';
-                echo '<a class="anterior" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual - 1))) .'"><span>anterior</span></a>';
+                echo '<a class="anterior" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual - 1))) . '&amp;' . $this->extraParams . '"><span>anterior</span></a>';
                 echo '</li>';        
             }
             
@@ -279,7 +286,7 @@ class NingenPaginator{
                     if ($this->paginaActual == $x){
                         echo '<strong>' . $x . '</strong>';
                     } else {
-                        echo '<a class="pagina" href="' . $this->helper->getQueryString(array('p'=>$x)) . '">' . $x . '</a>';
+                        echo '<a class="pagina" href="' . $this->helper->getQueryString(array('p'=>$x)) . '&amp;' . $this->extraParams . '">' . $x . '</a>';
                     }
                             
                 echo '</li>';
@@ -287,7 +294,7 @@ class NingenPaginator{
     
             if ($metadata['siguiente']){
                 echo '<li>';
-                echo '<a class="siguiente" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual + 1))) .'"><span>siguiente</span></a>';        
+                echo '<a class="siguiente" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual + 1))) . '&amp;' . $this->extraParams . '"><span>siguiente</span></a>';        
                 echo '</li>';
             }        
         
@@ -302,7 +309,7 @@ class NingenPaginator{
      * Setea el orden de los resultados de búsqueda(ASC|DESC)
      * @param string $order
      */
-    function setOrder($order){
+    public function setOrder($order){
     	
     	$this->sqlOrder = $order;
     	
@@ -312,10 +319,20 @@ class NingenPaginator{
      * Setea el campo por el que ordenar los resultados de búsqueda
      * @param string $campo
      */
-    function setOrderBy($campo){
+    public function setOrderBy($campo){
     	
     	$this->sqlOrderBy = 'ORDER BY ' . $campo;
     	
+    }
+    
+    /**
+     * Añade parámetros extra a la url 
+     * @param string $params
+     */
+    public function setExtraParams($params){
+        
+        $this->extraParams = trim($params);
+        
     }
     
 }
