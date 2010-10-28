@@ -58,6 +58,27 @@ class NingenString{
 	    }
 	    
 	}     
+	
+	
+	/**
+	 * Genera un password aleatorio
+	 * @param integer $longitud
+	 * @param boolean $mayusculas
+	 */
+	public static function generaPassword($longitud, $mayusculas = true){
+
+        $str = 'abcdefghijkmnopqrstuvwxyz234567890';
+        
+        if ($mayusculas){
+            $str .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        }
+        
+        $cad = str_shuffle($str);
+        $cad = substr($cad, 0, $longitud);
+        
+        return $cad;
+	    
+	}
 
     
 	

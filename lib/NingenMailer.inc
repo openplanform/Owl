@@ -88,7 +88,7 @@ class NingenMailer{
 	
 	/**
 	 * Dirección del mail de destino
-	 * @var string
+	 * @var string | array
 	 */
 	private $_toMail = null;
 	
@@ -336,6 +336,32 @@ class NingenMailer{
 		}
 		
 		
+	}
+	
+	/**
+	 * Agrega un destinatario, si este método no es llamado
+	 * se utilizará la cuenta de destino configurada para la 
+	 * aplicación. Nombre solo sirve para una sola dirección.
+	 * Los mails deben ir en este formato: <mail@dominio.com>, 
+	 * de lo contrario pueden ser tomados como spam.
+	 * 
+	 * @param string | array $email
+	 * @param string $nombre
+	 */
+	public function addTo($email, $nombre = ''){
+	    
+	    $this->_addTo($email, $nombre);
+	    
+	}
+	
+	/**
+	 * Establece el asunto del mail
+	 * @param string $subject
+	 */
+	public function setSubject($subject){
+	    
+	    $this->_subject = $subject;
+	    
 	}
 	
 	

@@ -43,6 +43,21 @@ class NingenDate{
         
     }
     
+    /**
+     * Convierte una fecha del formato europeo al formato americano (MySql)
+     * @param string $fecha
+     * @param string $sepOriginal
+     * @param string $sepNuevo
+     */
+    public function europeoAmericano($fecha, $sepOriginal = '/', $sepNuevo = '-'){
+        
+        preg_match('([0-9]{1,2})' . $sepOriginal . '([0-9]{1,2})' . $sepOriginal . '([0-9]{2,4})', $fecha, $partes);
+        $returnDate = $partes[3] . $sepNuevo . $partes[2] . $sepNuevo . $partes[1];
+        
+        return $returnDate;
+        
+    }    
+    
 }
 
 ?>
