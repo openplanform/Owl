@@ -35,7 +35,7 @@ class NingenDate{
      * @param $fecha
      * @return string
      */
-    public function getDiaMesAno($fecha){
+    public static function getDiaMesAno($fecha){
         
         $timestamp = strtotime($fecha);
         
@@ -49,10 +49,10 @@ class NingenDate{
      * @param string $sepOriginal
      * @param string $sepNuevo
      */
-    public function europeoAmericano($fecha, $sepOriginal = '/', $sepNuevo = '-'){
+    public static function europeoAmericano($fecha, $sepOriginal = '/', $sepNuevo = '-'){
         
-        preg_match('([0-9]{1,2})' . $sepOriginal . '([0-9]{1,2})' . $sepOriginal . '([0-9]{2,4})', $fecha, $partes);
-        $returnDate = $partes[3] . $sepNuevo . $partes[2] . $sepNuevo . $partes[1];
+        list($anio, $mes, $dia) = explode($sepOriginal, $fecha);
+    	$returnDate = $dia . $sepNuevo . $mes . $sepNuevo . $anio; 
         
         return $returnDate;
         
