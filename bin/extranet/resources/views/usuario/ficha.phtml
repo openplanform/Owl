@@ -1,0 +1,31 @@
+<?
+
+	if ( !is_null($this->usuarioBO) ){
+		
+?>
+<h3>Datos de acceso:</h3>
+
+<div class="ficha">
+    
+    <p><strong>Identificador:</strong><span> <?= $this->usuarioBO->getId() ?></span></p>
+    <p><strong>Nombre de usuario:</strong><span> <?= $this->usuarioBO->getNombre() ?></span></p>
+    <p><strong>Roles asignados:</strong><span> <? 
+    
+        $rolesUsuario = $this->usuarioBO->getRoles();
+        $rolesUsuarioLabels = array();
+        foreach ($rolesUsuario as $rolUsuario){
+            $rolesUsuarioLabels[] = $this->rolesIDX[$rolUsuario];
+        }
+        echo implode(', ', $rolesUsuarioLabels);
+        
+    ?></span></p>
+    <p><strong>Correo electrónico:</strong><span> <?= $this->usuarioBO->getEmail() ?></span></p>
+
+</div><?
+		
+	} else {
+		
+		?><h3>No se ha encontrado el usuario</h3><?
+		
+	}
+?>

@@ -1,0 +1,13 @@
+<?php
+
+$this->addCssInclude('/css/panel.css');
+
+?><div id="panelPrincipal">
+    <ul>
+        <li class="usuarios bloque">
+            <strong><?= $this->totalUsuarios ?></strong>
+            <div><a href="/usuario/index.html">Usuarios</a></div>
+            <p>último añadido: <a href="/usuario/ficha/<?= $this->ultimoUsuario['idUsuario'] ?>"><?= NingenString::limitaTexto($this->ultimoUsuario['vNombre'], 20) ?></a></p>
+        </li>
+    </ul>
+</div>

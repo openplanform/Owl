@@ -92,14 +92,17 @@ else
 		
 		# Todo ha ido bien
 
-	    echo ""		
-		echo "Felicitaciones!, ningenCMS ($NINGENCMSVERSION) ha sido instalado correctamente en $TARGETDIR"
+		echo ""		
+		echo -e "[" "\033[32mOK\033[0m" "] Felicitaciones!, ningenCMS ($NINGENCMSVERSION) ha sido instalado correctamente en $TARGETDIR"
 		echo ""
 		
 	else
+	
 		echo ""
-		echo "ERROR: el directorio de destino ($1) no existe"
+		echo -e "[" "\033[31mERROR\033[0m" "] El directorio de destino no existe"
 		echo ""
+		exit;	
+		
 	fi
 	
 fi

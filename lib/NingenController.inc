@@ -90,6 +90,12 @@ class NingenController{
 	 */
 	private $_bypassLayoutValue = false;
 	
+    /**
+     * Reescritura de la etiqueta de controlador
+     * @var string
+     */
+    protected $controllerRewrite = null;	
+	
 	/**
 	 * Constructor, instancia algunos objetos necesarios 
 	 */
@@ -434,6 +440,18 @@ class NingenController{
 	    $this->_bypassLayoutValue = true;
 	    
 	}
+	
+	
+    /**
+     * Establece un nombre alternativo para el controlador actual
+     * utilizado por el módulo de breadcrumbs
+     * @param string $label
+     */
+    public function rewriteControllerLabel($label){
+        
+        $this->controllerRewrite = $label;
+        
+    }	
 	 
 	
 }

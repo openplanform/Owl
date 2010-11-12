@@ -1,12 +1,11 @@
 <?php
 
-require_once 'NingenUsuarioSesion.inc';
+require_once 'NingenCmsSession.inc';
+require_once 'extranet/NingenUsuarioSesion.inc';
 
-require_once NINGENCMS_LIBDIR . 'NingenCmsSession.inc';
 require_once NINGENCMS_MODELDIR . 'TblAcceso.inc';
 require_once NINGENCMS_MODELDIR . 'TblUsuario.inc';
 require_once NINGENCMS_MODELDIR . 'TblRol.inc';
-
 
 /**
  * Clase que implementa el manejador de listas
@@ -103,7 +102,7 @@ class NingenAclManager{
         
         // Implementamos objeto de sesion y propagar datos
         $rolesARR = $this->getRolesUsuario($row['idUsuario']);
-        $usuarioSesion = new PplUsuarioSesion($row['idUsuario'], $row['vNombre'], $rolesARR, $row['vEmail']);
+        $usuarioSesion = new NingenUsuarioSesion($row['idUsuario'], $row['vNombre'], $rolesARR, $row['vEmail']);
         
         NingenCmsSession::setValue('usuario', $usuarioSesion);
         
@@ -116,7 +115,7 @@ class NingenAclManager{
      * y lo devuelve, en caso de no existir devuelve null
      * 
      * @param integer $claveUsuario
-     * @return PplUsuarioSesion
+     * @return NingenUsuarioSesion
      */
     public function createSessionObject($claveUsuario){
         
@@ -125,7 +124,7 @@ class NingenAclManager{
         }
         
         $rolesARR = $this->getRolesUsuario($claveUsuario);
-        $returnBO = new PplUsuarioSesion($usuarioDO->getIdUsuario(), $usuarioDO->getVNombre(), $rolesARR, $usuarioDO->getVEmail());
+        $returnBO = new NingenUsuarioSesion($usuarioDO->getIdUsuario(), $usuarioDO->getVNombre(), $rolesARR, $usuarioDO->getVEmail());
         
         return $returnBO;
         
@@ -201,39 +200,7 @@ class NingenAclManager{
     }
     
     /**
-     * Devuelve un booleano indicando si el usuario es una empresa
-     * 
-     * @param integer $claveUsuario
-     * @return boolean
-     */
-    private function _isUsuarioEmpresa( $claveUsuario ){
-        
-        $sql = "SELECT COUNT(*) AS total FROM tblEmpresa WHERE fkUsuario = $claveUsuario";
-        $this->db->executeQuery($sql);
-        $row = $this->db->fetchRow();
-        
-        return intval($row['total']);
-        
-    }
-    
-    /**
-     * Devuelve un booleano indicando si el usuario es una persona
-     * 
-     * @param integer $claveUsuario
-     * @return boolean
-     */
-    private function _isUsuarioPersona( $claveUsuario ){
-        
-        $sql = "SELECT COUNT(*) AS total FROM tblPersona WHERE fkUsuario = $claveUsuario";
-        $this->db->executeQuery($sql);
-        $row = $this->db->fetchRow();
-        
-        return intval($row['total']);        
-        
-    }
-    
-    /**
-     * Pos eso, obtiene el rol mas relevante de un usuario
+     * Obtiene el rol mas relevante de un usuario
      * @param integer $claveUsuario
      * 
      * @return TblRol
@@ -285,7 +252,7 @@ class NingenAclManager{
      * acceso a cuaquier zona del sistema, como también el menú. Si reload vale true, 
      * se actualizará la cache
      * 
-     * @param PplUsuarioSesion $usuario
+     * @param NingenUsuarioSesion $usuario
      * @param boolean $reload 
      * @return array
      */
@@ -396,42 +363,6 @@ class NingenAclManager{
     }
     
     /**
-     * Devuelve true si el rol indicado corresponde a empresas
-     * @param integer $idRol
-     * @return boolean
-     */
-    public function isRolEmpresa($idRol){
-        
-        $rolesEmpresa = array(
-            self::ROL_PROPIETARIO,
-            self::ROL_CONSULTORA,
-            self::ROL_ACADEMIA
-        );
-        
-        return in_array($idRol, $rolesEmpresa);
-        
-    }
-    
-    /**
-     * Devuelve true si el rol indicado corresponde a personas
-     * @param integer $idRol
-     * @return boolean
-     */
-    public function isRolPersona($idRol){
-        
-        $rolesPersona = array(
-            self::ROL_ADMINISTRADOR,
-            self::ROL_ALUMNO,
-            self::ROL_INVITADO,
-            self::ROL_PROFESOR,
-            self::ROL_USUARIO
-        );
-        
-        return in_array($idRol, $rolesPersona);
-        
-    }
-    
-    /**
      * Devuelve un array con las cantidades de usuarios por rol
      * indexado por clave de rol. Útil para estadísticas.
      * 
@@ -455,29 +386,6 @@ class NingenAclManager{
         }
         
         return $returnARR;
-        
-    }
-    
-    /**
-     * Verifica que un usuario tenga asignada una persona o una empresa
-     * @param $claveUsuario
-     * @return boolean
-     */
-    public function datosCompletosUsuario($claveUsuario){
-        
-        $idRol = $this->getRolMasRelevanteUsuario($claveUsuario);
-        
-        if ($this->isRolEmpresa($idRol)){
-            
-            return $this->_isUsuarioEmpresa($claveUsuario);
-            
-        } elseif ($this->isRolPersona($idRol)) {
-            
-            return $this->_isUsuarioPersona($claveUsuario);
-            
-        }
-        
-        return false;
         
     }
     
