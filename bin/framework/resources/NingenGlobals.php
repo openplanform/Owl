@@ -57,8 +57,8 @@ define('NINGENCMS_MODELDIR', NINGENCMS_APPDIR . 'models/');
 // Directorio de modulos
 define('NINGENCMS_MODULEDIR', NINGENCMS_APPDIR . 'modules/');
 
-// Directorio de classes
-define('NINGENCMS_MODULEDIR', NINGENCMS_CLASSESDIR . 'classes/');
+// Directorio de clases
+define('NINGENCMS_CLASSESDIR', NINGENCMS_APPDIR . 'classes/');
 
 // Desarrollo | Producción
 define('NINGENCMS_DEV', preg_match('/\.in\./', $_SERVER['SERVER_NAME']));
