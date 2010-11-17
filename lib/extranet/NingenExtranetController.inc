@@ -68,6 +68,7 @@ class NingenExtranetController extends NingenController{
             
             $this->addModule($menuPrincipalModule);
 
+            
         // ------------ MÓDULO - LOGOUT -------------------
         $logoutModule = new logoutModule('contenedor_logout');
             
@@ -75,6 +76,7 @@ class NingenExtranetController extends NingenController{
             $logoutModule->setUsuario($this->usuario);
             $this->addModule($logoutModule);
         
+            
         // ------------ MÓDULO - BARRA DE HERRAMIENTAS ----
         $barraHerramientasModule = new barraHerramientasModule('contenedor_toolbar');
             
@@ -99,7 +101,8 @@ class NingenExtranetController extends NingenController{
             
             
         // Casos especiales en los que no es necesario un layout
-    	if ( $this->actionName == "eliminar" || $this->actionName == "duplicar" ){
+    	//if ( $this->actionName == "eliminar" || $this->actionName == "duplicar" ){
+    	if ( $this->actionName == "duplicar" ){
     		$this->bypassLayout();
     	}
     	

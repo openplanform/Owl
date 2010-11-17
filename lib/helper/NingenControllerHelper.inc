@@ -56,13 +56,15 @@ class NingenControllerHelper{
             $returnARR = array();
             
             foreach ($cadena as $strPart){
-                $returnARR[] = mysql_real_escape_string(htmlspecialchars($strPart, ENT_QUOTES));
+            	if (!is_array($strPart)){
+                	$returnARR[] = mysql_real_escape_string(htmlspecialchars($strPart, ENT_QUOTES));
+            	}
             }
             
             return $returnARR;
         }
         
-        return mysql_real_escape_string(htmlspecialchars($cadena, ENT_QUOTES));        
+        return mysql_real_escape_string(htmlspecialchars($cadena, ENT_QUOTES));
         
     }
     

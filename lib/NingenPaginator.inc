@@ -272,7 +272,7 @@ class NingenPaginator{
         
         ob_start();
         
-        echo '<ul id="paginador">';
+        echo '<ul class="paginador">';
         
             if ($metadata['anterior']){
                 echo '<li>';

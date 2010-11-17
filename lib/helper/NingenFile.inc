@@ -86,8 +86,8 @@ class NingenFile{
         'ins' => 'application/x-internet-signup',
         'isp' => 'application/x-internet-signup',
         'jfif' => 'image/pipeg',
-        'jpe' => 'image/jpeg',
-        'jpeg' => 'image/jpeg',
+        //'jpe' => 'image/jpeg',
+        //'jpeg' => 'image/jpeg',
         'jpg' => 'image/jpeg',
         'js' => 'application/x-javascript',
         'latex' => 'application/x-latex',
@@ -137,6 +137,7 @@ class NingenFile{
         'pmr' => 'application/x-perfmon',
         'pmw' => 'application/x-perfmon',
         'pnm' => 'image/x-portable-anymap',
+    	'png' => 'image/png',
         'pot' => 'application/vnd.ms-powerpoint',
         'ppm' => 'image/x-portable-pixmap',
         'pps' => 'application/vnd.ms-powerpoint',
@@ -244,11 +245,18 @@ class NingenFile{
     public function getExtension($mime){
         
         $extensionesARR = array_keys($this->mime_types);
+        
         if ($this->_isSupportMime($mime)){
             
             // Se busca la extensión
-            foreach ($this->mime_types as $ext => $mime) {
-                return $ext;
+            foreach ($this->mime_types as $ext => $mimetype) {
+            	
+            	if ($mime == $mimetype){
+            	
+                	return $ext;
+                	
+            	}
+                	
             }
             
         }

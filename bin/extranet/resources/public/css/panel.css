@@ -36,15 +36,14 @@
 }
 #panelPrincipal ul li.bloque p a{
 }
-
-/* Categorias */
-#panelPrincipal ul li.convocatorias strong{
+/*
+#panelPrincipal ul li.noticias strong{
 	color: #3585C5;
 }
-#panelPrincipal ul li.convocatorias div{
+#panelPrincipal ul li.noticias div{
 	background-color: #3585C5;
 }
-#panelPrincipal ul li.convocatorias a{
+#panelPrincipal ul li.noticias a{
 	color: #3585C5;
 }
 #panelPrincipal ul li.planes strong{
@@ -119,6 +118,7 @@
 #panelPrincipal ul li.centros a{
 	color: #B986EF;
 }
+*/
 #panelPrincipal ul li.usuarios strong{
 	color: #8F8F8F;
 }

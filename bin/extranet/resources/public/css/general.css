@@ -496,9 +496,11 @@ table.listado tbody tr.alter{
 .ficha p .med{
 	width: 90px;
 }
+.ficha .rtf .label,
 .ficha p.extended strong{
 	height: 178px;
 }
+.ficha .rtf .value,
 .ficha p.extended span{
 	height: 178px;
 	width: 690px;
@@ -508,36 +510,49 @@ table.listado tbody tr.alter{
 .ficha .nuevaSeccion{
 	margin-top: 25px;
 }
+.ficha .rtf .value span,
+.ficha .rtf .value strong{
+	display: inline;
+	border: none;
+	background: none;
+	font-weight: bold;
+	width: auto;
+	margin: 0;
+	float: none;
+}
+.ficha .rtf .value span{
+	font-weight: normal;
+}
 /* Paginador */
 #paginadorContainer{
 	
 }
-#paginadorContainer #paginador{
+#paginadorContainer .paginador{
     clear: both;
     float: none;
     overflow: hidden;
 }
-#paginadorContainer #paginador li{
+#paginadorContainer .paginador li{
 	float: left;
 	margin-right: 4px;
 }
-#paginadorContainer #paginador .siguiente,
-#paginadorContainer #paginador .anterior{
+#paginadorContainer .paginador .siguiente,
+#paginadorContainer .paginador .anterior{
 	color: #000;
 	text-decoration: none;
 }
-#paginadorContainer #paginador strong,
-#paginadorContainer #paginador a{
+#paginadorContainer .paginador strong,
+#paginadorContainer .paginador a{
 	line-height: 16px;
 }
-#paginadorContainer #paginador a span{
+#paginadorContainer .paginador a span{
 	display: none;
 }
-#paginadorContainer #paginador .siguiente{
+#paginadorContainer .paginador .siguiente{
 	background: url(/img/iconos/siguiente16.png) center right no-repeat;
 	padding-right: 20px;
 }
-#paginadorContainer #paginador .anterior{
+#paginadorContainer .paginador .anterior{
 	background: url(/img/iconos/anterior16.png) center left no-repeat;
 	padding-left: 20px;
 }
@@ -608,4 +623,21 @@ div.ficha{
 }
 .multiple{
 	height: 115px;
+}
+.imgeditor{
+	width: 200px !important;
+	height: 200px !important;
+	overflow: hidden;
+    border: 1px solid #A6A6A6;
+    margin-bottom: 10px;	
+    padding: 0 !important;
+}
+.imgItem{
+	
+}
+.imgItem strong{
+	height: 200px !important;
+}
+.imgItem span{
+	margin-bottom: 0 !important;
 }

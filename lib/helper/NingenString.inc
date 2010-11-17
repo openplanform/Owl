@@ -44,6 +44,7 @@ class NingenString{
         
     }
     
+    
 	/**
 	 * Valida una dirección de mail
 	 * @param string $pMail
@@ -80,6 +81,23 @@ class NingenString{
 	    
 	}
 
+	
+	/**
+	 * Escapa una cadena que ha sido obtenida desde un editor rtf TinyMCE
+	 * @param string $cadena
+	 * @return string $texto
+	 */
+	public static function escapeFromMceditor($cadena){
+		
+		// Tags permitidos
+		$allowedTags='<p><strong><em><u><h1><h2><h3><h4><h5><h6><img><a>';
+ 		$allowedTags.='<li><ol><ul><span><div><br><ins><del>';
+		
+ 		$texto = strip_tags(stripslashes($cadena),$allowedTags);
+ 		
+ 		return $texto;
+		
+	}
     
 	
 }

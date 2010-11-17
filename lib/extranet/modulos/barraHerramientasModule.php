@@ -382,12 +382,16 @@ class barraHerramientasModule extends NingenModule{
 			
 			$url = '';
 			if ( !empty($this->param ) ){
-				$url = "javascript:ventanaConfirmacion('Confirmar','¿Está seguro que desea <strong>eliminar</strong> este elemento?','/" . $this->controller . "/eliminar.html/" . $this->param  . "')";	
+				$url = "javascript:ventanaConfirmacion('Confirmar','¿Está seguro que desea &lt;strong&gt;eliminar&lt;/strong&gt; este elemento?','/" . $this->controller . "/eliminar.html/" . $this->param  . "')";	
+				echo '<li class="eliminar">
+		          	<a href="' . $url . '" title="Elimina un elemento">Eliminar</a>
+	             </li>';
+			} else {
+				echo '<li class="eliminar inactivo">
+	          		<a href="javascript:void(0)" title="Elimina un elemento">Eliminar</a>
+             	</li>';
 			}
 			
-			echo '<li class="eliminar">
-	          	<a href="' . $url . '" title="Elimina un elemento">Eliminar</a>
-             </li>';
 		
 		} else {
 			
