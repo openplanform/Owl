@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Valores variables
-NINGENCMSVERSION="0.5.2"
+NINGENCMSVERSION="0.5.3"
 
 # Se toman los argumentos
 if [ -z "$1" ]; then

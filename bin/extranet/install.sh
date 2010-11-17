@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Valores variables
-NINGENCMSVERSION="0.5.2"
+NINGENCMSVERSION="0.5.3"
 
 # Directorio
 
