@@ -201,6 +201,7 @@ class NingenPaginator{
             // Calcularemos el offset
             $offset = $this->itemsPorPagina * ($this->paginaActual - 1);
             $limitSql .= ' OFFSET ' . $offset ;
+            
         }
         
         $this->itemsCOL = $genericDO->createCollection($this->db, $sql . $limitSql, ucfirst($this->tableName));

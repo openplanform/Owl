@@ -173,7 +173,11 @@ class administradorController extends NingenExtranetController{
            $activo = $this->helper->getAndEscape('activo') == 'on';
            $controlador = $this->helper->getAndEscape('controlador');
            $accion = $this->helper->getAndEscape('accion');
-           $roles = implode(',', $this->helper->getAndEscape('roles'));
+           
+           // Solo se recibiran roles de items no patriarcas
+           if (intval($padre) != 0){
+		       $roles = implode(',', $this->helper->getAndEscape('roles'));
+           }
            
            if (empty($nombre)){
                $this->view->errorNombre = 'El campo nombre no puede estar vacío.';
@@ -185,7 +189,7 @@ class administradorController extends NingenExtranetController{
                $error = true;               
            }
            
-           if (empty($roles)){
+           if (empty($roles) && intval($padre) != 0){
                $this->view->errorRol = 'Debe seleccionar como mínimo un rol.';
                $error = true;               
            }
@@ -207,9 +211,9 @@ class administradorController extends NingenExtranetController{
                        $accesoDO->setVNombre($nombre);
                        $accesoDO->setBMenu($activo);
                        $accesoDO->setVControlador($controlador);
-                       $accesoDO->setVAccion($accion);
+                       $accesoDO->setVAccion(!empty($accion) ? $accion : null);
                        $accesoDO->setIOrden($orden);
-                       $accesoDO->setVRoles($roles);
+                       $accesoDO->setVRoles(intval($padre) == 0 ? null : $roles);
                        
                        // Evitamos la comprobación de FK para la clave 0
                        if ('0' == $padre){
@@ -266,9 +270,9 @@ class administradorController extends NingenExtranetController{
                        $accesoDO->setVNombre($nombre);
                        $accesoDO->setBMenu($activo);
                        $accesoDO->setVControlador($controlador);
-                       $accesoDO->setVAccion($accion);
+                       $accesoDO->setVAccion(!empty($accion) ? $accion : null);
                        $accesoDO->setIOrden($orden);
-                       $accesoDO->setVRoles($roles);
+                       $accesoDO->setVRoles(intval($padre) == 0 ? null : $roles);
                        
                        if (!$accesoDO->update()){
                            

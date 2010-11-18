@@ -1,8 +1,19 @@
 <?php
 
 /**
+ * NINGEN NOWL (NINGEN Open Web Library)
+ * 
+ * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
+ * 
  * Clase contenedora de datos para usuarios
- */
+ * 
+ * @category NingenNowl
+ * @package NingenNowl
+ * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
+ * @version 0.5
+ * @since 0.5
+ * 
+ **/
 class NingenUsuarioSesion{
 
     /**

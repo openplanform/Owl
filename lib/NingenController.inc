@@ -95,6 +95,12 @@ class NingenController{
      * @var string
      */
     protected $controllerRewrite = null;	
+    
+    /**
+     * Objeto de sesión de usuario
+     * @var NingenUsuarioSesion
+     */
+    protected $usuario;
 	
 	/**
 	 * Constructor, instancia algunos objetos necesarios 

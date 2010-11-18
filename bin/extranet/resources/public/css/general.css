@@ -609,6 +609,7 @@ div.ficha{
 	line-height: 20px;
 	float: left;
 }
+/*
 .listaItemsFicha li a.aprobado{
 	background: url(/img/iconos/verde16.png) left center no-repeat;
 	padding-left: 20px;
@@ -621,6 +622,7 @@ div.ficha{
 	background: url(/img/iconos/rojo16.png) left center no-repeat;
 	padding-left: 20px;
 }
+*/
 .multiple{
 	height: 115px;
 }
