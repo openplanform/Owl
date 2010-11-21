@@ -254,6 +254,11 @@ class NingenController{
 			$actionMethodName = $this->_normalizeActionName($actionName);
 			$this->$actionMethodName();
 			
+			// Si se encuentra una vista para la acción actual será procesada
+			if ($viewBuffer = $this->view->getBuffer()){
+				echo $viewBuffer;
+			}
+			
 			return;
 		}
 
