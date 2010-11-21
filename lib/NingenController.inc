@@ -179,7 +179,14 @@ class NingenController{
 	final protected function addModule($modulo){
 		
 		if ($modulo instanceof NingenModule){
+			
+			// Se identifica la instancia actual
+			$modulo->setAction($this->actionName);
+			$modulo->setController($this->controllerName);
+			
+			// Se inserta el módulo en la pila
 			array_push($this->moduleStack, $modulo);
+			
 			return true;
 		}
 		

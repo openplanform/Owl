@@ -26,6 +26,19 @@ class NingenModule{
 	protected $slot;
 	
 	/**
+	 * Nombre de la acción actual
+	 * @var string
+	 */
+	protected $actionName;
+	
+	/**
+	 * Nombre del controlador actual
+	 * @var string
+	 */
+	protected $controllerName;
+	
+	
+	/**
 	 * Constructora, establece el nombre slot donde será deplegado el modulo
 	 * @param string $nombreSlot
 	 * @return void
@@ -67,6 +80,26 @@ class NingenModule{
 	public function getModuleSlot(){
 		
 		return $this->slot;
+		
+	}
+	
+	/**
+	 * Establece el nombre del controlador actual
+	 * @param string $controllerName
+	 */
+	public function setController($controllerName){
+		
+		$this->controllerName = $controllerName;
+		
+	}
+	
+	/**
+	 * Establece el nombre de la acción actual
+	 * @param string $actionName
+	 */
+	public function setAction($actionName){
+		
+		$this->actionName = $actionName;
 		
 	}
 	
