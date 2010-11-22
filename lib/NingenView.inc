@@ -46,7 +46,7 @@ class NingenView{
 	 * Path hacia el archivo de vista a incluir
 	 * @var string
 	 */
-	private $_viewPath;
+	private $_viewPath = null;
 	
 	/**
 	 * Array con los recursos
@@ -126,15 +126,22 @@ class NingenView{
 	}
 	
 	/**
-	 * Devuelve el buffer
+	 * Devuelve el buffer, si hay una vista cargada,
+	 * de lo contrario, devuelve null
 	 * @return string
 	 */
 	public function getBuffer(){
 		
-		ob_start();
-		include $this->_viewPath;
+		if (!is_null($this->_viewPath)){
 		
-		return ob_get_clean();
+			ob_start();
+			include $this->_viewPath;
+
+			return ob_get_clean();
+			
+		}
+		
+		return null;
 		
 	}
 	
