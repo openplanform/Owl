@@ -132,7 +132,7 @@ class NingenView{
 	 */
 	public function getBuffer(){
 		
-		if (!is_null($this->_viewPath)){
+		if (!is_null($this->_viewPath) && $this->_bypass == false){
 		
 			ob_start();
 			include $this->_viewPath;

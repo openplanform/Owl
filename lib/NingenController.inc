@@ -101,6 +101,14 @@ class NingenController{
      * @var NingenUsuarioSesion
      */
     protected $usuario;
+    
+    /**
+     * Flag de parada, indica que la aplicación debe dejar de ejecutarse
+     * generalmente empleado para mostrar páginas de error
+     * @var boolean
+     */
+    private $_stop = false;
+    
 	
 	/**
 	 * Constructor, instancia algunos objetos necesarios 
@@ -241,6 +249,11 @@ class NingenController{
 	 * @return void
 	 */
 	final public function render($actionName){
+		
+		// Se evalúa el flag de parada
+		if ($this->_stop){
+			return;
+		}
 	    
 	    // Si hay base de datos activa, se propaga el log sql
 	    if ($this->db instanceof NingenConnection){
@@ -470,6 +483,19 @@ class NingenController{
         $this->controllerRewrite = $label;
         
     }	
+    
+    
+    /**
+     * Detiene la ejecución actual del controlador
+     */
+    protected function stopExecution(){
+    	
+    	$this->bypassLayout();
+    	$this->view->bypassView();
+    	
+    	$this->_stop = true;
+    	
+    }
 	 
 	
 }

@@ -92,6 +92,9 @@ a:hover{
 	padding: 0 0 0 12px;
 	background: url(/img/iconos/flechaIzq.png) left center no-repeat;
 }
+.contenedorScroll{
+	float: left;
+}
 .scroll{
 	max-height: 200px;
 	overflow: auto;
@@ -380,6 +383,7 @@ table.listado thead{
 }
 .scroll .listado{
     margin-bottom: 0;
+    border: none;
 }
 a.ordenado.asc{
 	padding: 0 12px 0 0;
@@ -586,7 +590,7 @@ div.ficha{
 	padding-bottom: 3px;
 }
 .buscador .campo .btnSubmit{
-	margin-top: 16px;
+	margin-top: 18px;
 }
 .resultadosBusqueda{
 	margin-top: 30px;

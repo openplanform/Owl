@@ -188,7 +188,7 @@ class NingenCmsHtmlHelper{
 		
 	}
 	
-/**
+	/**
 	 * Imprime el código de una pagina de error del servidor
 	 * @param string $title
 	 * @param string $errorCode

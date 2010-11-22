@@ -55,6 +55,18 @@ class NingenExtranetController extends NingenController{
         
         // Se globaliza el usuario actual
 	    $this->usuario = $usuarioBO;   
+
+	    // Control de errores
+        $this->aclManager->getAclData($this->usuario, true);
+        
+    	// ROLES
+	    if (!$this->aclManager->hasPerms($this->controllerName, $this->actionName)){
+	    	
+	    	$this->stopExecution();
+	    	echo NingenCmsHtmlHelper::getHtmlErrorPage('Forbidden', 403, 'Acceso no autorizado', '<p>No dispone de los privilegios necesarios para acceder a este área.</p>');
+	    	
+	    	return;
+	    }        
         
         
         // ------------ MÓDULO - MENÚ PRINCIPAL -----------
