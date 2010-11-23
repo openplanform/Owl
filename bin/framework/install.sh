@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Valores variables
-NINGENCMSVERSION="0.5.3"
+OWL_VERSION="0.5.4"
 
 # Se toman los argumentos
 if [ -z "$1" ]; then
 	echo ""
-	echo "Instalador ningenCMS 0.5" 
+	echo "Instalador de OWL ($OWL_VERSION) - Open Web Library" 
 	echo "Modo de uso: install.sh /ruta/completa/destino/"
 	echo ""
 else
@@ -15,31 +15,31 @@ else
 
 	if [ -d "$1"  ]; then
 		
-		TARGETDIR="$1"
+		OWL_TARGETDIR="$1"
 	
 		# Aqui se definirán los targets tanto de desarrollo como producción
 		
 		if [ "$HOSTNAME" = "ldes" ]; then
-		    NINGENCMSDIR="/var/www/ningenCMS/"
+		    OWL_DIR="/var/www/owl/"
 		else 
-		    NINGENCMSDIR="/var/www/ningenCMS/"
+		    OWL_DIR="/var/www/owl/"
 		fi
 		
 		
 		# Se cambia al directorio destino
 		
-		cd $TARGETDIR
+		cd $OWL_TARGETDIR
 		
 		
 		# Estructura de directorios y copia de archivos iniciales
 		
-		cp $NINGENCMSDIR"bin/framework/resources/base.htaccess" .htaccess
+		cp $OWL_DIR"bin/framework/resources/base.htaccess" .htaccess
 		
 		mkdir public
 		
-		cp $NINGENCMSDIR"bin/framework/resources/index.php" public/
+		cp $OWL_DIR"bin/framework/resources/index.php" public/
 		
-		cp $NINGENCMSDIR"bin/framework/resources/public.htaccess" public/.htaccess
+		cp $OWL_DIR"bin/framework/resources/public.htaccess" public/.htaccess
 
 		mkdir public/css
 		
@@ -51,15 +51,15 @@ else
 		
 		mkdir app/configs		
 		
-		cp $NINGENCMSDIR"bin/framework/resources/application.ini" app/configs/
+		cp $OWL_DIR"bin/framework/resources/application.ini" app/configs/
 		
-		cp $NINGENCMSDIR"bin/framework/resources/NingenGlobals.php" app/configs/
+		cp $OWL_DIR"bin/framework/resources/OwlGlobals.php" app/configs/
 
-		cp $NINGENCMSDIR"bin/framework/resources/SessionObjects.php" app/configs/
+		cp $OWL_DIR"bin/framework/resources/SessionObjects.php" app/configs/
 		
 		mkdir app/controllers
 		
-		cp $NINGENCMSDIR"bin/framework/resources/indexController.php" app/controllers/ 
+		cp $OWL_DIR"bin/framework/resources/indexController.php" app/controllers/ 
 		
 		mkdir app/models
 
@@ -80,20 +80,20 @@ else
 		
 		# Enlaces simbólicos necesarios
 		
-		ln -s $NINGENCMSDIR ningencms
+		ln -s $OWL_DIR owl
 		
-		ln -s $NINGENCMSDIR"share/captcha/images/" public/img/captcha
+		ln -s $OWL_DIR"share/captcha/images/" public/img/captcha
 		
 		
 		# Se establecen los permisos
 		
-		chmod -R 775 $TARGETDIR
+		chmod -R 775 $OWL_TARGETDIR
 		
 		
 		# Todo ha ido bien
 
 		echo ""		
-		echo -e "[" "\033[32mOK\033[0m" "] Felicitaciones!, ningenCMS ($NINGENCMSVERSION) ha sido instalado correctamente en $TARGETDIR"
+		echo -e "[" "\033[32mOK\033[0m" "] Felicitaciones!, OWL - Open Web Library ($OWL_VERSION) ha sido instalado correctamente en $OWL_TARGETDIR"
 		echo ""
 		
 	else

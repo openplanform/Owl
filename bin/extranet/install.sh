@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Valores variables
-NINGENCMSVERSION="0.5.3"
+OWL_VERSION="0.5.4"
 
 # Directorio
 
@@ -25,78 +25,78 @@ if [ -z "$2" ]; then
 	
 fi
 
-TARGETDIR=$1;
-DBNAME=$2;
+OWL_TARGETDIR=$1;
+OWL_DBNAME=$2;
 
 # Se instala el framework
 
-if [ -d "$TARGETDIR" ]; then
+if [ -d "$OWL_TARGETDIR" ]; then
 
 	# Aqui se definirán los targets tanto de desarrollo como producción
 	
 	if [ "$HOSTNAME" = "ldes" ]; then
-		NINGENCMSDIR="/var/www/ningenCMS/"
+		OWL_DIR="/var/www/owl/"
 	else 
-		NINGENCMSDIR="/var/www/ningenCMS/"
+		OWL_DIR="/var/www/owl/"
 	fi
 	
 	
 	# Se cambia al directorio destino
 	
-	cd $TARGETDIR
+	cd $OWL_TARGETDIR
 	echo ""
 	
 	
 	# Estructura de directorios y copia de archivos iniciales
 	
-	cp $NINGENCMSDIR"bin/framework/resources/base.htaccess" .htaccess
+	cp $OWL_DIR"bin/framework/resources/base.htaccess" .htaccess
 		
-	cp -R $NINGENCMSDIR"bin/extranet/resources/public/" .
+	cp -R $OWL_DIR"bin/extranet/resources/public/" .
 	
-	cp $NINGENCMSDIR"bin/framework/resources/index.php" public/
+	cp $OWL_DIR"bin/framework/resources/index.php" public/
 	
-	cp $NINGENCMSDIR"bin/framework/resources/public.htaccess" public/.htaccess		
+	cp $OWL_DIR"bin/framework/resources/public.htaccess" public/.htaccess		
 	
 	mkdir app
 	
 	mkdir app/configs		
 	
-	cp $NINGENCMSDIR"bin/extranet/resources/configs/application.ini" app/configs/
+	cp $OWL_DIR"bin/extranet/resources/configs/application.ini" app/configs/
 	
-	cp $NINGENCMSDIR"bin/framework/resources/NingenGlobals.php" app/configs/
+	cp $OWL_DIR"bin/framework/resources/NingenGlobals.php" app/configs/
 
-	cp $NINGENCMSDIR"bin/extranet/resources/configs/SessionObjects.php" app/configs/
+	cp $OWL_DIR"bin/extranet/resources/configs/SessionObjects.php" app/configs/
 	
-	cp -R $NINGENCMSDIR"bin/extranet/resources/controllers/" app/controllers/
+	cp -R $OWL_DIR"bin/extranet/resources/controllers/" app/controllers/
 	
-	cp -R $NINGENCMSDIR"bin/extranet/resources/models/" app/models/
+	cp -R $OWL_DIR"bin/extranet/resources/models/" app/models/
 	
-	cp -R $NINGENCMSDIR"bin/extranet/resources/layouts/" app/layouts/
+	cp -R $OWL_DIR"bin/extranet/resources/layouts/" app/layouts/
 	
     mkdir app/classes
 	
 	mkdir app/modules
 		
-	cp -R $NINGENCMSDIR"bin/extranet/resources/views/" app/views/
+	cp -R $OWL_DIR"bin/extranet/resources/views/" app/views/
 	
 	echo -e "[" "\033[32mOK\033[0m" "] Archivos copiados"
 	
 	
 	# Enlaces simbólicos necesarios
 	
-	ln -s $NINGENCMSDIR ningencms
+	ln -s $OWL_DIR ningencms
 	
-	ln -s $NINGENCMSDIR"share/captcha/images/" public/img/captcha
+	ln -s $OWL_DIR"share/captcha/images/" public/img/captcha
 	
 	echo -e "[" "\033[32mOK\033[0m" "] Enlaces creados"
 		
 	
 	# Se establecen los permisos y propietarios
 	
-	chmod -R 775 $TARGETDIR
+	chmod -R 775 $OWL_TARGETDIR
 	
 	if [ "$HOSTNAME" = "ldes" ]; then
-		chown -R smbuser:desarrollo $TARGETDIR
+		chown -R smbuser:desarrollo $OWL_TARGETDIR
 	fi
 	
 	chmod 777 app/models	
@@ -106,7 +106,7 @@ if [ -d "$TARGETDIR" ]; then
 		
 	# Se instala la base de datos
 	
-	mysql -u terminator -phastalavistababy "-D"$DBNAME < $NINGENCMSDIR"bin/extranet/resources/dbase.sql"
+	mysql -u terminator -phastalavistababy "-D"$DBNAME < $OWL_DIR"bin/extranet/resources/dbase.sql"
 	
 	if [ $? -ne 0 ]; then
 		echo -e "[" "\033[31mERROR\033[0m" "] Error al crear la base de datos"
@@ -118,7 +118,7 @@ if [ -d "$TARGETDIR" ]; then
 	# Todo ha ido bien
 
 	echo ""		
-	echo -e "[" "\033[32mOK\033[0m" "] Felicitaciones!, ningenCMS ($NINGENCMSVERSION) ha sido instalado correctamente en $TARGETDIR"
+	echo -e "[" "\033[32mOK\033[0m" "] Felicitaciones!, OWL - Open Web Library ($OWL_VERSION) ha sido instalado correctamente en $OWL_TARGETDIR"
 	echo ""
 	
 else 
