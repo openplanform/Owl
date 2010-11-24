@@ -262,7 +262,7 @@ class usuarioController extends OwlExtranetController{
                 $mailerConfig = $appConfig->getMailerConfiguration();
                 $mailer = new OwlMailer($mailerConfig);
                 $mailer->setSubject("Extranet - Datos de acceso");
-                $mailer->setFrom('<noreply@ningen.es>', 'Extranet');
+                $mailer->setFrom('<noreply@nobody.com>', 'Extranet');
                 $mailer->setBody($mt->getContent());
                 $mailer->addTo($email);
                 
@@ -305,7 +305,7 @@ class usuarioController extends OwlExtranetController{
         } else {
 
             // Si no se pasa clave de usuario redirigimos a la ficha
-            $usuarioBO = OwlCmsSession::getValue('usuario');
+            $usuarioBO = OwlSession::getValue('usuario');
             $claveUsuario = $usuarioBO->getId();
             
         }
@@ -348,7 +348,7 @@ class usuarioController extends OwlExtranetController{
         }
         
         // Se guardará el antiguo nombre de usuario en la sesión, ya que en el apartado de edición es necesario saberlo
-        OwlCmsSession::setValue('oldUsername', $usuarioBO->getNombre());
+        OwlSession::setValue('oldUsername', $usuarioBO->getNombre());
         
         $this->view->usuarioBO = $usuarioBO;
         $this->view->datehelper = new OwlDate();
@@ -363,7 +363,7 @@ class usuarioController extends OwlExtranetController{
             $this->view->empresaDO = array_shift(TblEmpresa::findByTblUsuario($this->db, $claveUsuario));
             
             if (!$this->view->empresaDO instanceof TblEmpresa){
-                throw new OwlException('No se puede determinar la empresa vinculada al usuario. Por favor contacte con el administrador.', 500);
+                throw new OlwException('No se puede determinar la empresa vinculada al usuario. Por favor contacte con el administrador.', 500);
             }
             
         } elseif($this->aclManager->isRolPersona($rolPrincipalUsuario)){
@@ -372,12 +372,12 @@ class usuarioController extends OwlExtranetController{
             $this->view->personaDO = array_shift(TblPersona::findByTblUsuario($this->db, $claveUsuario));
             
             if (!$this->view->personaDO instanceof TblPersona){
-                throw new OwlException('No se puede determinar la persona vinculada al usuario. Por favor contacte con el administrador.', 500);
+                throw new OlwException('No se puede determinar la persona vinculada al usuario. Por favor contacte con el administrador.', 500);
             }
             
         } else {
             
-            throw new OwlException('No se puede determinar el tipo de entidad del usuario a mostrar. Por favor contacte con el administrador.', 500);
+            throw new OlwException('No se puede determinar el tipo de entidad del usuario a mostrar. Por favor contacte con el administrador.', 500);
             
         }*/
         
@@ -614,7 +614,7 @@ class usuarioController extends OwlExtranetController{
             }
             
             // Se verificará la existencia del nombre de usuario, solo en el caso que el nombre haya cambiado
-            $oldUsername = OwlCmsSession::getValue('oldUsername');
+            $oldUsername = OwlSession::getValue('oldUsername');
             
             if (strtolower($oldUsername) != strtolower($nombreUsuario)){
 
@@ -804,7 +804,7 @@ class usuarioController extends OwlExtranetController{
     
     /**
      * Nuevo usuario
-     * @throws OwlException
+     * @throws OlwException
      */
     public function nuevoAction(){
         
@@ -869,7 +869,7 @@ class usuarioController extends OwlExtranetController{
             }
             
             // Se verificará la existencia del nombre de usuario, solo en el caso que el nombre haya cambiado
-            $oldUsername = OwlCmsSession::getValue('oldUsername');
+            $oldUsername = OlwCmsSession::getValue('oldUsername');
             
             if ($oldUsername != $nombreUsuario){
 

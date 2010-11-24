@@ -1,7 +1,7 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
@@ -26,8 +26,8 @@ set_include_path(get_include_path() .
     PATH_SEPARATOR . EXTLIBDIR);
 
 // Se inicia la sessión
-require_once 'OwlCmsSession.inc';
-OwlCmsSession::create();
+require_once 'OwlSession.inc';
+OwlSession::create();
 
 // Se instancia la aplicación
 require_once 'OwlApplication.inc';

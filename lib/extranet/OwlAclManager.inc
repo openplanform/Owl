@@ -1,6 +1,6 @@
 <?php
 
-require_once 'OwlCmsSession.inc';
+require_once 'OwlSession.inc';
 require_once 'extranet/OwlUsuarioSesion.inc';
 
 require_once MODELDIR . 'TblAcceso.inc';

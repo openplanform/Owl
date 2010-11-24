@@ -84,7 +84,7 @@ if [ -d "$OWL_TARGETDIR" ]; then
 	
 	# Enlaces simbólicos necesarios
 	
-	ln -s $OWL_DIR owlcms
+	ln -s $OWL_DIR owl
 	
 	ln -s $OWL_DIR"share/captcha/images/" public/img/captcha
 	
@@ -106,7 +106,7 @@ if [ -d "$OWL_TARGETDIR" ]; then
 		
 	# Se instala la base de datos
 	
-	mysql -u terminator -phastalavistababy "-D"$DBNAME < $OWL_DIR"bin/extranet/resources/dbase.sql"
+	mysql -u terminator -phastalavistababy "-D"$OWL_DBNAME < $OWL_DIR"bin/extranet/resources/dbase.sql"
 	
 	if [ $? -ne 0 ]; then
 		echo -e "[" "\033[31mERROR\033[0m" "] Error al crear la base de datos"

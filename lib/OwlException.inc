@@ -28,7 +28,7 @@ class OwlException extends Exception{
 	 */
 	public function getDebugMessage(){
 		
-		return OwlCmsHtmlHelper::getHtmlExceptionDebug($this->getFormatedMessage($this->getMessage()), $this->getTrace(), $this->getLine(), $this->getFile());
+		return OwlHtmlHelper::getHtmlExceptionDebug($this->getFormatedMessage($this->getMessage()), $this->getTrace(), $this->getLine(), $this->getFile());
 		
 	}
 	

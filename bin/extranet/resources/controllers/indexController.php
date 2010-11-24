@@ -47,7 +47,7 @@ class indexController extends OwlExtranetController{
 	public function loginAction(){
 	    
 	    // Se verifica si el usuario se encuentra ya logueado
-        $this->usuario = OwlCmsSession::getValue('usuario');
+        $this->usuario = OwlSession::getValue('usuario');
         
         // De ser así lo redireccionamos a la página principal
         if ($this->usuario instanceof OwlUsuarioSesion){
@@ -87,7 +87,7 @@ class indexController extends OwlExtranetController{
     	        
     	    } else {
     	        
-                $this->usuario = OwlCmsSession::getValue('usuario');
+                $this->usuario = OwlSession::getValue('usuario');
                 $claveUsuario = $this->usuario->getId();
                 $this->redirectTo('index', 'panel');
                 
@@ -149,8 +149,8 @@ class indexController extends OwlExtranetController{
 	            $mailerConfig = $appConfig->getMailerConfiguration();
 	            $mailer = new OwlMailer($mailerConfig);
 	            $mailer->addTo($email, $usuario);
-	            $mailer->setSubject('Owl - Cambio de contraseña');
-	            $mailer->setFrom('<noreply@ningen.es>', 'Owl');
+	            $mailer->setSubject('OWL - Cambio de contraseña');
+	            $mailer->setFrom('<noreply@nobody.com>', 'OWL');
 	            $mailer->setBody($mt->getContent());
 	            
 	            // Se envía el correo
@@ -199,7 +199,7 @@ class indexController extends OwlExtranetController{
 	    $this->setAlternateLayout('libre');
 	    
 	    // Tararí tararí...
-	    OwlCmsSession::setValue('usuario', null);
+	    OwlSession::setValue('usuario', null);
 	    session_destroy();
 	    
 	    // Redirigimos al login nuevamente
