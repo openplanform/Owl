@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase que implementan las aplicaciones webs compatibles con NOWL
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -18,14 +18,14 @@
 
 require_once 'Zend/Config/Ini.php';
 
-require_once 'NingenException.inc';
-require_once 'NingenRouter.inc';
-require_once 'NingenCmsSession.inc';
-require_once 'container/NingenApplicationConfig.inc';
-require_once 'helper/NingenCmsHtmlHelper.inc';
+require_once 'OwlException.inc';
+require_once 'OwlRouter.inc';
+require_once 'OwlSession.inc';
+require_once 'container/OwlApplicationConfig.inc';
+require_once 'helper/OwlHtmlHelper.inc';
 
 
-class NingenApplication{
+class OwlApplication{
 	
 	/**
 	 * Instancia del manejador principal de la
@@ -38,22 +38,22 @@ class NingenApplication{
 	
 	/**
 	 * Enrutador principal de la aplicación
-	 * @var NingenRouter
+	 * @var OwlRouter
 	 */
 	private $_applicationRouter;
 	
 	/**
 	 * Contenedor que almacena la configuración de la
 	 * aplicación
-	 * @var NingenApplicationConfig
+	 * @var OwlApplicationConfig
 	 */
 	public $applicationConfig;
 	
 	/**
 	 * Interfaz de acceso a la session
-	 * @var NingenCmsSession
+	 * @var OwlSession
 	 */
-	protected $ningenCmsSession;
+	protected $owlSession;
 	
 	/**
 	 * Reune la información necesaria para decidir si es posible 
@@ -76,7 +76,7 @@ class NingenApplication{
 			// Se inicia la aplicación
 			$this->_initApplication();
 			
-		} catch (NingenException $e) {
+		} catch (OwlException $e) {
 			
 			$e->echoCmsMessage();
 			
@@ -92,7 +92,7 @@ class NingenApplication{
 	private function _setErrorLevel(){
 	
 		// Control de errores
-		if (NINGENCMS_DEV){
+		if (OWL_DEV){
 			error_reporting(E_ALL);
 		} else {
 			error_reporting(!E_ALL);
@@ -108,7 +108,7 @@ class NingenApplication{
 		
 		
 		// Se verifica desarrollo - producción
-		$configSection = NINGENCMS_DEV ? 'develop' : 'production';
+		$configSection = OWL_DEV ? 'develop' : 'production';
 		
 		// Opciones del config manager
 		$opcionesConfigManager = array(
@@ -123,13 +123,13 @@ class NingenApplication{
 		
 
 		// Se instancia el manejador de configuración		
-		$this->_configAdapter = new Zend_Config_Ini(NINGENCMS_CONFIGDIR . 'application.ini', $configSection, $opcionesConfigManager);
+		$this->_configAdapter = new Zend_Config_Ini(CONFIGDIR . 'application.ini', $configSection, $opcionesConfigManager);
 		
 		// Se crea el contenedor público que mantendrá la configuración de la aplicación
-		$this->applicationConfig = new NingenApplicationConfig($this->_configAdapter);
+		$this->applicationConfig = new OwlApplicationConfig($this->_configAdapter);
 		
 		// Se hace global la configuración
-		$GLOBALS['NINGEN_CMS']['app_config'] = $this->applicationConfig;
+		$GLOBALS['OWL']['app_config'] = $this->applicationConfig;
 		
 	}
 	
@@ -141,7 +141,7 @@ class NingenApplication{
 	private function _loadApplicationRouter(){
 		
 		// Se inicializa el router
-		$this->_applicationRouter = new NingenRouter($_SERVER['REQUEST_URI']);
+		$this->_applicationRouter = new OwlRouter($_SERVER['REQUEST_URI']);
 		
 		// Se le pasa la configuración al router
 		$this->_applicationRouter->setApplicationConfig($this->applicationConfig);
@@ -156,7 +156,7 @@ class NingenApplication{
 		
 		// Se verificará si la aplicación no se encuetra en mantenimiento
 		if ($this->applicationConfig->isMantenimiento()){
-			echo NingenCmsHtmlHelper::getHtmlMantenimientoPage();
+			echo OwlHtmlHelper::getHtmlMantenimientoPage();
 			die();	
 		}
 		

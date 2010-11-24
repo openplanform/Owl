@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase encargada de mostrar los mensajes del servidor en el cliente
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,10 +16,10 @@
  * 
  */
 
-require_once 'helper/NingenCmsHtmlHelper.inc';
+require_once 'helper/OwlHtmlHelper.inc';
 
 
-class NingenServerResponses{
+class OwlServerResponses{
 	
 	/**
 	 * Código de error
@@ -131,7 +131,7 @@ class NingenServerResponses{
 	private function sendErrorPage(){
 		
 		$titulo = $this->_errorCode . ' - ' . $this->_errorMessages[$this->_errorCode];
-		echo NingenCmsHtmlHelper::getHtmlErrorPage($titulo, $this->_errorCode, $this->_errorMessages[$this->_errorCode], $this->_errorDescription);
+		echo OwlHtmlHelper::getHtmlErrorPage($titulo, $this->_errorCode, $this->_errorMessages[$this->_errorCode], $this->_errorDescription);
 		die();
 		
 	}

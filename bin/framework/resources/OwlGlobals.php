@@ -1,72 +1,72 @@
 <?php
 
 /**
- * NINGEN CMS
+ * OWL
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Definición de directorios del sistema, en este archivo solo deben guardarse
  * datos del sitema. Para configuraciones utilizar application.ini
  * 
- * @category NingenCms
- * @package NingenCms
+ * @category Owl
+ * @package Owl
  * @version 0.5
  * @since 0.5
  * 
  */
 
 // Versión del cms
-define('NINGENCMS_VERSION', '0.5.2-dev');
+define('VERSION', '0.5.2-dev');
 
 // Directorio base de la instalación
-define('NINGENCMS_BASEDIR', realpath('../'));
+define('BASEDIR', realpath('../'));
 
 // Core del cms
-define('NINGENCMS_INCDIR', NINGENCMS_BASEDIR . '/ningencms/');
+define('INCDIR', BASEDIR . '/owl/');
 
 // Directorio publico
-define('NINGENCMS_PUBDIR', NINGENCMS_BASEDIR . '/public/');
+define('PUBDIR', BASEDIR . '/public/');
 
 // Librería principal
-define('NINGENCMS_LIBDIR', NINGENCMS_INCDIR . 'lib/');
+define('LIBDIR', INCDIR . 'lib/');
 
 // Librería externa
-define('NINGENCMS_EXTLIBDIR', NINGENCMS_INCDIR . 'extlib/');
+define('EXTLIBDIR', INCDIR . 'extlib/');
 
 // Directorio de recursos	
-define('NINGENCMS_SHAREDIR', NINGENCMS_INCDIR . 'share/');
+define('SHAREDIR', INCDIR . 'share/');
 
 // Directorio de aplicacion
-define('NINGENCMS_APPDIR', NINGENCMS_BASEDIR . '/app/');
+define('APPDIR', BASEDIR . '/app/');
 
 // Directorio de controladores
-define('NINGENCMS_CONTROLLERDIR', NINGENCMS_APPDIR . 'controllers/');
+define('CONTROLLERDIR', APPDIR . 'controllers/');
 
 // Directorio de configuracion
-define('NINGENCMS_CONFIGDIR', NINGENCMS_APPDIR . 'configs/');
+define('CONFIGDIR', APPDIR . 'configs/');
 
 // Directorio de layouts
-define('NINGENCMS_LAYOUTDIR', NINGENCMS_APPDIR . 'layouts/');
+define('LAYOUTDIR', APPDIR . 'layouts/');
 
 // Directorio de vistas
-define('NINGENCMS_VIEWDIR', NINGENCMS_APPDIR . 'views/');
+define('VIEWDIR', APPDIR . 'views/');
 
 // Directorio de modelos
-define('NINGENCMS_MODELDIR', NINGENCMS_APPDIR . 'models/');
+define('MODELDIR', APPDIR . 'models/');
 
 // Directorio de modulos
-define('NINGENCMS_MODULEDIR', NINGENCMS_APPDIR . 'modules/');
+define('MODULEDIR', APPDIR . 'modules/');
 
 // Directorio de clases
-define('NINGENCMS_CLASSESDIR', NINGENCMS_APPDIR . 'classes/');
+define('CLASSESDIR', APPDIR . 'classes/');
 
 // Desarrollo | Producción
-define('NINGENCMS_DEV', preg_match('/\.in\./', $_SERVER['SERVER_NAME']));
+define('DEV', preg_match('/\.in\./', $_SERVER['SERVER_NAME']));
 
 // Codificación a utilizar
-define('NINGENCMS_APPENCODING', 'UTF-8');
+define('APPENCODING', 'UTF-8');
 
 // Zend Framework
-define('ZEND_FRAMEWORK', NINGENCMS_EXTLIBDIR . 'Zend/');
+define('ZEND_FRAMEWORK', EXTLIBDIR . 'Zend/');
 
 ?>

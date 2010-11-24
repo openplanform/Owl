@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase para el manejo de imágenes
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,11 +16,11 @@
  * 
  */
 
-require_once 'NingenException.inc';
-require_once 'helper/NingenFile.inc';
+require_once 'OwlException.inc';
+require_once 'helper/OwlFile.inc';
 
 
-class NingenImgManager{
+class OwlImgManager{
 	
 	/**
 	 * Calidad por defecto a jpg (0 - 100)
@@ -48,7 +48,7 @@ class NingenImgManager{
 	
 	/**
 	 * Helper de archivos
-	 * @var NingenFile
+	 * @var OwlFile
 	 */
 	private $_fileHelper;
 	
@@ -83,7 +83,7 @@ class NingenImgManager{
 	 */
 	public function __construct(){
 		
-		$this->_fileHelper = new NingenFile();
+		$this->_fileHelper = new OwlFile();
 		
 	}
 	
@@ -106,17 +106,17 @@ class NingenImgManager{
 	 * 
 	 * @param string $sourceImg
 	 * @param string $mime
-	 * @throws NingenException
+	 * @throws OwlException
 	 */
 	public function setSourceImg($sourceImg, $mime){
 
 		if (!file_exists($sourceImg)){
-			throw new NingenException('La imágen especificada <strong>' . $sourceImg . '</strong>', 500);
+			throw new OwlException('La imágen especificada <strong>' . $sourceImg . '</strong>', 500);
 			return;
 		}
 		
 		if (!$this->_ext = $this->_fileHelper->getExtension($mime)){
-			throw new NingenException('Tipo de mime no soportado: <strong>' . $mime .'</strong>', 500);
+			throw new OwlException('Tipo de mime no soportado: <strong>' . $mime .'</strong>', 500);
 		}
 		
 		// Se propaga la ruta de imagen
@@ -221,7 +221,7 @@ class NingenImgManager{
 	/**
 	 * Crea un recurso gd a partir de la ruta de una imagen
 	 * @param string $ruta
-	 * @throws NingenException
+	 * @throws OwlException
 	 */
 	private function _createGdResource($ruta){
 		
@@ -244,7 +244,7 @@ class NingenImgManager{
 				
 			default:
 				// Tipo no soportado por gd
-				throw new NingenException('Tipo de imágen no soportado <strong>' . $this->_ext . '</strong>', 500);
+				throw new OwlException('Tipo de imágen no soportado <strong>' . $this->_ext . '</strong>', 500);
 				break;
 			
 		}
@@ -281,7 +281,7 @@ class NingenImgManager{
 	/**
 	 * Redimensiona la imagen actual
 	 * @param integer $anchoDeseado
-	 * @throws NingenException
+	 * @throws OwlException
 	 */
 	public function resizeFromWidth($anchoDeseado){
 		
@@ -296,7 +296,7 @@ class NingenImgManager{
 		// Se redimensiona la imágen
 		if (!imagecopyresampled($this->_gd_output_resource, $this->_gd_resource, 0, 0, 0, 0, $anchoDeseado, $altoDeseado, $ancho, $alto)){
 			
-			throw new NingenException('Ha ocurrido un error al redimensionar la imágen, por favor intente nuevamente con una imágen que respete el ancho máximo: ' . $anchoDeseado , 500);
+			throw new OwlException('Ha ocurrido un error al redimensionar la imágen, por favor intente nuevamente con una imágen que respete el ancho máximo: ' . $anchoDeseado , 500);
 			
 		}
 		
@@ -323,7 +323,7 @@ class NingenImgManager{
 		// Se redimensiona la imágen
 		if (!imagecopyresampled($_gd_output_thumb, $this->_gd_output_resource, 0, 0, 0, 0, $anchoDeseado, $altoDeseado, $ancho, $alto)){
 			
-			throw new NingenException('Ha ocurrido un error al redimensionar la imágen, por favor intente nuevamente con una imágen que respete el ancho máximo: ' . $anchoDeseado , 500);
+			throw new OwlException('Ha ocurrido un error al redimensionar la imágen, por favor intente nuevamente con una imágen que respete el ancho máximo: ' . $anchoDeseado , 500);
 			
 		}
 		

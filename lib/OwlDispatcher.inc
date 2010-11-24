@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Dispatcher general de módulos, controladores y acciones
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,11 +16,11 @@
  * 
  **/
 
-require_once 'NingenLayout.inc';
-require_once 'NingenView.inc';
+require_once 'OwlLayout.inc';
+require_once 'OwlView.inc';
 
 
-class NingenDispatcher{
+class OwlDispatcher{
 	
 	/**
 	 * Pila de módulos
@@ -30,19 +30,19 @@ class NingenDispatcher{
 	
 	/**
 	 * Controlador actual
-	 * @var NingenController
+	 * @var OwlController
 	 */
 	protected $controller = null;
 	
 	/**
 	 * Layout actual
-	 * @var NingenLayout
+	 * @var OwlLayout
 	 */
 	protected $layout = null;
 	
 	/**
 	 * Vista actual
-	 * @var NingenView
+	 * @var OwlView
 	 */
 	protected $view = null;
 	
@@ -124,7 +124,7 @@ class NingenDispatcher{
 	private function _loadController($controllerName){
 		
 		// Se contruye el path hacia el controller (ejemploController.php)
-		$fullControllerPath = NINGENCMS_CONTROLLERDIR . $controllerName . 'Controller.php';
+		$fullControllerPath = CONTROLLERDIR . $controllerName . 'Controller.php';
 		
 		// Se verifica la existencia del script
 		if (file_exists($fullControllerPath)){
@@ -148,7 +148,7 @@ class NingenDispatcher{
 	 */
 	private function _actionExists($actionName){
 		
-		if ($this->controller instanceof NingenController){
+		if ($this->controller instanceof OwlController){
 			
 			return method_exists($this->controller, $actionName . 'Action');
 			
@@ -181,12 +181,12 @@ class NingenDispatcher{
 		// 1 - Se inicia el layout por defecto si ha sido pasado
 		if (!is_null($layoutName)){
 			
-			$this->layout = new NingenLayout($layoutName);
+			$this->layout = new OwlLayout($layoutName);
 			
 		}
 		
 		// 2 - Se inicia la vista asociada a la acción actual
-		$this->view = new NingenView($this->controllerName, $this->actionName);
+		$this->view = new OwlView($this->controllerName, $this->actionName);
 		
 		// Datos necesarios para el controlador
 		$this->controller->setControllerName($this->controllerName);

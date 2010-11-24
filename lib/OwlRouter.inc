@@ -1,15 +1,15 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Enrutador de urls, clase diseñada para ejecutar y gestionar controladores
  * de acuerdo a la URL actual.  
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -17,11 +17,11 @@
  * 
  */
 
-require_once 'NingenServerResponses.inc';
-require_once 'NingenDispatcher.inc';
+require_once 'OwlServerResponses.inc';
+require_once 'OwlDispatcher.inc';
 
 
-class NingenRouter{
+class OwlRouter{
 	
 	/**
 	 * Controlador actual
@@ -63,13 +63,13 @@ class NingenRouter{
 	
 	/**
 	 * Configuración de la aplicacion
-	 * @var NingenApplicationConfig
+	 * @var OwlApplicationConfig
 	 */
 	private $_applicationConfig;
 	
 	/**
 	 * Dispatcher general
-	 * @var NingenDispatcher
+	 * @var OwlDispatcher
 	 */
 	private $_dispatcher;
 	
@@ -91,7 +91,7 @@ class NingenRouter{
 		// y/o cualquier fallo devolvemos un 404
 		if (empty($request_uri)){
 			
-			$response = new NingenServerResponses(404, '<p>La página solicitada no existe o ha sido movida.</p>');
+			$response = new OwlServerResponses(404, '<p>La página solicitada no existe o ha sido movida.</p>');
 			$response->sendResponse();
 			
 		}
@@ -193,7 +193,7 @@ class NingenRouter{
 		$defaultAction = 'index';
 		
 		// Se verifica la configuración, de estar establecida se obtienen los datos necesarios
-		if ($this->_applicationConfig instanceof NingenApplicationConfig){
+		if ($this->_applicationConfig instanceof OwlApplicationConfig){
 			$defaultController = $this->_applicationConfig->getDefaultController();
 			$defaultAction = $this->_applicationConfig->getDefaultAction();			
 		}
@@ -247,10 +247,10 @@ class NingenRouter{
 
 	/**
 	 * Establece la configuración personalizada para la aplicacion
-	 * @param NingenApplicationConfig $appConfig
+	 * @param OwlApplicationConfig $appConfig
 	 * @return void
 	 */
-	public function setApplicationConfig(NingenApplicationConfig $appConfig){
+	public function setApplicationConfig(OwlApplicationConfig $appConfig){
 
 		$this->_applicationConfig = $appConfig;
 		
@@ -266,7 +266,7 @@ class NingenRouter{
 		$this->virtualizeController();
 			
 		// Se instancia el dispatcher
-		$this->_dispatcher = new NingenDispatcher($this->_controller, $this->_action);
+		$this->_dispatcher = new OwlDispatcher($this->_controller, $this->_action);
 		
 		// Pasamos al dispatcher los parámetros de la url
 		$this->_dispatcher->setParams($this->_params);  
@@ -275,7 +275,7 @@ class NingenRouter{
 		if (!$this->_dispatcher->verifyRoute()){
 			
 			// El controlador o la acción son incorrectos
-			$response = new NingenServerResponses(404, '<p>La página solicitada no existe o ha sido movida.</p>');
+			$response = new OwlServerResponses(404, '<p>La página solicitada no existe o ha sido movida.</p>');
 			$response->sendResponse();			
 			
 		} else {

@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase que implementa el paginador de resultados
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es>, Aaron Amengual Arranz <aaron@ningen.es> 
  * @version 0.5
@@ -16,15 +16,15 @@
  * 
  **/
 
-require_once 'NingenException.inc';
-require_once 'dbase/NingenGenericDO.inc';
+require_once 'OwlException.inc';
+require_once 'dbase/OwlGenericDO.inc';
 
 
-class NingenPaginator{
+class OwlPaginator{
     
     /**
      * Acceso a base de datos
-     * @var NingenConnection
+     * @var OwlConnection
      */
     protected $db;
     
@@ -90,7 +90,7 @@ class NingenPaginator{
     
     /**
      * Helper para controladores
-     * @var NingenControllerHelper
+     * @var OwlControllerHelper
      */
     protected $helper;
     
@@ -105,16 +105,16 @@ class NingenPaginator{
     /**
      * Constructor, establece los parámetros de funcionamiento. 
      * Si el parámetro sqlWhere no es pasado, se hará un findall del DO indicado.
-     * @param NingenConnection $db
+     * @param OwlConnection $db
      * @param string $sql
      * @param string $tableName
-     * @param NingenControllerHelper $helper
+     * @param OwlControllerHelper $helper
      */
-    public function __construct(NingenConnection $db, $sqlWhere = null, $tableName, NingenControllerHelper $helper){
+    public function __construct(OwlConnection $db, $sqlWhere = null, $tableName, OwlControllerHelper $helper){
         
         // Sin DO nada se puede hacer.
         if (!$this->tableExists($tableName)){
-            throw new NingenException('Se está intentando paginar una tabla de la cual no se dispone Dataobject. Error crítico.', 500);
+            throw new OwlException('Se está intentando paginar una tabla de la cual no se dispone Dataobject. Error crítico.', 500);
         } else {
             $this->tableName = $tableName;
         }
@@ -155,9 +155,9 @@ class NingenPaginator{
      */
     protected function tableExists( $tableName ){
         
-        if (file_exists(NINGENCMS_MODELDIR . ucfirst($tableName) . '.inc')){
+        if (file_exists(MODELDIR . ucfirst($tableName) . '.inc')){
             
-            require_once NINGENCMS_MODELDIR . ucfirst($tableName) . '.inc';
+            require_once MODELDIR . ucfirst($tableName) . '.inc';
             return true;
             
         }
@@ -171,7 +171,7 @@ class NingenPaginator{
      */
     protected function getItems(){
         
-        $genericDO = new NingenGenericDO();
+        $genericDO = new OwlGenericDO();
 
         // Generamos los metadatos
         $this->generatePaginatorMetadata();

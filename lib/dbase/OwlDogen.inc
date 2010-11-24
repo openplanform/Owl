@@ -1,7 +1,7 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
@@ -10,18 +10,18 @@
  * @category dslDoGen
  * @package dslDoGen
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
- * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a ningenCMS)
+ * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a Owl)
  * 
  * @version 0.6
  * @since 0.5
  * 
  **/
 
-require_once 'dbase/NingenDatabaseMetaData.inc';
-require_once 'dbase/NingenConnection.inc';
+require_once 'dbase/OwlDatabaseMetaData.inc';
+require_once 'dbase/OwlConnection.inc';
 
 
-class NingenDogen{
+class OwlDogen{
 
     /**
      * Version del objeto.
@@ -120,7 +120,7 @@ class NingenDogen{
 	    echo "<?php";
 
 	    echo "\n/**";
-	    echo "\n * Este archivo ha sido generado con Ningen DoGen ".$this->getVersion();
+	    echo "\n * Este archivo ha sido generado con Owl DoGen ".$this->getVersion();
 	    echo "\n * el ".strftime("%d de %B de %Y a las %H:%M:%S");
 	    echo "\n * @package dataAccess";
 	    echo "\n */";
@@ -131,8 +131,8 @@ class NingenDogen{
 	    
 	    //echo "\nrequire_once( INCLUDE_DIR.'sql/ConnectionCfg.inc');";
 	    
-	    echo "\nrequire_once( 'dbase/NingenConnection.inc');";
-	    echo "\nrequire_once( 'dbase/NingenGenericDO.inc');";
+	    echo "\nrequire_once( 'dbase/OwlConnection.inc');";
+	    echo "\nrequire_once( 'dbase/OwlGenericDO.inc');";
 	    echo "\nrequire_once( '${className}Search.inc' );";
 	    echo "\nrequire_once( '${className}PK.inc' );";
 	    
@@ -146,7 +146,7 @@ class NingenDogen{
 	    echo "<?php";
 
 	    echo "\n/**";
-	    echo "\n * Este archivo ha sido generado con Ningen Dogen ".$this->getVersion();
+	    echo "\n * Este archivo ha sido generado con Owl Dogen ".$this->getVersion();
 	    echo "\n * el ".strftime("%d de %B de %Y a las %H:%M:%S");
 	    echo "\n * @package dataAccess";
 	    echo "\n */";
@@ -161,7 +161,7 @@ class NingenDogen{
 	    echo "<?php";
 
 	    echo "\n/**";
-	    echo "\n * Este archivo ha sido generado con Ningen Dogen ".$this->getVersion();
+	    echo "\n * Este archivo ha sido generado con Owl Dogen ".$this->getVersion();
 	    echo "\n * el ".strftime("%d de %B de %Y a las %H:%M:%S");
 	    echo "\n * @package dataAccess";
 	    echo "\n */";
@@ -182,7 +182,7 @@ class NingenDogen{
 	 * @param string $tableName
 	 * @param string $baseClass Clase de la que deriva el DO. Por defecto GenericDO.
 	 */
-	private function _echoDOClassBegin( $tableName, $baseClass="NingenGenericDO" ){
+	private function _echoDOClassBegin( $tableName, $baseClass="OwlGenericDO" ){
 	    
 	    $className = $this->_appPrefix.$this->_strToClass($tableName);
 	    $fields = $this->_databaseMetaData->getTableFields( $tableName );
@@ -330,7 +330,7 @@ class NingenDogen{
 	    echo "\n      * Obtiene el valor de la atributo '$fieldName' según el idioma activo.";
 	    echo "\n      *";
 	    echo "\n      * @return $fieldType";
-	    echo "\n      * @see NingenGenericDO::setLang()";
+	    echo "\n      * @see OwlGenericDO::setLang()";
 	    echo "\n      */";
 	    echo "\n    public function ".$this->_strToGetMethod($fieldName)."(){\n";
 	    echo "\n        \$attribute = '".$this->_strToVariable($fieldName)."'.ucfirst(\$this->getLang());";
@@ -398,7 +398,7 @@ class NingenDogen{
 	    echo "\n      * Establece el valor del atributo '$fieldName' según el idioma activo.";
 	    echo "\n      *";
 	    echo "\n      * @param $fieldType \$value Valor.";
-	    echo "\n      * @see NingenGenericDO::setLang()";
+	    echo "\n      * @see OwlGenericDO::setLang()";
 	    echo "\n      */";
         echo "\n    public function ".$this->_strToSetMethod($fieldName)."( \$value ){\n";
         echo "\n        \$attribute = '".$this->_strToVariable($fieldName)."'.ucfirst(\$this->getLang());";
@@ -448,7 +448,7 @@ class NingenDogen{
 	    echo "\n    public static function findByPrimaryKey( \$db, $paramsStr ){\n";
         echo "\n       \$db->executeQuery(\"SELECT * FROM $tableName WHERE $whereStr\");";
 	    echo "\n       \$data = \$db->fetchRow();";
-        echo "\n       return NingenGenericDO::createDO( \$db, \$data, '$className');\n";
+        echo "\n       return OwlGenericDO::createDO( \$db, \$data, '$className');\n";
         echo "\n    }";
 
 	    // Método findByPKObject
@@ -472,7 +472,7 @@ class NingenDogen{
 	    echo "\n        \$where = implode(' AND ',\$where);";
         echo "\n        \$db->executeQuery(\"SELECT * FROM $tableName WHERE \$where\");";
 	    echo "\n        \$data = \$db->fetchRow();";
-        echo "\n        return NingenGenericDO::createDO( \$db, \$data, '$className');\n";
+        echo "\n        return OwlGenericDO::createDO( \$db, \$data, '$className');\n";
         echo "\n    }";
         
 	}
@@ -511,7 +511,7 @@ class NingenDogen{
 	    echo "\n        if( \$orderBy != '' ){";
 	    echo "\n            \$sql.=\" ORDER BY \$orderBy\";";
 	    echo "\n        }";
-	    echo "\n        return NingenGenericDO::createCollection( \$db, \$sql, '$className' );";
+	    echo "\n        return OwlGenericDO::createCollection( \$db, \$sql, '$className' );";
 	    echo "\n}";
 	    
 	}
@@ -537,7 +537,7 @@ class NingenDogen{
         echo "\n         if( \$orderBy != '' ){";
         echo "\n             \$sql .= \" ORDER BY \$orderBy\";";
         echo "\n         }";
-        echo "\n         return NingenGenericDO::createCollection( \$db, \$sql, '$className' );";
+        echo "\n         return OwlGenericDO::createCollection( \$db, \$sql, '$className' );";
         echo "\n    }";
         
 	}
@@ -582,7 +582,7 @@ class NingenDogen{
 	    echo "\n         if( \$orderBy != '' ){";
 	    echo "\n             \$sql .= \" ORDER BY \$orderBy\";";
 	    echo "\n         }";
-	    echo "\n         return NingenGenericDO::createCollection( \$db, \$sql, '$className' );";
+	    echo "\n         return OwlGenericDO::createCollection( \$db, \$sql, '$className' );";
 	    echo "\n     }";
 	    
     }

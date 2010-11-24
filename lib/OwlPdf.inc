@@ -1,15 +1,15 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuído bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Definición de clase para el tratado de formularios pdf, ha sido escrita siguiendo 
  * las recomendaciones de la especificación PDF 1.4 de Adobe. 
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es>
  * @version 0.5.3
@@ -17,10 +17,10 @@
  * 
  **/
 
-require_once 'NingenException.inc';
+require_once 'OwlException.inc';
 
 
-class NingenPdf{
+class OwlPdf{
     
     /**
      * Path del pdf a tratar
@@ -91,14 +91,14 @@ class NingenPdf{
     
     /**
      * Establece el path del archivo pdf a tratar
-     * @throws NingenException
+     * @throws OwlException
      * @param string $pdfPath
      */
     public function __construct($pdfPath){
         
         // Se verifica la existencia del archivo
         if (!file_exists($pdfPath)){
-            throw new NingenException('El archivo pdf seleccionado <strong>(' . $pdfPath . ')</strong> no existe, o no tiene permisos de lectura', 500);
+            throw new OwlException('El archivo pdf seleccionado <strong>(' . $pdfPath . ')</strong> no existe, o no tiene permisos de lectura', 500);
         }
         
         // Tipos de campos soportados
@@ -131,15 +131,15 @@ class NingenPdf{
     public function loadForEdit(){
         
         if (!is_writable($this->pdfPath)){
-            throw new NingenException('El pdf abierto para edición <strong>(' . $this->pdfPath . ')</strong> no tiene permisos de escritura.', 500);
+            throw new OwlException('El pdf abierto para edición <strong>(' . $this->pdfPath . ')</strong> no tiene permisos de escritura.', 500);
         }
         
         if (!$this->_content = file_get_contents($this->pdfPath, false)){
-            throw new NingenException('Ha ocurrido un error al abrir el archivo para edición: <strong>(' . $this->pdfPath . ')</strong>', 500);
+            throw new OwlException('Ha ocurrido un error al abrir el archivo para edición: <strong>(' . $this->pdfPath . ')</strong>', 500);
         }
         
         if (!$this->_checkIntegrity()){
-            throw new NingenException('El archivo <strong>(' . $this->pdfPath . ')</strong> no parece ser un PDF', 500);
+            throw new OwlException('El archivo <strong>(' . $this->pdfPath . ')</strong> no parece ser un PDF', 500);
         }
         
     }
@@ -147,7 +147,7 @@ class NingenPdf{
     
     /**
      * Verifíca si un tipo de campo está soportado
-     * @throws NingenException
+     * @throws OwlException
      * @param string $tipo
      */
     private function _isSupportedType($tipo){
@@ -163,7 +163,7 @@ class NingenPdf{
     public function addFieldValue($nombre, $valor, $tipo){
 
         if (!$this->_isSupportedType($tipo)){
-            throw new NingenException('El tipo de campo <strong>' . $tipo . '</strong>, no está soportado.', 500);
+            throw new OwlException('El tipo de campo <strong>' . $tipo . '</strong>, no está soportado.', 500);
         }
         
         $this->_fieldStack[$nombre] = array(
@@ -192,7 +192,7 @@ class NingenPdf{
     /**
      * Rellena el formulario pdf, con los campos almacenados en la pila
      * 
-     * @throws NingenException
+     * @throws OwlException
      * @return boolean
      */
     public function fillPdfForm(){
@@ -215,7 +215,7 @@ class NingenPdf{
             }
             
             if (!$correcto){
-                throw new NingenException('Ha ocurrido un error al efectuar reemplazos.', 500);
+                throw new OwlException('Ha ocurrido un error al efectuar reemplazos.', 500);
                 return false;
             }
             
@@ -292,12 +292,12 @@ class NingenPdf{
     public function writeFile($outputFullPath){
         
         if (!$this->__file = fopen($outputFullPath, 'w+')){
-            throw new NingenException('No se puede abrir/crear para escritura el archivo: <strong>' . $outputFullPath . '</strong>', 500);
+            throw new OwlException('No se puede abrir/crear para escritura el archivo: <strong>' . $outputFullPath . '</strong>', 500);
         }
         
         // fwrite me devolvera los bytes escritos o false en caso de error
         if (!$bytesEscritos = fwrite($this->__file, $this->_content)){
-            throw new NingenException('Ha ocurrido un error al escribir el archivo: <strong>' . $outputFullPath . '</strong>', 500);
+            throw new OwlException('Ha ocurrido un error al escribir el archivo: <strong>' . $outputFullPath . '</strong>', 500);
         }
         
         return $bytesEscritos;

@@ -1,5 +1,5 @@
 <?php
 
-require_once 'extranet/NingenUsuarioSesion.inc';
+require_once 'extranet/OwlUsuarioSesion.inc';
 
 ?>

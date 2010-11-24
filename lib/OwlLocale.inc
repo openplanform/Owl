@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  *
  * Clase que implementa el sistema de locale
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,7 +16,7 @@
  * 
  */
 
-class NingenLocaleManager{
+class OwlLocaleManager{
 
     /**
      * Iso del idioma actual
@@ -236,8 +236,8 @@ class NingenLocaleManager{
             return null;
         }
         
-        require_once 'helper/NingenArray.inc';
-        return NingenArrayHelper::createObjectFromArray($this->_localeArray);
+        require_once 'helper/OwlArray.inc';
+        return OwlArrayHelper::createObjectFromArray($this->_localeArray);
         
     }
     

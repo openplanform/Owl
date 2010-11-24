@@ -63,7 +63,7 @@ if [ -d "$OWL_TARGETDIR" ]; then
 	
 	cp $OWL_DIR"bin/extranet/resources/configs/application.ini" app/configs/
 	
-	cp $OWL_DIR"bin/framework/resources/NingenGlobals.php" app/configs/
+	cp $OWL_DIR"bin/framework/resources/OwlGlobals.php" app/configs/
 
 	cp $OWL_DIR"bin/extranet/resources/configs/SessionObjects.php" app/configs/
 	
@@ -84,7 +84,7 @@ if [ -d "$OWL_TARGETDIR" ]; then
 	
 	# Enlaces simbólicos necesarios
 	
-	ln -s $OWL_DIR ningencms
+	ln -s $OWL_DIR owlcms
 	
 	ln -s $OWL_DIR"share/captcha/images/" public/img/captcha
 	

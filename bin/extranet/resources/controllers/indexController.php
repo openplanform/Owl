@@ -1,16 +1,16 @@
 <?php
 
-require_once 'extranet/NingenExtranetController.inc';
-require_once 'helper/NingenString.inc';
-require_once 'NingenMailerTemplate.inc';
-require_once 'NingenMailer.inc';
+require_once 'extranet/OwlExtranetController.inc';
+require_once 'helper/OwlString.inc';
+require_once 'OwlMailerTemplate.inc';
+require_once 'OwlMailer.inc';
 
-class indexController extends NingenExtranetController{
+class indexController extends OwlExtranetController{
 	
 	
 	/**
 	 * Init
-	 * @see NingenController::initController()
+	 * @see OwlController::initController()
 	 */
 	public function initController(){
 		
@@ -32,7 +32,7 @@ class indexController extends NingenExtranetController{
 	
 	/**
 	 * Index
-	 * @see NingenController::indexAction()
+	 * @see OwlController::indexAction()
 	 */
 	public function indexAction(){
 		
@@ -47,10 +47,10 @@ class indexController extends NingenExtranetController{
 	public function loginAction(){
 	    
 	    // Se verifica si el usuario se encuentra ya logueado
-        $this->usuario = NingenCmsSession::getValue('usuario');
+        $this->usuario = OwlCmsSession::getValue('usuario');
         
         // De ser así lo redireccionamos a la página principal
-        if ($this->usuario instanceof NingenUsuarioSesion){
+        if ($this->usuario instanceof OwlUsuarioSesion){
             
             // Si el usuario no tiene una entidad asignada, obligamos a que complete sus datos.
             $claveUsuario = $this->usuario->getId();
@@ -87,7 +87,7 @@ class indexController extends NingenExtranetController{
     	        
     	    } else {
     	        
-                $this->usuario = NingenCmsSession::getValue('usuario');
+                $this->usuario = OwlCmsSession::getValue('usuario');
                 $claveUsuario = $this->usuario->getId();
                 $this->redirectTo('index', 'panel');
                 
@@ -131,26 +131,26 @@ class indexController extends NingenExtranetController{
     	    
 	        if ( !empty($usuarioDO) ){
 		        
-	        	$password = NingenString::generaPassword(10, false);
+	        	$password = OwlString::generaPassword(10, false);
 	        	
 		        // Se obtiene la configuración del mailer
-	            $appConfig = $GLOBALS['NINGEN_CMS']['app_config'];
-	            if (!$appConfig instanceof NingenApplicationConfig){
-	                throw new NingenException('No se ha obtenido la configuración del mailer. Error crítico.', 500);
+	            $appConfig = $GLOBALS['OWL']['app_config'];
+	            if (!$appConfig instanceof OwlApplicationConfig){
+	                throw new OwlException('No se ha obtenido la configuración del mailer. Error crítico.', 500);
 	            }
 	            
 	            // Template del mail
-	            $mt = new NingenMailerTemplate();
-	            $mt->setTemplate(NINGENCMS_LAYOUTDIR . 'recordatorioContrasena.txt');
+	            $mt = new OwlMailerTemplate();
+	            $mt->setTemplate(LAYOUTDIR . 'recordatorioContrasena.txt');
 	            $mt->addField('USUARIO', $usuario);
 	            $mt->addField('CONTRASENA', $password);
 	            
 	            // Mailer
 	            $mailerConfig = $appConfig->getMailerConfiguration();
-	            $mailer = new NingenMailer($mailerConfig);
+	            $mailer = new OwlMailer($mailerConfig);
 	            $mailer->addTo($email, $usuario);
-	            $mailer->setSubject('Ningen DMS - Cambio de contraseña');
-	            $mailer->setFrom('<noreply@ningen.es>', 'Ningen DMS');
+	            $mailer->setSubject('Owl - Cambio de contraseña');
+	            $mailer->setFrom('<noreply@ningen.es>', 'Owl');
 	            $mailer->setBody($mt->getContent());
 	            
 	            // Se envía el correo
@@ -199,7 +199,7 @@ class indexController extends NingenExtranetController{
 	    $this->setAlternateLayout('libre');
 	    
 	    // Tararí tararí...
-	    NingenCmsSession::setValue('usuario', null);
+	    OwlCmsSession::setValue('usuario', null);
 	    session_destroy();
 	    
 	    // Redirigimos al login nuevamente

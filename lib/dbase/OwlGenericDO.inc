@@ -1,7 +1,7 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
@@ -10,17 +10,17 @@
  * @category dslDoGen
  * @package dslDoGen
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
- * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a ningenCMS)
+ * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a Owl)
  * 
  * @version 0.6
  * @since 0.5
  * 
  **/
 
-require_once 'dbase/NingenConnection.inc';
+require_once 'dbase/OwlConnection.inc';
 
 
-class NingenGenericDO{
+class OwlGenericDO{
 
     /**
      * Conexión con la base de datos.
@@ -51,7 +51,7 @@ class NingenGenericDO{
         $elemsCOL = array();
         $db->executeQuery($sql);
         while( $row = $db->fetchRow() ){
-            $elemsCOL[] = NingenGenericDO::createDO( $db, $row, $className );
+            $elemsCOL[] = OwlGenericDO::createDO( $db, $row, $className );
         }
         return $elemsCOL;
         
@@ -62,7 +62,7 @@ class NingenGenericDO{
      * @param Connection $db
      * @param array $data
      * @param string $className
-     * @return NingenGenericDO
+     * @return OwlGenericDO
      */
     public function createDO( $db, $data, $className){
         
@@ -78,7 +78,7 @@ class NingenGenericDO{
      * @param Connection $db
      * @param string $sql
      * @param string $className
-     * @return NingenGenericDO
+     * @return OwlGenericDO
      */
     public function createFromQuery( $db, $sql, $className ){
         

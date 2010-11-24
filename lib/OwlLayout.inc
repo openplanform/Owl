@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Helper que implementa cualquier layout de una aplicacion MVC
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,10 +16,10 @@
  * 
  **/
 
-require_once 'NingenException.inc';
-require_once 'NingenCmsSession.inc';
+require_once 'OwlException.inc';
+require_once 'OwlSession.inc';
 
-class NingenLayout{
+class OwlLayout{
 	
 	/**
 	 * Modo de maquetación
@@ -91,14 +91,14 @@ class NingenLayout{
 	public function __construct($layoutName = null){
 
 		if(is_null($layoutName)){
-			throw new NingenException('No se ha indicado un nombre de layout');
+			throw new OwlException('No se ha indicado un nombre de layout');
 		}
 		
 		// Nombre del layout a utilizar
 		$this->layoutFile = trim($layoutName);
 		
 		if (!$this->layoutFileExists()){
-			throw new NingenException('El layout por defecto indicado no existe');
+			throw new OwlException('El layout por defecto indicado no existe');
 		} 
 		
 		// Se establecen los modos de maqetación
@@ -151,7 +151,7 @@ class NingenLayout{
 				$this->addSlot($moduleSlot);
 				$this->prepareContentForSlot($module->getModuleSlot(), $moduleContent);
 			} else {
-				throw new NingenException('Se ha procesado un módulo que no contiene slot designado.');
+				throw new OwlException('Se ha procesado un módulo que no contiene slot designado.');
 			}
 			
 			
@@ -169,7 +169,7 @@ class NingenLayout{
 	public function prepareContentForSlot($slotName, $content = ''){
 		
 		if (!array_key_exists($slotName, $this->_slotStack)){
-			throw new NingenException('El slot indicado: <strong>' . $slotName . '</strong> no exíste.');
+			throw new OwlException('El slot indicado: <strong>' . $slotName . '</strong> no exíste.');
 		}
 		
 		$this->_slotStack[$slotName] = $content;
@@ -184,7 +184,7 @@ class NingenLayout{
 	public function setModoMaquetacion($modo){
 		
 		if (!in_array($modo, $this->modes)){
-			throw new NingenException('El modo ' . $modo . ' no es un modo de maquetación válido. Modos válidos: ' . implode(',', $this->modes) . '.');
+			throw new OwlException('El modo ' . $modo . ' no es un modo de maquetación válido. Modos válidos: ' . implode(',', $this->modes) . '.');
 		}
 		
 		$this->mode = $modo;
@@ -219,7 +219,7 @@ class NingenLayout{
 	protected function layoutFileExists(){
 		
 		// Se contruye el path
-		$layoutPath = NINGENCMS_LAYOUTDIR . $this->layoutFile . '.phtml';
+		$layoutPath = LAYOUTDIR . $this->layoutFile . '.phtml';
 		
 		if (file_exists($layoutPath)){
 			$this->layoutPath = $layoutPath;
@@ -361,11 +361,11 @@ class NingenLayout{
 	 */
 	public function echoPageTitle(){
 	    
-        $appConfig = $GLOBALS['NINGEN_CMS']['app_config'];
+        $appConfig = $GLOBALS['OWL']['app_config'];
         $baseTitle = '';
         
         // Fallo grave, no se ha obtenido la configuración
-        if ($appConfig instanceof NingenApplicationConfig){
+        if ($appConfig instanceof OwlApplicationConfig){
 		
             $baseTitle = $appConfig->getBaseTitle();
     		
@@ -390,10 +390,10 @@ class NingenLayout{
 	 */
 	public function echoDescriptionAndKeywords(){
 		
-		$appConfig = $GLOBALS['NINGEN_CMS']['app_config'];
+		$appConfig = $GLOBALS['OWL']['app_config'];
 		
 		// Fallo grave, no se ha obtenido la configuración
-		if ($appConfig instanceof NingenApplicationConfig){
+		if ($appConfig instanceof OwlApplicationConfig){
 			
 			$description = $appConfig->getApplicationDescription();
 			$keywords = $appConfig->getApplicationKeywords();
@@ -432,9 +432,9 @@ class NingenLayout{
 	 */
 	private function _getApplicationConfig(){
 	    
-	    if (array_key_exists('NINGEN_CMS', $GLOBALS) && array_key_exists('app_config', $GLOBALS['NINGEN_CMS']) && $GLOBALS['NINGEN_CMS']['app_config'] instanceof NingenApplicationConfig){
+	    if (array_key_exists('OWL', $GLOBALS) && array_key_exists('app_config', $GLOBALS['OWL']) && $GLOBALS['OWL']['app_config'] instanceof OwlApplicationConfig){
 	        
-	        return $GLOBALS['NINGEN_CMS']['app_config'];
+	        return $GLOBALS['OWL']['app_config'];
 	         
 	    }
 	    

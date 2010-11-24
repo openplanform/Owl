@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  *
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  *
  * Clase que implementa el sistema de templates de mail.
  *
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Aaron Amengual Arranz <aaron@ningen.es>, Nicolás Daniel Palumbo <nico@ningen.es>
  * @version 0.5
@@ -16,10 +16,10 @@
  *
  */
 
-require_once 'NingenException.inc';
+require_once 'OwlException.inc';
 
 
-class NingenMailerTemplate{
+class OwlMailerTemplate{
 
     /**
      * Path al template
@@ -60,7 +60,7 @@ class NingenMailerTemplate{
     public function setTemplate($templatePath){
 
         if (!file_exists($templatePath)){
-            throw new NingenException('El template de mail: ' . $templatePath . ' no existe', 500);
+            throw new OwlException('El template de mail: ' . $templatePath . ' no existe', 500);
         }
 
         /**
@@ -102,7 +102,7 @@ class NingenMailerTemplate{
 
         // Leemos el archivo de template
         if (!$this->_templateFile = file_get_contents($this->_templatePath)){
-            throw new NingenException('No ha sido posible leer el archivo de template mail: ' . $this->_templatePath, 500);
+            throw new OwlException('No ha sido posible leer el archivo de template mail: ' . $this->_templatePath, 500);
         }
 
         // Parsearemos los campos a cambiar

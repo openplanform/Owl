@@ -1,7 +1,7 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
@@ -10,17 +10,17 @@
  * @category dslDoGen
  * @package dslDoGen
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
- * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a ningenCMS)
+ * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a owl)
  * 
  * @version 0.6
  * @since 0.5
  * 
  **/
 
-require_once 'dbase/NingenDatabaseMetaData.inc';
+require_once 'dbase/OwlDatabaseMetaData.inc';
 
 
-class NingenConnection{
+class OwlConnection{
     
 	/**
 	 * Enlace de connexion a la base de datos
@@ -49,7 +49,7 @@ class NingenConnection{
 		$this->_link = mysql_connect( $config['host'], $config['username'], $config['password'] );
 		
 		if (!$this->_link ) {
-    		throw new NingenException('No se ha podido conectar con la base de datos: '.mysql_error(), 500);
+    		throw new OwlException('No se ha podido conectar con la base de datos: '.mysql_error(), 500);
 		}
 		if( $config['dbname'] != '' ){
             mysql_select_db( $config['dbname'], $this->_link);
@@ -190,7 +190,7 @@ class NingenConnection{
 	 * @return DatabaseMetaData
 	 */
 	public function getDatabaseMetaData(){
-	    return new NingenDatabaseMetaData( $this );
+	    return new OwlDatabaseMetaData( $this );
 	}
 
 	/**

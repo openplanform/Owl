@@ -1,7 +1,7 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
@@ -10,17 +10,17 @@
  * @category dslDoGen
  * @package dslDoGen
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
- * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a ningenCMS)
+ * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a Owl)
  * 
  * @version 0.6
  * @since 0.5
  * 
  **/
 
-require_once 'dbase/NingenConnection.inc';
+require_once 'dbase/OwlConnection.inc';
 
 
-class NingenDatabaseMetaData{
+class OwlDatabaseMetaData{
 
     /**
      * Objeto de conexión con la base de datos.

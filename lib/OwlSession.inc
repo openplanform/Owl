@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
- * Clase para el manejo de sessiones NingenCMS
+ * Clase para el manejo de sessiones Owl
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,9 +16,9 @@
  * 
  */
 
-require_once NINGENCMS_CONFIGDIR . 'SessionObjects.php';
+require_once CONFIGDIR . 'SessionObjects.php';
 
-class NingenCmsSession{
+class OwlCmsSession{
 	
 	
 	/**
@@ -29,9 +29,9 @@ class NingenCmsSession{
 	 */
 	public static function getValue( $valueName ){
 		
-		if (array_key_exists($valueName, $_SESSION['NINGEN_CMS'])){
+		if (array_key_exists($valueName, $_SESSION['OWL'])){
 			
-			return $_SESSION['NINGEN_CMS'][$valueName];
+			return $_SESSION['OWL'][$valueName];
 			
 		}
 		
@@ -47,7 +47,7 @@ class NingenCmsSession{
 	 */
 	public static function setValue( $valueName, $valueData){
 		
-		$_SESSION['NINGEN_CMS'][$valueName] = $valueData;
+		$_SESSION['OWL'][$valueName] = $valueData;
 		
 	}
 	
@@ -68,8 +68,8 @@ class NingenCmsSession{
 	    
     	session_start();
     	
-        if (!array_key_exists('NINGEN_CMS', $_SESSION)){
-            $_SESSION['NINGEN_CMS'] = array();
+        if (!array_key_exists('OWL', $_SESSION)){
+            $_SESSION['OWL'] = array();
         }	    
 	    
 	}
@@ -80,8 +80,8 @@ class NingenCmsSession{
 	 */
 	public static function destroyValue($clave){
 	    
-	   if (array_key_exists('NINGEN_CMS', $_SESSION) && array_key_exists($clave, $_SESSION['NINGEN_CMS'])){
-            unset($_SESSION['NINGEN_CMS'][$clave]);
+	   if (array_key_exists('OWL', $_SESSION) && array_key_exists($clave, $_SESSION['OWL'])){
+            unset($_SESSION['OWL'][$clave]);
         }
 	    
 	}

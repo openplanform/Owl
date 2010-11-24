@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
- * Clase que deberá implementar cualquier módulo compatible con NingenApplication
+ * Clase que deberá implementar cualquier módulo compatible con OwlApplication
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,7 +16,7 @@
  * 
  */
 
-class NingenModule{
+class OwlModule{
 	
 	/**
 	 * Nombre del slot donde debe 
@@ -59,13 +59,13 @@ class NingenModule{
 	
 	/**
 	 * Devuelve la configuración de la aplicación
-	 * @return NingenApplicationConfig
+	 * @return OwlApplicationConfig
 	 */
 	protected function getApplicationConfig(){
 		
-		$applicationConfig = $GLOBALS['NINGEN_CMS']['app_config'];
+		$applicationConfig = $GLOBALS['OWL']['app_config'];
 		
-		if ($applicationConfig instanceof NingenApplicationConfig){
+		if ($applicationConfig instanceof OwlApplicationConfig){
 			return $applicationConfig;
 		}
 		

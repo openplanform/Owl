@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  *
  * Clase con funciones de abstracción para envio de mails
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -19,9 +19,9 @@
 require_once ZEND_FRAMEWORK . 'Mail.php';
 require_once ZEND_FRAMEWORK . 'Mail/Transport/Smtp.php';
 
-require_once 'NingenException.inc';
+require_once 'OwlException.inc';
 
-class NingenMailer{
+class OwlMailer{
 	
 	/**
 	 * Servidor SMTP
@@ -126,12 +126,12 @@ class NingenMailer{
 	 * Verifica la configuración del mailer y la popula
 	 * de acuerdo al modo del objeto
 	 * @param array $mailerConfiguration
-	 * @throws NingenException
+	 * @throws OwlException
 	 */
 	private function _processConfiguration( $mailerConfiguration ){
 		
 		if (is_null($mailerConfiguration)){
-			throw new NingenException('No hay ningún mailer configurado', 500);
+			throw new OwlException('No hay ningún mailer configurado', 500);
 		}
 
 		// Antes que nada se verificará el tipo de servidor y el modo de funcionamiento del mailer
@@ -146,15 +146,15 @@ class NingenMailer{
 			
 			foreach ($requiredKeys as $key){
 				if (!array_key_exists($key, $mailerConfiguration)){
-					throw new NingenException('NingenMailer: la clave ' . $key . ' debe ser configurada', 500);
+					throw new OwlException('OwlMailer: la clave ' . $key . ' debe ser configurada', 500);
 				}
 			}
 
 			//Mailer
-			$this->_ZendMailer = new Zend_Mail(NINGENCMS_APPENCODING);
+			$this->_ZendMailer = new Zend_Mail(APPENCODING);
 			
 			//Generator
-			$this->_ZendMailer->addHeader('X-MailGenerator', 'Ningen Mailer 1.0');
+			$this->_ZendMailer->addHeader('X-MailGenerator', 'Owl Mailer 1.0');
 			
 			//Header encoding
 			$this->_ZendMailer->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
@@ -172,7 +172,7 @@ class NingenMailer{
 
 			foreach ($requiredKeys as $key){
 				if (!array_key_exists($key, $mailerConfiguration)){
-					throw new NingenException('NingenMailer: la clave ' . $key . ' debe ser configurada', 500);
+					throw new OwlException('OwlMailer: la clave ' . $key . ' debe ser configurada', 500);
 				}
 			}
 			
@@ -213,7 +213,7 @@ class NingenMailer{
 		$allowedModes = array('plain', 'html');
 		
 		if (!in_array($mode, $allowedModes)){
-			throw new NingenException('NingenMailer: ' . $mode . ' no es modo válido', 500);
+			throw new OwlException('OwlMailer: ' . $mode . ' no es modo válido', 500);
 		} else {
 			$this->_mode = $mode;
 		}
@@ -229,7 +229,7 @@ class NingenMailer{
 		$allowedTypes = array('mail', 'smtp');
 		
 		if (!in_array($type, $allowedTypes)){
-			throw new NingenException('NingenMailer: ' . $type . ' no es un tipo de servidor válido', 500);
+			throw new OwlException('OwlMailer: ' . $type . ' no es un tipo de servidor válido', 500);
 		} else {
 			$this->_serverType = $type;
 		}
@@ -291,7 +291,7 @@ class NingenMailer{
 	public function send(){
 
 		if (is_null($this->_body)){
-			throw new Exception('NingenMailer: nada para enviar');
+			throw new Exception('OwlMailer: nada para enviar');
 		}		
 		
 		switch ($this->_serverType){

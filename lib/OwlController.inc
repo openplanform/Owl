@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Controlador genérico, todos los controladores deben heredar de esta clase
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,22 +16,22 @@
  * 
  **/
 
-require_once 'NingenException.inc';
-require_once 'dbase/NingenConnection.inc';
-require_once 'helper/NingenControllerHelper.inc';
+require_once 'OwlException.inc';
+require_once 'dbase/OwlConnection.inc';
+require_once 'helper/OwlControllerHelper.inc';
 
 
-class NingenController{
+class OwlController{
 	
 	/**
 	 * Layout asignado al controlador
-	 * @var NingenLayout
+	 * @var OwlLayout
 	 */
 	protected $layout = null;
 	
 	/**
 	 * Vista asignada al controlador
-	 * @var NingenView
+	 * @var OwlView
 	 */
 	protected $view = null;
 	
@@ -62,7 +62,7 @@ class NingenController{
 	/**
 	 * Objeto de referencia a la conexion
 	 * de base de datos
-	 * @var NingenConnection
+	 * @var OwlConnection
 	 */
 	protected $db;
 	
@@ -74,7 +74,7 @@ class NingenController{
 	
 	/**
 	 * Helper para controladores
-	 * @var NingenControllerHelper
+	 * @var OwlControllerHelper
 	 */
 	protected $helper;
 
@@ -98,7 +98,7 @@ class NingenController{
     
     /**
      * Objeto de sesión de usuario
-     * @var NingenUsuarioSesion
+     * @var OwlUsuarioSesion
      */
     protected $usuario;
     
@@ -119,7 +119,7 @@ class NingenController{
         $this->_initDatabase();
 	    
 	    // Helper para controladores
-	    $this->helper = new NingenControllerHelper();
+	    $this->helper = new OwlControllerHelper();
 	    
 	}
 	
@@ -161,10 +161,10 @@ class NingenController{
 	private function _initDatabase(){
 	    
 	    // Se intentará obtener la configuración de la aplicación
-        if (array_key_exists('app_config', $GLOBALS['NINGEN_CMS']) && $GLOBALS['NINGEN_CMS']['app_config'] instanceof NingenApplicationConfig){
+        if (array_key_exists('app_config', $GLOBALS['OWL']) && $GLOBALS['OWL']['app_config'] instanceof OwlApplicationConfig){
 
             // Verificaremos si hay configurada una conexión a base de datos
-            $appConfig = $GLOBALS['NINGEN_CMS']['app_config'];
+            $appConfig = $GLOBALS['OWL']['app_config'];
             $dbaseConfig = $appConfig->getDatabaseConfiguration();
             
             if (is_null($dbaseConfig)){
@@ -172,7 +172,7 @@ class NingenController{
             }
             
             // Finalmente se realiza la conexión
-            $this->db = new NingenConnection($dbaseConfig);
+            $this->db = new OwlConnection($dbaseConfig);
             
         }
         
@@ -181,12 +181,12 @@ class NingenController{
 	/**
 	 * Agrega un modulo a la pila, este método siempre debe llamarse antes del dispatch
 	 * de lo contrario arrojará la correspondiente excepcion
-	 * @param NingenModule $modulo
+	 * @param OwlModule $modulo
 	 * @return void
 	 */
 	final protected function addModule($modulo){
 		
-		if ($modulo instanceof NingenModule){
+		if ($modulo instanceof OwlModule){
 			
 			// Se identifica la instancia actual
 			$modulo->setAction($this->actionName);
@@ -208,7 +208,7 @@ class NingenController{
 	 */
 	public function indexAction(){
 		
-		throw new  NingenException('La acción index debe ser sobreescrita');
+		throw new  OwlException('La acción index debe ser sobreescrita');
 		
 	}
 	
@@ -256,7 +256,7 @@ class NingenController{
 		}
 	    
 	    // Si hay base de datos activa, se propaga el log sql
-	    if ($this->db instanceof NingenConnection){
+	    if ($this->db instanceof OwlConnection){
 	        $GLOBALS['dbLog'] = $this->db->getLogHTML();
 	    }
 		
@@ -286,7 +286,7 @@ class NingenController{
          */
         if (!is_null($this->alternateLayout)){
             
-            $this->layout = new NingenLayout($this->alternateLayout);
+            $this->layout = new OwlLayout($this->alternateLayout);
             
         }		
 		

@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase que implementa la vista de una aplicación MVC
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,7 +16,7 @@
  * 
  **/
 
-class NingenView{
+class OwlView{
 	
 	/**
 	 * Nombre del controlador
@@ -75,7 +75,7 @@ class NingenView{
 		$this->generateViewPath();
 		
 		/*if (!$this->viewExist()){
-			throw new NingenException('No se ha encontrado la vista para la acción <strong>' . $this->actionName . '</strong> en el controlador <strong>' . $this->controllerName . '</strong>');
+			throw new OwlException('No se ha encontrado la vista para la acción <strong>' . $this->actionName . '</strong> en el controlador <strong>' . $this->controllerName . '</strong>');
 		}*/
 		
 	}
@@ -87,7 +87,7 @@ class NingenView{
 	 */
 	private function generateViewPath(){
 		
-		$viewPath = NINGENCMS_VIEWDIR . $this->controllerName . '/' . $this->actionName . '.phtml';
+		$viewPath = VIEWDIR . $this->controllerName . '/' . $this->actionName . '.phtml';
 		
 		if (file_exists($viewPath)){
 			$this->_viewPath = $viewPath;

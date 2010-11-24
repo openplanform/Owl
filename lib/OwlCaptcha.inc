@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Controlador genérico, todos los controladores deben heredar de esta clase
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,10 +16,10 @@
  * 
  **/
 
-require_once 'container/NingenImage.inc';
+require_once 'container/OwlImage.inc';
 
 
-class NingenCaptcha{
+class OwlCaptcha{
 
     /**
      * Palabra a generar

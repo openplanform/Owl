@@ -16,10 +16,10 @@
  * 
  **/
 
-require_once 'NingenException.inc';
+require_once 'OwlException.inc';
 
 
-class NingenApplicationConfig{
+class OwlApplicationConfig{
 	
 	/**
 	 * Objeto de configuración
@@ -104,7 +104,7 @@ class NingenApplicationConfig{
 		
 		// Se verifica el objeto
 		if (!$configData instanceof Zend_Config_Ini){
-			throw new NingenException('La información de configuración no es válida.');
+			throw new OwlException('La información de configuración no es válida.');
 		}
 		
 		// Se almacena
@@ -128,7 +128,7 @@ class NingenApplicationConfig{
 		$systemConfig = $this->_configData->system;
 		
 		if (!$systemConfig instanceof Zend_Config){
-			throw new NingenException('No ha sido podible obtener la configuración del sistema. No se puede continuar.');
+			throw new OwlException('No ha sido podible obtener la configuración del sistema. No se puede continuar.');
 		} else {
 			$this->_systemConfig = $systemConfig;
 		}

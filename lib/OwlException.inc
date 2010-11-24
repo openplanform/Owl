@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase extendida de exception que puede ser utilizada por xinax-debug
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,11 +16,11 @@
  * 
  */
 
-require_once 'helper/NingenCmsHtmlHelper.inc';
-require_once 'NingenServerResponses.inc';
+require_once 'helper/OwlHtmlHelper.inc';
+require_once 'OwlServerResponses.inc';
 
 
-class NingenException extends Exception{
+class OwlException extends Exception{
 	
 	/**
 	 * Prepara el mensaje de debug
@@ -28,7 +28,7 @@ class NingenException extends Exception{
 	 */
 	public function getDebugMessage(){
 		
-		return NingenCmsHtmlHelper::getHtmlExceptionDebug($this->getFormatedMessage($this->getMessage()), $this->getTrace(), $this->getLine(), $this->getFile());
+		return OwlCmsHtmlHelper::getHtmlExceptionDebug($this->getFormatedMessage($this->getMessage()), $this->getTrace(), $this->getLine(), $this->getFile());
 		
 	}
 	
@@ -38,7 +38,7 @@ class NingenException extends Exception{
 	 */
 	public function echoCmsMessage(){
 		
-		$response = new NingenServerResponses(500, $this->getDebugMessage());
+		$response = new OwlServerResponses(500, $this->getDebugMessage());
 		$response->sendResponse();
 		
 	}

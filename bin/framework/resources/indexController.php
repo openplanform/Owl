@@ -1,14 +1,14 @@
 <?php
 
-require_once 'NingenController.inc';
-require_once 'helper/NingenCmsHtmlHelper.inc';
+require_once 'OwlController.inc';
+require_once 'helper/OwlCmsHtmlHelper.inc';
 
-class indexController extends NingenController{
+class indexController extends OwlController{
 	
 	public function indexAction(){
 		
 		// Eliminar esta linea, presentación del CMS
-		echo NingenCmsHtmlHelper::getHtmlInstallPage();
+		echo OwlCmsHtmlHelper::getHtmlInstallPage();
 		
 	}	
 	
