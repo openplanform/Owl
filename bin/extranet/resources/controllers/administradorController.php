@@ -1,14 +1,14 @@
 <?php
 
-require 'extranet/NingenExtranetController.inc';
-require_once 'NingenPaginator.inc';
+require 'extranet/OwlExtranetController.inc';
+require_once 'OwlPaginator.inc';
 
-require_once NINGENCMS_MODELDIR . 'TblRol.inc';
-require_once NINGENCMS_MODELDIR . 'TblAcceso.inc';
-require_once NINGENCMS_MODELDIR . 'TblAccesoExtendido.inc';
+require_once MODELDIR . 'TblRol.inc';
+require_once MODELDIR . 'TblAcceso.inc';
+require_once MODELDIR . 'TblAccesoExtendido.inc';
 
 
-class administradorController extends NingenExtranetController{
+class administradorController extends OwlExtranetController{
            
     /**
      * Colección de accesos 
@@ -133,7 +133,7 @@ class administradorController extends NingenExtranetController{
         
         
         // Se inicia el paginador y se obtienen los datos
-        $paginador = new NingenPaginator($this->db, '', 'tblRol', $this->helper);
+        $paginador = new OwlPaginator($this->db, '', 'tblRol', $this->helper);
         $paginador->setPaginaActual(1);
         $paginador->setItemsPorPagina(10);
         $paginador->setOrderBy($orderBy);
@@ -146,7 +146,7 @@ class administradorController extends NingenExtranetController{
         $this->view->orderBy = $aliasOrderBy;
         
         // Solo el administrador podrá eliminar roles
-        $this->view->editar = $this->aclManager->getRolMasRelevanteUsuario($this->usuario->getId()) == NingenAclManager::ROL_ADMINISTRADOR;
+        $this->view->editar = $this->aclManager->getRolMasRelevanteUsuario($this->usuario->getId()) == OwlAclManager::ROL_ADMINISTRADOR;
 
     }
        

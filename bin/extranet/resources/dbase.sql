@@ -83,18 +83,20 @@ INSERT INTO `tblRol` (idRol,vNombre,vDescripcion) VALUES (2,'Usuario','Usuario d
 -- ROL USUARIO
 INSERT INTO `trelRolUsuario` (fkUsuario,fkRol) VALUES (1,1);
 
--- ACCESO
+-- ACCESOS
 INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (1,0,'Usuarios',1,0,'usuario',NULL,NULL);
 INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (2,1,'Alta',1,0,'usuario','alta','1');
 INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (3,1,'Listado',1,1,'usuario','index','1');
 INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (4,1,'_Buscar',1,2,'usuario','buscar','1');
 INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (5,1,'Editar',0,3,'usuario','editar','1');
+INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (6,1,'Ficha',0,4,'usuario','ficha','1');
+INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (7,1,'Eliminar',0,5,'usuario','eliminar','1');
 
-INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (6,0,'Administración',1,1,'administrador',NULL,NULL);
-INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (7,6,'Menú',1,0,'administrador','menu','1');
-INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (8,6,'Roles',1,1,'administrador','roles','1');
-INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (9,6,'Configuración',1,2,'administrador','configuracion','1');
-INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (10,6,'Panel',0,3,'index','panel','1,2');
+INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (8,0,'Administración',1,1,'administrador',NULL,NULL);
+INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (9,8,'Menú',1,0,'administrador','menu','1');
+INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (10,8,'Roles',1,1,'administrador','roles','1');
+INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (11,8,'Configuración',1,2,'administrador','configuracion','1');
+INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (12,8,'Panel',0,3,'index','panel','1,2');
 
 
 SET FOREIGN_KEY_CHECKS = 1;

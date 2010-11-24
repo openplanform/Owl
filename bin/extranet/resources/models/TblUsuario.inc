@@ -1,15 +1,15 @@
 <?php
 /**
- * Este archivo ha sido generado con Ningen DoGen v.0.6
- * el 10 de November de 2010 a las 17:27:58
+ * Este archivo ha sido generado con Owl DoGen v.0.6
+ * el 24 de November de 2010 a las 11:01:32
  * @package dataAccess
  */
 
 /**
  * Archivos requeridos.
  */
-require_once( 'dbase/NingenConnection.inc');
-require_once( 'dbase/NingenGenericDO.inc');
+require_once( 'dbase/OwlConnection.inc');
+require_once( 'dbase/OwlGenericDO.inc');
 require_once( 'TblUsuarioSearch.inc' );
 require_once( 'TblUsuarioPK.inc' );
 
@@ -18,7 +18,7 @@ require_once( 'TblUsuarioPK.inc' );
  *
  * @package dataAccess
  */
-class TblUsuario extends NingenGenericDO{
+class TblUsuario extends OwlGenericDO{
 
     /**
      * Atributo que representa el campo "idUsuario"
@@ -105,7 +105,7 @@ class TblUsuario extends NingenGenericDO{
         if( $orderBy != '' ){
             $sql.=" ORDER BY $orderBy";
         }
-        return NingenGenericDO::createCollection( $db, $sql, 'TblUsuario' );
+        return OwlGenericDO::createCollection( $db, $sql, 'TblUsuario' );
 }
 
     /**
@@ -120,7 +120,7 @@ class TblUsuario extends NingenGenericDO{
          if( $orderBy != '' ){
              $sql .= " ORDER BY $orderBy";
          }
-         return NingenGenericDO::createCollection( $db, $sql, 'TblUsuario' );
+         return OwlGenericDO::createCollection( $db, $sql, 'TblUsuario' );
     }
 
     /**
@@ -134,7 +134,7 @@ class TblUsuario extends NingenGenericDO{
 
        $db->executeQuery("SELECT * FROM tblUsuario WHERE idUsuario = '$idUsuario'");
        $data = $db->fetchRow();
-       return NingenGenericDO::createDO( $db, $data, 'TblUsuario');
+       return OwlGenericDO::createDO( $db, $data, 'TblUsuario');
 
     }
 
@@ -152,7 +152,7 @@ class TblUsuario extends NingenGenericDO{
         $where = implode(' AND ',$where);
         $db->executeQuery("SELECT * FROM tblUsuario WHERE $where");
         $data = $db->fetchRow();
-        return NingenGenericDO::createDO( $db, $data, 'TblUsuario');
+        return OwlGenericDO::createDO( $db, $data, 'TblUsuario');
 
     }
 
@@ -266,19 +266,6 @@ class TblUsuario extends NingenGenericDO{
     public function setVEmail( $value ){
 
         $this->vEmail = $value;
-
-    }
-
-    /**
-     * Obtiene todos los elementos relacionados de la tabla 'tblEntidad'
-     *
-     * @param Connection $db Conexión con la base de datos.
-     * @param string $orderBy Cadena con los campos de ordenación separados por comas.
-     */
-    public function getTblEntidads( $orderBy='' ){
-
-        include_once('TblEntidad.inc');
-        return TblEntidad::findByTblUsuario( $this->_db, $this->idUsuario, $orderBy );
 
     }
 
