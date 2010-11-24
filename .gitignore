@@ -1,0 +1,5 @@
+share/captcha/images/*
+extlib/Zend/
+.project
+.settings/
+
