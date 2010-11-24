@@ -1,9 +1,9 @@
 <?php
 
-require_once 'NingenController.inc';
+require_once 'OwlController.inc';
 
-require_once 'extranet/NingenExtranetController.inc';
-require_once 'extranet/NingenAclManager.inc';
+require_once 'extranet/OwlExtranetController.inc';
+require_once 'extranet/OwlAclManager.inc';
 
 require_once 'extranet/modulos/menuPrincipalModule.php';
 require_once 'extranet/modulos/logoutModule.php';
@@ -12,11 +12,11 @@ require_once 'extranet/modulos/barraHerramientasModule.php';
 require_once 'extranet/modulos/breadcrumbsModule.php';
 
 
-class NingenExtranetController extends NingenController{
+class OwlExtranetController extends OwlController{
 	
 	/**
      * Manejador de listas de acceso
-     * @var NingenAclManager
+     * @var OwlAclManager
      */
     protected $aclManager;
 	
@@ -28,13 +28,13 @@ class NingenExtranetController extends NingenController{
         parent::__construct();
         
         // Se instancia el AclManager
-        $this->aclManager = new NingenAclManager($this->db);
+        $this->aclManager = new OwlAclManager($this->db);
         
     }
     
 	/**
      * Se instancian los módulos mas significativos de la aplicacion
-     * @see extranet.planespime.es/ningencms/lib/NingenController::initController()
+     * @see extranet.planespime.es/owl/lib/OwlController::initController()
      */
     public function initController(){
         
@@ -44,9 +44,9 @@ class NingenExtranetController extends NingenController{
          */
         if ($this->controllerName != 'index' || ($this->controllerName == 'index' && $this->actionName == 'panel' )){
             
-        	$usuarioBO = NingenCmsSession::getValue('usuario');
+        	$usuarioBO = OwlSession::getValue('usuario');
         	
-            if (!$usuarioBO instanceof NingenUsuarioSesion){
+            if (!$usuarioBO instanceof OwlUsuarioSesion){
                 $this->redirectTo('index', 'login');
                 return;
             }
@@ -63,7 +63,7 @@ class NingenExtranetController extends NingenController{
 	    if (!$this->aclManager->hasPerms($this->controllerName, $this->actionName)){
 	    	
 	    	$this->stopExecution();
-	    	echo NingenCmsHtmlHelper::getHtmlErrorPage('Forbidden', 403, 'Acceso no autorizado', '<p>No dispone de los privilegios necesarios para acceder a este área.</p>');
+	    	echo OwlHtmlHelper::getHtmlErrorPage('Forbidden', 403, 'Acceso no autorizado', '<p>No dispone de los privilegios necesarios para acceder a este área.</p>');
 	    	
 	    	return;
 	    }        

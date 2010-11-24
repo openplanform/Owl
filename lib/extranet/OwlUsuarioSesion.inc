@@ -1,20 +1,20 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase contenedora de datos para usuarios
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @version 0.5
  * @since 0.5
  * 
  **/
-class NingenUsuarioSesion{
+class OwlUsuarioSesion{
 
     /**
      * Nombre de usuario

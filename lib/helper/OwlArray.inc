@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase estática con métodos de utilidad para el tratamiento de arrays
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,7 +16,7 @@
  * 
  */
 
-class NingenArray{
+class OwlArray{
     
     /**
      * Castea un array a objeto, si se trata de un array

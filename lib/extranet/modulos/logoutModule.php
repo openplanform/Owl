@@ -1,8 +1,8 @@
 <?php
 
-require_once 'NingenModule.inc';
+require_once 'OwlModule.inc';
 
-class logoutModule extends NingenModule{
+class logoutModule extends OwlModule{
     
     /**
      * Referencia al objeto de usuario en la sesión
@@ -26,7 +26,7 @@ class logoutModule extends NingenModule{
      * Establece el gestor de listas de acceso
      * @param PplAclManager $acls
      */
-    public function setAcl(NingenAclManager $acl){
+    public function setAcl(OwlAclManager $acl){
         $this->acl = $acl;
     }
     
@@ -34,13 +34,13 @@ class logoutModule extends NingenModule{
      * Establece el objeto de usuario actual
      * @param PplUsuarioSesion $usuario
      */
-    public function setUsuario(NingenUsuarioSesion $usuario){
+    public function setUsuario(OwlUsuarioSesion $usuario){
         $this->usuario = $usuario;
     }
     
     /**
      * Request
-     * @see extranet.planespime.es/ningencms/lib/NingenModule::requestModule()
+     * @see extranet.planespime.es/owl/lib/OwlModule::requestModule()
      */
     public function requestModule(){
         
@@ -50,7 +50,7 @@ class logoutModule extends NingenModule{
     
     /**
      * Run
-     * @see extranet.planespime.es/ningencms/lib/NingenModule::runModule()
+     * @see extranet.planespime.es/owl/lib/OwlModule::runModule()
      */
     public function runModule(){
         

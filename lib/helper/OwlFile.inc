@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase con funciones de utilidad para el manejo de archivos  
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Daniel Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,7 +16,7 @@
  * 
  */
 
-class NingenFile{
+class OwlFile{
     
     /**
      * Mimetypes conocidos

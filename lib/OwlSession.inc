@@ -18,7 +18,7 @@
 
 require_once CONFIGDIR . 'SessionObjects.php';
 
-class OwlCmsSession{
+class OwlSession{
 	
 	
 	/**

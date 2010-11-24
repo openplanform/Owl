@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase de utilidad para imprimir información localizada genérica
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,7 +16,7 @@
  * 
  */
 
-class NingenLanguage{
+class OwlLanguage{
 	
 	/**
 	 * Iso con el idioma actual

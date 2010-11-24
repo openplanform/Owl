@@ -1,15 +1,15 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase estática con métodos de utilidad para pequeñas presentaciones en código html.
  * Mas conocida como la "dirty class"...
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -17,7 +17,7 @@
  * 
  */
 
-class NingenCmsHtmlHelper{
+class OwlHtmlHelper{
 	
 	/**
 	 * Devuelve el codigo html para mostrar la información de debug de una excepcion
@@ -205,7 +205,7 @@ class NingenCmsHtmlHelper{
 		
 		?><html xmlns="http://www.w3.org/1999/xhtml">
 			<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-				<title>Instalación de ningenCMS</title>
+				<title>Instalación de OWL</title>
 				<style type="text/css">
 					*, html, body{
 						margin: 0; 
@@ -269,7 +269,7 @@ class NingenCmsHtmlHelper{
 				<h1>Correcto</h1>
 			</div>
 			
-			<h2>La instalación de ningenCMS ha concluído con éxito </h2>
+			<h2>La instalación de OWL ha concluído con éxito </h2>
 			
 			<p>Para más información revisar el directorio <strong>doc/</strong> de la librería.</p>
 			

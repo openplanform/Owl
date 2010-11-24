@@ -92,7 +92,7 @@ class OwlApplication{
 	private function _setErrorLevel(){
 	
 		// Control de errores
-		if (OWL_DEV){
+		if (DEVELOPMENT){
 			error_reporting(E_ALL);
 		} else {
 			error_reporting(!E_ALL);
@@ -108,7 +108,7 @@ class OwlApplication{
 		
 		
 		// Se verifica desarrollo - producción
-		$configSection = OWL_DEV ? 'develop' : 'production';
+		$configSection = DEVELOPMENT ? 'develop' : 'production';
 		
 		// Opciones del config manager
 		$opcionesConfigManager = array(

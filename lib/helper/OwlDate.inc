@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Clase estática con funciones de utilidad para el manejo de fechas  
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Aaron Amengual Arranz <aaron@ningen.es>, Nicolás Daniel Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,10 +16,10 @@
  * 
  */
 
-class NingenDate{
+class OwlDate{
     
     /**
-     * @see NingenDate::getDiaMesAno()
+     * @see OwlDate::getDiaMesAno()
      * @param $fecha
      * @return string
      */

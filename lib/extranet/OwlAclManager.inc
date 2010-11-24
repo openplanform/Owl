@@ -1,21 +1,21 @@
 <?php
 
-require_once 'NingenCmsSession.inc';
-require_once 'extranet/NingenUsuarioSesion.inc';
+require_once 'OwlCmsSession.inc';
+require_once 'extranet/OwlUsuarioSesion.inc';
 
-require_once NINGENCMS_MODELDIR . 'TblAcceso.inc';
-require_once NINGENCMS_MODELDIR . 'TblUsuario.inc';
-require_once NINGENCMS_MODELDIR . 'TblRol.inc';
+require_once MODELDIR . 'TblAcceso.inc';
+require_once MODELDIR . 'TblUsuario.inc';
+require_once MODELDIR . 'TblRol.inc';
 
 /**
  * Clase que implementa el manejador de listas
  * de acceso.
  */
-class NingenAclManager{
+class OwlAclManager{
     
     /**
      * Referencia a la base de datos
-     * @var NingenConnection
+     * @var OwlConnection
      */
     protected $db;
     
@@ -102,9 +102,9 @@ class NingenAclManager{
         
         // Implementamos objeto de sesion y propagar datos
         $rolesARR = $this->getRolesUsuario($row['idUsuario']);
-        $usuarioSesion = new NingenUsuarioSesion($row['idUsuario'], $row['vNombre'], $rolesARR, $row['vEmail']);
+        $usuarioSesion = new OwlUsuarioSesion($row['idUsuario'], $row['vNombre'], $rolesARR, $row['vEmail']);
         
-        NingenCmsSession::setValue('usuario', $usuarioSesion);
+        OwlSession::setValue('usuario', $usuarioSesion);
         
         return true;
         
@@ -115,7 +115,7 @@ class NingenAclManager{
      * y lo devuelve, en caso de no existir devuelve null
      * 
      * @param integer $claveUsuario
-     * @return NingenUsuarioSesion
+     * @return OwlUsuarioSesion
      */
     public function createSessionObject($claveUsuario){
         
@@ -124,7 +124,7 @@ class NingenAclManager{
         }
         
         $rolesARR = $this->getRolesUsuario($claveUsuario);
-        $returnBO = new NingenUsuarioSesion($usuarioDO->getIdUsuario(), $usuarioDO->getVNombre(), $rolesARR, $usuarioDO->getVEmail());
+        $returnBO = new OwlUsuarioSesion($usuarioDO->getIdUsuario(), $usuarioDO->getVNombre(), $rolesARR, $usuarioDO->getVEmail());
         
         return $returnBO;
         
@@ -169,7 +169,7 @@ class NingenAclManager{
      */
     public function hasPerms( $controllerName, $actionName){
         
-        $usuario = NingenCmsSession::getValue('usuario');
+        $usuario = OwlSession::getValue('usuario');
         $rolesUsuario = $usuario->getRoles();
         
         // Se busca el controlador
@@ -252,7 +252,7 @@ class NingenAclManager{
      * acceso a cuaquier zona del sistema, como también el menú. Si reload vale true, 
      * se actualizará la cache
      * 
-     * @param NingenUsuarioSesion $usuario
+     * @param OwlUsuarioSesion $usuario
      * @param boolean $reload 
      * @return array
      */

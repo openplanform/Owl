@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
- * Clase que implementa un menu de navegación compatible con ningenCMS
+ * Clase que implementa un menu de navegación compatible con Owl
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,14 +16,14 @@
  * 
  */
 
-require_once 'NingenModule.inc';
-require_once 'NingenException.inc';
+require_once 'OwlModule.inc';
+require_once 'OwlException.inc';
 
-class NingenNavigation extends NingenModule{
+class OwlNavigation extends OwlModule{
 	
 	/**
 	 * Configuración de la applicacion
-	 * @var NingenApplicationConfig
+	 * @var OwlApplicationConfig
 	 */
 	protected $applicationConfig;
 	
@@ -79,20 +79,20 @@ class NingenNavigation extends NingenModule{
 		try {
 			
 			// Configuración general
-			$this->applicationConfig = $GLOBALS['NINGEN_CMS']['app_config'];
-			if (!$this->applicationConfig instanceof NingenApplicationConfig){
-				throw new NingenException('No ha sido posible obtener la configuración de la aplicación para generar el menú.');
+			$this->applicationConfig = $GLOBALS['OWL']['app_config'];
+			if (!$this->applicationConfig instanceof OwlApplicationConfig){
+				throw new OwlException('No ha sido posible obtener la configuración de la aplicación para generar el menú.');
 			}
 			
 			// Configuración de menu
 			if (!$this->applicationConfig->hasNavigationMenu()){
-				throw new NingenException('No se ha configurado un menu para la aplicación actual.');
+				throw new OwlException('No se ha configurado un menu para la aplicación actual.');
 			} 
 
 			// Se obtiene la configuracion
 			$this->menuConfig = $this->applicationConfig->getMenuConfig($nombreMenu);
 			if (is_null($this->menuConfig)){
-				throw new NingenException('El menu ' . $nombreMenu . ' no existe.');
+				throw new OwlException('El menu ' . $nombreMenu . ' no existe.');
 			}
 			
 			// Se canonizarán los nombres?
@@ -114,7 +114,7 @@ class NingenNavigation extends NingenModule{
 			}
 			
 			
-		} catch (NingenException $e) {
+		} catch (OwlException $e) {
 			
 			$e->echoCmsMessage();
 			
@@ -152,15 +152,15 @@ class NingenNavigation extends NingenModule{
 	protected function renderNavigation(){
 		
 		// Se vuelve a verificar la configuración
-		if (!$this->applicationConfig instanceof NingenApplicationConfig){
-			throw new NingenException('El menu no ha sido iniciado aún');
+		if (!$this->applicationConfig instanceof OwlApplicationConfig){
+			throw new OwlException('El menu no ha sido iniciado aún');
 		}
 		
 		// Se obtienen los items de menu
 		if (array_key_exists('add', $this->menuConfig)){
 			$menuItems = $this->menuConfig['add'];
 		} else {
-			throw new NingenException('El menu dispone de entradas en la configuración');
+			throw new OwlException('El menu dispone de entradas en la configuración');
 		}
 		
 		// Cantidad de items

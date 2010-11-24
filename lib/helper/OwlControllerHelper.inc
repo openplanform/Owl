@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
  * Helper con métodos de utilidad para la implementación de controladores
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Aaron Amengual Arranz <aaron@ningen.es>, Nicolás Palumbo <nico@ningen.es>   
  * @version 0.5
@@ -17,7 +17,7 @@
  **/
 
 
-class NingenControllerHelper{
+class OwlControllerHelper{
     
     /**
      * Intenta obtener un valor del request, 

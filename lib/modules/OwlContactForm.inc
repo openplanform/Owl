@@ -1,14 +1,14 @@
 <?php
 
 /**
- * NINGEN NOWL (NINGEN Open Web Library)
+ * OWL (Open Web Library)
  * 
  * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
  * 
- * Clase que implementa un formulario de contacto compatible con ningenCMS
+ * Clase que implementa un formulario de contacto compatible con Owl
  * 
- * @category NingenNowl
- * @package NingenNowl
+ * @category Owl
+ * @package Owl
  * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
  * @author Nicolás Palumbo <nico@ningen.es> 
  * @version 0.5
@@ -16,16 +16,16 @@
  * 
  */
 
-require_once 'NingenModule.inc';
-require_once 'NingenException.inc';
-require_once 'NingenCaptcha.inc';
-require_once 'NingenCmsSession.inc';
-require_once 'NingenMailer.inc';
+require_once 'OwlModule.inc';
+require_once 'OwlException.inc';
+require_once 'OwlCaptcha.inc';
+require_once 'OwlSession.inc';
+require_once 'OwlMailer.inc';
 
-require_once 'helper/NingenLanguage.inc';
-require_once 'helper/NingenString.inc';
+require_once 'helper/OwlLanguage.inc';
+require_once 'helper/OwlString.inc';
 
-class NingenContactForm extends NingenModule{
+class OwlContactForm extends OwlModule{
 	
 	/**
 	 * Array que contendrá los campos del formulario
@@ -41,13 +41,13 @@ class NingenContactForm extends NingenModule{
 	
 	/**
 	 * Mailer 
-	 * @var NingenMailer
+	 * @var OwlMailer
 	 */
 	protected $mailer;
 	
 	/**
 	 * Herramienta de idioma
-	 * @var NingenLanguage
+	 * @var OwlLanguage
 	 */
 	protected $lang;
 	
@@ -75,7 +75,7 @@ class NingenContactForm extends NingenModule{
 	 */
 	protected function createPlainContactMail($fields, $POST){
 		
-		$this->lang = new NingenLanguage();
+		$this->lang = new OwlLanguage();
 		
 		$this->message .= "Apreciado Cliente,\n\n";
 		$this->message .= "Un usuario le ha enviado un mensaje mediante la página de contactos de su sitio web, a continuación le detallamos el contenido de dicho mensaje. También le recordamos que puede contactar al usuario, respondiendo este mail.\n\n";
@@ -114,7 +114,7 @@ class NingenContactForm extends NingenModule{
 	 */
 	protected function createHtmlContactMail($fields, $POST){
 		
-		$this->lang = new NingenLanguage();
+		$this->lang = new OwlLanguage();
 		
 		$this->message .= '<body style="padding: 10px; font: normal 12px Arial;">';
 		
