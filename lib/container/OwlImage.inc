@@ -1,25 +1,33 @@
 <?php 
 
-/**
- * NINGEN NOWL (NINGEN Open Web Library)
+/* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**																			 
+ *  ,_,  
+ * (o,o) 
+ * {`"'}   OWL (Open Web Library)
+ * -"-"-
  * 
- * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ * mas información en /doc/LICENSE
  * 
- * Clase de datos para imágenes estátitas generadas por NOWL
+ * Clase de datos para imágenes estáticas generadas por OWL
  * 
- * @category NingenNowl
- * @package NingenNowl
- * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
- * @author Nicolás Palumbo <nico@ningen.es> 
- * @version 0.5
- * @since 0.5
+ * @category Owl
+ * @package Owl
+ * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
+ * @author Nicolás Daniel Palumbo <npalumbo@xinax.net> 
+ * @author Aaron Amengual Arranz <aaron.amengual@gmail.com> 
+ * @version 0.5.4
+ * @since 0.3
  * 
- **/
+ */
 
 
-require_once 'NingenException.inc';
+require_once 'OwlException.inc';
  
-class NingenImage {
+
+class OwlImage {
 
     /**
      * Nombre de la imagen ES
@@ -93,6 +101,32 @@ class NingenImage {
      */
     private $_style;
     
+    
+	/**
+	 * Contructora, crea el objeto a partir de los parametros
+	 * @param string $url [optional]
+	 * @param integer $ancho [optional]
+	 * @param integer $alto [optional]
+	 * @return boolean
+	 */
+    public function OwlImage($url = null, $ancho = null, $alto = null) {
+    
+        $this->_url = $url;
+        $this->_ancho = $ancho;
+        $this->_alto = $alto;
+        
+        //Comprobamos los parámetros
+        if (is_null($url) || is_null($ancho) || is_null($alto)) {
+            throw new OwlException('El objeto staticImg no está recibiendo todos los parámetros necesarios.');
+			return false;
+        }
+        
+		$this->_isImage = true;
+		
+		return true;
+    }
+        
+    
     /**
      * Returns $_alto.
      * @see statixImgX::$_alto
@@ -100,6 +134,7 @@ class NingenImage {
     public function get_alto() {
         return $this->_alto;
     }
+    
     
     /**
      * Sets $_alto.
@@ -110,6 +145,7 @@ class NingenImage {
         $this->_alto = $_alto;
     }
     
+    
     /**
      * Returns $_ancho.
      * @see statixImgX::$_ancho
@@ -117,6 +153,7 @@ class NingenImage {
     public function get_ancho() {
         return $this->_ancho;
     }
+    
     
     /**
      * Sets $_ancho.
@@ -127,6 +164,7 @@ class NingenImage {
         $this->_ancho = $_ancho;
     }
     
+    
     /**
      * Returns $_idioma.
      * @see statixImgX::$_idioma
@@ -134,6 +172,7 @@ class NingenImage {
     public function get_idioma() {
         return $this->_idioma;
     }
+    
     
     /**
      * Sets $_idioma.
@@ -144,6 +183,7 @@ class NingenImage {
         $this->_idioma = $_idioma;
     }
     
+    
     /**
      * Returns $_nombre_ct.
      * @see statixImgX::$_nombre_ct
@@ -151,6 +191,7 @@ class NingenImage {
     public function get_nombre_ct() {
         return $this->_nombre_ct;
     }
+    
     
     /**
      * Sets $_nombre_ct.
@@ -161,6 +202,7 @@ class NingenImage {
         $this->_nombre_ct = $_nombre_ct;
     }
     
+    
     /**
      * Returns $_nombre_de.
      * @see statixImgX::$_nombre_de
@@ -168,6 +210,7 @@ class NingenImage {
     public function get_nombre_de() {
         return $this->_nombre_de;
     }
+    
     
     /**
      * Sets $_nombre_de.
@@ -178,6 +221,7 @@ class NingenImage {
         $this->_nombre_de = $_nombre_de;
     }
     
+    
     /**
      * Returns $_nombre_en.
      * @see statixImgX::$_nombre_en
@@ -185,6 +229,7 @@ class NingenImage {
     public function get_nombre_en() {
         return $this->_nombre_en;
     }
+    
     
     /**
      * Sets $_nombre_en.
@@ -195,6 +240,7 @@ class NingenImage {
         $this->_nombre_en = $_nombre_en;
     }
     
+    
     /**
      * Returns $_nombre_es.
      * @see statixImgX::$_nombre_es
@@ -202,6 +248,7 @@ class NingenImage {
     public function get_nombre_es() {
         return $this->_nombre_es;
     }
+    
     
     /**
      * Sets $_nombre_es.
@@ -212,6 +259,7 @@ class NingenImage {
         $this->_nombre_es = $_nombre_es;
     }
     
+    
     /**
      * Returns $_nombre_fr.
      * @see statixImgX::$_nombre_fr
@@ -219,6 +267,7 @@ class NingenImage {
     public function get_nombre_fr() {
         return $this->_nombre_fr;
     }
+    
     
     /**
      * Sets $_nombre_fr.
@@ -229,6 +278,7 @@ class NingenImage {
         $this->_nombre_fr = $_nombre_fr;
     }
     
+    
     /**
      * Returns $_url.
      * @see statixImgX::$_url
@@ -236,6 +286,7 @@ class NingenImage {
     public function get_url() {
         return $this->_url;
     }
+    
     
     /**
      * Sets $_url.
@@ -255,6 +306,7 @@ class NingenImage {
         return $this->_alt;
     }
     
+    
     /**
      * Sets $_alt.
      * @param object $_alt
@@ -264,6 +316,7 @@ class NingenImage {
         $this->_alt = $_alt;
     }
     
+    
     /**
      * Returns $_style.
      * @see staticImgX::$_style
@@ -271,6 +324,7 @@ class NingenImage {
     public function get_style() {
         return $this->_style;
     }
+    
     
     /**
      * Sets $_style.
@@ -280,6 +334,7 @@ class NingenImage {
     public function set_style($_style) {
         $this->_style = $_style;
     }
+    
     
     /**
      * Devuelve el campo multilang nombre
@@ -296,30 +351,7 @@ class NingenImage {
         
     }
     
-	/**
-	 * Contructora, crea el objeto a partir de los parametros
-	 * @param string $url [optional]
-	 * @param integer $ancho [optional]
-	 * @param integer $alto [optional]
-	 * @return boolean
-	 */
-    public function NingenImage($url = null, $ancho = null, $alto = null) {
     
-        $this->_url = $url;
-        $this->_ancho = $ancho;
-        $this->_alto = $alto;
-        
-        //Comprobamos los parámetros
-        if (is_null($url) || is_null($ancho) || is_null($alto)) {
-            throw new NingenException('El objeto staticImg no está recibiendo todos los parámetros necesarios.');
-			return false;
-        }
-        
-		$this->_isImage = true;
-		
-		return true;
-    }
-	
 	/**
 	 * Devuelve el valor de _isImage
 	 * @return boolean
@@ -327,6 +359,7 @@ class NingenImage {
 	public function isImage(){
 		return $this->_isImage;
 	}
+	
 	
     /**
      * Imprime el tag img

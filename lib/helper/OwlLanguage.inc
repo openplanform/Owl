@@ -1,18 +1,25 @@
 <?php
 
-/**
- * OWL (Open Web Library)
+/* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**																			 
+ *  ,_,  
+ * (o,o) 
+ * {`"'}   OWL (Open Web Library)
+ * -"-"-
  * 
- * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ * mas información en /doc/LICENSE
  * 
- * Clase de utilidad para imprimir información localizada genérica
+ * <Descripción de la clase>
  * 
  * @category Owl
  * @package Owl
- * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
- * @author Nicolás Palumbo <nico@ningen.es> 
- * @version 0.5
- * @since 0.5
+ * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
+ * @author Nicolás Daniel Palumbo <npalumbo@xinax.net> 
+ * @author Aaron Amengual Arranz <aaron.amengual@gmail.com> 
+ * @version 0.5.4
+ * @since 0.3
  * 
  */
 
@@ -25,8 +32,26 @@ class OwlLanguage{
 	protected $lang = 'es';
 	
 	/**
+	 * Array con los meses en castellano
+	 * @var array
+	 */
+	protected $mesesEs = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+
+	/**
+	 * Array con los meses en catalán
+	 * @var array
+	 */
+	protected $mesesCt = array("Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Decembre");
+	
+	/**
+	 * Array con los meses en inglés
+	 * @var array
+	 */
+	protected $mesesEn = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+	
+	/**
 	 * Array con los paises en castellano ES
-	 * @var arary
+	 * @var array
 	 */
 	protected $paisesEs = array(
 		 "es" => "España",
@@ -775,6 +800,30 @@ class OwlLanguage{
 	);
 	
 	/**
+	 * Establece el idioma actual
+	 * @param string $lang
+	 * @return void
+	 */
+	public function __construct( $lang = 'es'){
+		
+		$this->lang = $lang;
+		
+	}
+
+	/**
+	 * Devuelve un array con los paises indexados
+	 * por su código iso (2 letras) en el idioma actual
+	 * @return array
+	 */
+	public function getPaisesMultilang(){
+		
+		if (method_exists($this, 'getPais' . ucfirst($this->lang))){
+			return call_user_func(array($this, 'getPais' . ucfirst($this->lang)));
+		} 
+		
+	}
+	
+	/**
 	 * Devuelve un array con los paises indexados
 	 * por su código iso (2 letras) en castellano
 	 * @return array
@@ -890,15 +939,49 @@ class OwlLanguage{
 	}
 	
 	/**
-	 * Establece el idioma actual
-	 * @param string $lang
-	 * @return void
+	 * Devuelve un array con los meses en el idioma actual
+	 * @return array
 	 */
-	public function __construct( $lang = 'es'){
-		
-		$this->lang = $lang;
+	public function getMesesMultilang(){
+
+		if (method_exists($this, 'getMeses' . ucfirst($this->lang)) ){
+
+			return call_user_func(array($this,'getMeses' . ucfirst($this->lang)));
+			
+		}
 		
 	}
+	
+	/**
+	 * Devuelve un array con los meses en castellano
+	 * @return array
+	 */
+	public function getMesesEs(){
+		
+		return $this->mesesEs;
+		
+	}
+	
+	/**
+	 * Devuelve un array con los meses en catalán
+	 * @return array
+	 */
+	public function getMesesCt(){
+		
+		return $this->mesesCt;
+		
+	}
+	
+	/**
+	 * Devuelve un array con los meses en inglés
+	 * @return array
+	 */
+	public function getMesesEn(){
+		
+		return $this->mesesEn;
+		
+	}
+	
 }
 
 ?>

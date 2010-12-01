@@ -1,21 +1,27 @@
 <?php
 
-/**
- * OWL (Open Web Library)
+/* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**																			 
+ *  ,_,  
+ * (o,o) 
+ * {`"'}   OWL (Open Web Library)
+ * -"-"-
  * 
- * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ * mas información en /doc/LICENSE
  * 
  * Objeto de conexión con bases de datos.
  * 
- * @category dslDoGen
- * @package dslDoGen
- * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
- * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a owl)
+ * @category Owl
+ * @package Owl
+ * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
+ * @author Nicolás Daniel Palumbo <npalumbo@xinax.net> 
+ * @author Aaron Amengual Arranz <aaron.amengual@gmail.com> 
+ * @version 0.5.4
+ * @since 0.3
  * 
- * @version 0.6
- * @since 0.5
- * 
- **/
+ */
 
 require_once 'dbase/OwlDatabaseMetaData.inc';
 
@@ -220,6 +226,28 @@ class OwlConnection{
 	    
 	    return $this->_link;
 	    
+	}
+	
+	
+	/**
+	 * Desactiva la comprobación de claves foráneas
+	 * @return boolean
+	 */
+	public function disableForeignChecks(){
+		
+		return $this->executeQuery("SET FOREIGN_KEY_CHECKS = 0");
+		
+	}
+	
+	
+	/** 
+	 * Activa la comprobación de claves foráneas
+	 * @return boolean
+	 */
+	public function enableForeignChecks(){
+		
+		return $this->executeQuery("SET FOREIGN_KEY_CHECKS = 1");		
+		
 	}
 	
 }

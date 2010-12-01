@@ -1,20 +1,26 @@
 <?php
-/**
- * OWL (Open Web Library)
+
+/* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**																			 
+ *  ,_,  
+ * (o,o) 
+ * {`"'}   OWL (Open Web Library)
+ * -"-"-
  * 
- * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ * mas información en /doc/LICENSE
  * 
  * Data Object genérico.
  * 
- * @category dslDoGen
- * @package dslDoGen
- * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
+ * @category Owl
+ * @package Owl
+ * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
  * @author Daniel Sánchez López (Código descargado desde http://www.dslprog.com y adaptado a Owl)
+ * @version 0.5.4
+ * @since 0.3
  * 
- * @version 0.6
- * @since 0.5
- * 
- **/
+ */
 
 require_once 'dbase/OwlConnection.inc';
 require_once 'dbase/OwlGenericDO.inc';

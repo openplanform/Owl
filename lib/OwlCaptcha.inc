@@ -1,20 +1,27 @@
 <?php
 
-/**
- * OWL (Open Web Library)
+/* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**																			 
+ *  ,_,  
+ * (o,o) 
+ * {`"'}   OWL (Open Web Library)
+ * -"-"-
  * 
- * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ * mas información en /doc/LICENSE
  * 
- * Controlador genérico, todos los controladores deben heredar de esta clase
+ * Clase que implementa el sistema de captcha compatible con OWL
  * 
  * @category Owl
  * @package Owl
- * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
- * @author Nicolás Palumbo <nico@ningen.es> 
- * @version 0.5
- * @since 0.5
+ * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
+ * @author Nicolás Daniel Palumbo <npalumbo@xinax.net>
+ * @version 0.5.4
+ * @since 0.3
  * 
- **/
+ */
+
 
 require_once 'container/OwlImage.inc';
 
@@ -57,6 +64,7 @@ class OwlCaptcha{
 	 */
 	private $_codeString = 'never.knows.this';
 		
+    
     /**
      * Extrae una palabra del diccionario
      * si no logra hacerlo retorna false
@@ -65,9 +73,12 @@ class OwlCaptcha{
     private function _getPalabra() {
     
         //Se intenta abrir el archivo de diccionario
-        if (!$filePointer = file(XINAXCMS_SHAREDIR.'captcha/dict.es.txt', FILE_SKIP_EMPTY_LINES)) {
+        if (!$filePointer = file(SHAREDIR . 'captcha/dict.es.txt', FILE_SKIP_EMPTY_LINES)) {
+        	
             return false;
+            
         } else {
+        	
             $filelines = count($filePointer);
             
             //Aparentemente rand solo trabaja con integers
@@ -79,15 +90,20 @@ class OwlCaptcha{
             
             //Se crea la palabra
             if (array_key_exists($line, $filePointer)) {
+            	
                 $this->_palabra = trim(substr($filePointer[$line],0,8));
 				$this->_palabraHash = md5($this->_palabra);
+				
             } else {
+            	
                 return false;
+                
             }
             
         }
         
     }
+    
     
     /**
      * Devuelve la palabra en texto plano
@@ -98,6 +114,7 @@ class OwlCaptcha{
     	return $this->_palabra;
     	
     }
+    
 
 	/**
 	 * Contruye el objeto, si todo es correcto devuelve true
@@ -114,6 +131,7 @@ class OwlCaptcha{
     
     }
     
+    
 	/**
 	 * Genera la imagen del captcha
 	 * @return boolean 
@@ -123,22 +141,22 @@ class OwlCaptcha{
 		$nombreArchivo = md5('NOIMG-' . $this->_palabra . '-NOIMG' );
     
 		//Si el archivo ya existe no hacemos nada
-		if (file_exists(XINAXCMS_PUBDIR . 'img/captcha/' . $nombreArchivo . '.png')){
+		if (file_exists(PUBDIR . 'img/captcha/' . $nombreArchivo . '.png')){
 
-			$this->_captchaSIMG = new XinaxImage('/img/captcha/' . $nombreArchivo . '.png',  100, 30);	
+			$this->_captchaSIMG = new OwlImage('/img/captcha/' . $nombreArchivo . '.png',  100, 30);	
 			
 			return true;
 			
 		} else {
 			
 	        //Se obtiene el fondo
-	        $img = imagecreatefromgif(XINAXCMS_SHAREDIR . 'captcha/backs/'. rand(1, 5) .'.gif');
+	        $img = imagecreatefromgif(SHAREDIR . 'captcha/backs/'. rand(1, 5) .'.gif');
 	        
 	        //Algunos colorines
 			$color = imagecolorallocate($img, 0, 0, 0);
 			
 	        //Algunas fuentes
-	        $fuente = XINAXCMS_SHAREDIR .'captcha/fonts/'. rand(1, 3) .'.ttf';
+	        $fuente = SHAREDIR .'captcha/fonts/'. rand(1, 3) .'.ttf';
 	        
 			//Texto
 			$tamaño = 13;
@@ -149,9 +167,9 @@ class OwlCaptcha{
 			imagettftext($img, $tamaño, $angulo, $left, $bottom, $color, $fuente, $this->_palabra); 
 			
 	        //Se crea la imagen
-			if (imagepng($img, XINAXCMS_SHAREDIR . 'captcha/images/' . $nombreArchivo . '.png')){
+			if (imagepng($img, SHAREDIR . 'captcha/images/' . $nombreArchivo . '.png')){
 				
-				$this->_captchaSIMG = new XinaxImage('/img/captcha/' . $nombreArchivo . '.png',  100, 30);
+				$this->_captchaSIMG = new OwlImage('/img/captcha/' . $nombreArchivo . '.png',  100, 30);
 				$this->_captchaSIMG->set_alt('Imagen de seguridad');
 				
 				return true;
@@ -165,14 +183,18 @@ class OwlCaptcha{
         
     }
 	
+    
 	/**
 	 * Devuelve la cadena de hash
 	 * Solo comprarar utilizando compare_palabra
 	 * @return string
 	 */
 	public function get_hash_value(){
+		
 		return md5($this->_codeString . $this->_palabra . $this->_codeString);
+		
 	}	
+	
 	
 	/**
 	 * Compara la palabra introducida por el usuario con el hash generado
@@ -182,15 +204,20 @@ class OwlCaptcha{
 	public function compare_palabra($palabra_usuario, $hashValue){
 		
 		return md5($this->_codeString . trim($palabra_usuario) . $this->_codeString) == trim($hashValue);
+		
 	}
 		
+	
 	/**
 	 * Devuelve la imagen
-	 * @return XinaxImage
+	 * @return OwlImage
 	 */
 	public function getImg(){
+		
 		return $this->_captchaSIMG;
+		
 	}
+	
 	
 	/**
 	 * Establece el alto del capcha
@@ -200,6 +227,7 @@ class OwlCaptcha{
 		$this->_alto = intval($alto);
 	}
 	
+	
 	/**
 	 * Establece el ancho del capcha
 	 * @param integer $ancho
@@ -207,6 +235,7 @@ class OwlCaptcha{
 	public function setAncho($ancho){
 		$this->_ancho = intval($ancho);
 	}
+	
 	
 	/**
 	 * Establece el valor de la cadena de seguridad

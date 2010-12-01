@@ -1,20 +1,28 @@
 <?php
 
-/**
- * OWL (Open Web Library)
+/* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**																			 
+ *  ,_,  
+ * (o,o) 
+ * {`"'}   OWL (Open Web Library)
+ * -"-"-
  * 
- * Software distribuido bajo la "New BSD License", mas información en /doc/LICENSE
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ * mas información en /doc/LICENSE
  * 
  * Clase que implementa el paginador de resultados
  * 
  * @category Owl
  * @package Owl
- * @license New BSD License (http://www.opensource.org/licenses/bsd-license.php)
- * @author Nicolás Palumbo <nico@ningen.es>, Aaron Amengual Arranz <aaron@ningen.es> 
- * @version 0.5
- * @since 0.5
+ * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
+ * @author Nicolás Daniel Palumbo <npalumbo@xinax.net> 
+ * @author Aaron Amengual Arranz <aaron.amengual@gmail.com> 
+ * @version 0.5.4
+ * @since 0.3
  * 
- **/
+ */
+
 
 require_once 'OwlException.inc';
 require_once 'dbase/OwlGenericDO.inc';
@@ -229,7 +237,8 @@ class OwlPaginator{
         $metadataARR['siguiente'] = $this->paginaActual >= 1 && $this->paginaActual < $this->pagesCount; 
         $metadataARR['anterior'] = $this->paginaActual > 1; 
         $metadataARR['paginas'] = $this->pagesCount;
-        $metadataARR['paginaActual'] = $this->paginaActual; 
+        $metadataARR['paginaActual'] = $this->paginaActual;
+        $metadataARR['numItems'] = $this->itemsCount;
         
         $this->metadataARR = $metadataARR;
         
