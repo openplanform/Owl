@@ -26,17 +26,28 @@ require_once 'container/OwlMarcadorGmap.inc';
 class OwlGoogleMaps{
 	
 	/**
-	 * 
+	 * Constante de latitud por defecto
+	 * @var string
+	 */
+	const LATITUD = '39.575826904309494';
+	
+	/**
+	 * Constante de longitud por defecto
+	 * @var string
+	 */
+	const LONGITUD = '2.653813809156418';
+	
+	/**
 	 * Latitud
 	 * @var integer
 	 */
-	private $_latitud = '39.57420604477404';
+	private $_latitud = '39.575826904309494';
 	
 	/**
 	 * Longitud
 	 * @var integer
 	 */
-	private $_longitud = '2.655208557844162';
+	private $_longitud = '2.653813809156418';
 	
 	/**
 	 * Almacena el id del contenedor del mapa
@@ -48,13 +59,32 @@ class OwlGoogleMaps{
 	 * Zoom del mapa
 	 * @var intenger
 	 */
-	private $_zoom = '16';
+	private $_zoom = '15';
 	
 	/**
 	 * Array contenedor de los marcadores del mapa
 	 * @var array
 	 */
 	private $_marcadoresARR = array();
+	
+	/**
+	 * Setea si el mapa marca el punto donde clica el usuario
+	 * @var boolean
+	 */
+	private $_marcadorCoordenadas = false;
+	
+	/**
+	 * Setea si el mapa marca los puntos donde clica el usuario
+	 * @var boolean
+	 */
+	private $_multipleMarcadorCoordenadas = false;
+	
+	/**
+	 * Contenedor de las coordenadas en el caso de que se active el 
+	 * marcador múltiple de coordenadas
+	 * @var string
+	 */
+	private $_contenedorCoordenadas = '';
 	
 	/**
 	 * Imprime la cabecera con los recursos para mostrar el mapa
@@ -71,11 +101,12 @@ class OwlGoogleMaps{
 	 * Devuelve el código javascript del mapa
 	 * @param string $funcion
 	 * <p>El nombre de la función es necesario ya que si se
-	 * crea más de un mapa, se sobreescribirían
+	 * crea más de un mapa, se sobreescribirían. Por defecto
+	 * es "initialize"
 	 * unos a otros</p>
 	 * @return string $googleMap
 	 */
-	public function echoMapa($funcion){
+	public function echoMapa($funcion = 'initialize'){
 		
 		$googleMap = 
 		'<script type="text/javascript">
@@ -88,15 +119,20 @@ class OwlGoogleMaps{
 					center: latlng,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				};
-				var map = new google.maps.Map(document.getElementById("' . $this->_contenedor . '"), myOptions);
+				var map = new google.maps.Map(document.getElementById("' . $this->_contenedor . '"), myOptions);';
+		
+				// Devolución de coordenadas
+				if ( $this->_marcadorCoordenadas ) {
+					
+					$googleMap .= $this->_echoMarcadorCoordenadas();
 				
-				//google.maps.event.addListener(map, "click", function(evento) {
-				//	alert(evento.latLng.lat() + ", " + evento.latLng.lng())
-				//});
-							
-				'. $this->_echoMarcadores() . '
-					    	
+				}
+
+				// Marcadores
+				$googleMap .= $this->_echoMarcadores() . '
+					
 			}
+			
 			jQuery(document).ready(function(){
 
 				//mapa
@@ -127,9 +163,157 @@ class OwlGoogleMaps{
 				});
 				' . $marcadorDO->getInfoWindow();
 			
+			// Código para mostrar las coordenadas del marcador que aparece en el mapa
+			if ( $this->_marcadorCoordenadas ){
+				
+				$marcadores .= '
+					google.maps.event.addListener(' . $marcadorDO->getNombre() . ',"click", function(){
+						
+						if ( latitud != null ){
+							if (latitud.nodeName == "INPUT"){
+								latitud.value = "' . $marcadorDO->getLatitud() . '";
+							} else {
+								latitud.innerHTML = "' . $marcadorDO->getLatitud() . '";
+							}
+						}
+						
+						if ( longitud != null ){
+							if (longitud.nodeName == "INPUT"){
+								longitud.value = "' . $marcadorDO->getLongitud() . '";
+							} else {
+								longitud.innerHTML = "' . $marcadorDO->getLongitud() . '";
+							}
+						}
+					});';
+			}
+			
 		}
 		
 		return $marcadores;
+	}
+	
+	/**
+	 * Imprime el código necesario para que el mapa te devuelva
+	 * las coordenadas donde has clicado
+	 * @return string $marcadorCoordenadas
+	 */
+	private function _echoMarcadorCoordenadas(){
+		
+		$marcadorCoordenadas = '';
+		if ( !$this->_multipleMarcadorCoordenadas ){
+			
+			/**
+			 * Si no hay múltiple marcador de coordendas, hay que inicializar el marcador
+			 * fuera del listener del evento clic
+			 */ 
+			$marcadorCoordenadas .= '
+			
+				// Inicializamos el marcador que indicará dónde se clica
+				var puntoSeleccionado = new google.maps.Marker();
+				google.maps.event.addListener(puntoSeleccionado,"click", function(){
+						this.setVisible(false);
+						
+						if ( latitud != null ){
+							if (latitud.nodeName == "INPUT"){
+								latitud.value = "";
+							} else {
+								latitud.innerHTML = "";
+							}
+						}
+						
+						if ( longitud != null ){
+							if (longitud.nodeName == "INPUT"){
+								longitud.value = "";
+							} else {
+								longitud.innerHTML = "";
+							}
+						}
+				});
+				
+				var latitud = document.getElementById("latitud");
+				var longitud = document.getElementById("longitud");
+				google.maps.event.addListener(map, "click", function(evento) {
+				
+					if ( latitud != null ){
+						if (latitud.nodeName == "INPUT"){
+							latitud.value = evento.latLng.lat();
+						} else {
+							latitud.innerHTML = evento.latLng.lat();
+						}
+					}
+					
+					if ( longitud != null ){
+						if (longitud.nodeName == "INPUT"){
+							longitud.value = evento.latLng.lng();
+						} else {
+							longitud.innerHTML = evento.latLng.lng();
+						}
+					}
+					
+					// Marcador en el punto en el que han clicado
+					puntoSeleccionado.setOptions({
+						position: evento.latLng,
+						map: map,
+						visible: true
+					});
+					
+				});
+				';
+		} else {
+			
+			$marcadorCoordenadas .= '
+				var contenedorCoordenadas = document.getElementById("' . $this->_contenedorCoordenadas . '");
+				var contadorCoordenadas = 0;
+				google.maps.event.addListener(map, "click", function(evento) {
+					
+					if ( contenedorCoordenadas != null ){
+					
+						// Nueva latitud
+						var inputLatitud = document.createElement("INPUT");
+						inputLatitud.value = evento.latLng.lat();
+						inputLatitud.class = "coordenada";
+						inputLatitud.name = "latitud_"+contadorCoordenadas;
+						inputLatitud.id = "latitud_"+contadorCoordenadas;
+						contenedorCoordenadas.appendChild(inputLatitud);
+
+						// Nueva longitud
+						var inputLongitud = document.createElement("INPUT");
+						inputLongitud.value = evento.latLng.lng();
+						inputLongitud.class = "coordenada";
+						inputLongitud.name = "longitud_"+contadorCoordenadas;
+						inputLongitud.id = "longitud_"+contadorCoordenadas;
+						contenedorCoordenadas.appendChild(inputLongitud);
+					}
+					
+					// Inicializamos el marcador que indicará dónde se clica
+					var puntoSeleccionado = new google.maps.Marker();
+					var aux = contadorCoordenadas; // Variable local de la función
+					google.maps.event.addListener(puntoSeleccionado,"click", function(){
+						
+						this.setVisible(false);
+						
+						// Eliminamos las coordenadas del marcador eliminado
+						var latitudEliminada = document.getElementById("latitud_"+aux);
+						contenedorCoordenadas.removeChild(latitudEliminada);
+						var longitudEliminada = document.getElementById("longitud_"+aux);
+						contenedorCoordenadas.removeChild(longitudEliminada);
+						
+					});
+					
+					// Marcador en el punto en el que han clicado
+					puntoSeleccionado.setOptions({
+						position: evento.latLng,
+						map: map
+					});
+					
+					contadorCoordenadas++;
+					
+				});
+				';
+			
+		}
+		
+		return $marcadorCoordenadas;
 	}
 	
 	/**
@@ -140,7 +324,7 @@ class OwlGoogleMaps{
 	 * @param integer $longitud
 	 * <p>Toma por defecto la del mapa</p>
 	 */
-	public function addMarcador($nombre, $latitud = null, $longitud = null){
+	public function addMarcador($nombre = 'marcador', $latitud = null, $longitud = null){
 		
 		if ( is_null($latitud) ){
 			$latitud = $this->_latitud;
@@ -202,6 +386,25 @@ class OwlGoogleMaps{
 	 */
 	public function setContenedor($contenedor){
 		$this->_contenedor = $contenedor;
+	}
+	
+	/**
+	 * Setea si el mapa te devuelve o no las coordenadas donde clicas;
+	 * Devuelve las coordenadas a los elementos del DOM con los ids
+	 * latitud y longitud.
+	 * @param boolean $marcadorCoordenadas
+	 * <p>Boleano para activar el marcador de coordenadas</p>
+	 * @param boolean $multiplesPuntos
+	 * <p>Boleano que setea si el mapa te ha de marcar cada punto en el que cliques
+	 * o bien sólo te ha de marcar uno a la vez. Si se activa, hay que pasarle
+	 * el identificador del elemento del DOM en el que mostrará las coordenadas.</p>
+	 * @param string $contenedorCoordenadas
+	 * <p>Por defecto el id del contenedor es "coordenadas"</p>
+	 */
+	public function setMarcadorCoordenadas($marcadorCoordenadas, $multiplesPuntos = false, $contenedorCoordenadas = 'coordenadas'){
+		$this->_marcadorCoordenadas = $marcadorCoordenadas;
+		$this->_multipleMarcadorCoordenadas = $multiplesPuntos;
+		$this->_contenedorCoordenadas = $contenedorCoordenadas;
 	}
 	
 }

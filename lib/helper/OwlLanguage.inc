@@ -50,6 +50,24 @@ class OwlLanguage{
 	protected $mesesEn = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 	
 	/**
+	 * Array con los días en castellano
+	 * @var array
+	 */
+	protected $diasEs = array("Lunes","Martes","Miércoles", "Jueves", "Viernes", "Sábado", "Domingo");
+	
+	/**
+	 * Array con los días en catalán
+	 * @var array
+	 */
+	protected $diasCt = array("Dilluns","Dimarts","Dimecres", "Dijous", "Divendres", "Dissabte", "Diumenge");
+	
+	/**
+	 * Array con los días en inglés
+	 * @var array
+	 */
+	protected $diasEn = array("Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+	
+	/**
 	 * Array con los paises en castellano ES
 	 * @var array
 	 */
@@ -979,6 +997,50 @@ class OwlLanguage{
 	public function getMesesEn(){
 		
 		return $this->mesesEn;
+		
+	}
+	
+	/**
+	 * Devuelve un array con los días de la semana en el idioma actual
+	 * @return array
+	 */
+	public function getDiasMultilang(){
+
+		if (method_exists($this, 'getDias' . ucfirst($this->lang)) ){
+
+			return call_user_func(array($this,'getDias' . ucfirst($this->lang)));
+			
+		}
+		
+	}
+	
+	/**
+	 * Devuelve un array con los días de la semana en castellano
+	 * @return array
+	 */
+	public function getDiasEs(){
+		
+		return $this->diasEs;
+		
+	}
+	
+	/**
+	 * Devuelve un array con los días de la semana en catalán
+	 * @return array
+	 */
+	public function getDiasCt(){
+		
+		return $this->diasCt;
+		
+	}
+	
+	/**
+	 * Devuelve un array con los días de la semana en inglés
+	 * @return array
+	 */
+	public function getDiasEn(){
+		
+		return $this->diasEn;
 		
 	}
 	

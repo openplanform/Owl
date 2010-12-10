@@ -105,7 +105,7 @@ class OwlPaginator{
     /**
      * Parámetros extra de la url
      * propagados 
-     * @var string
+     * @var array
      */
     protected $extraParams;
     
@@ -214,9 +214,8 @@ class OwlPaginator{
         
         $this->itemsCOL = $genericDO->createCollection($this->db, $sql . $limitSql, ucfirst($this->tableName));
         
-        
-        
     }
+    
     
     /**
      * Calcula las páginas y genera la metadata necesaria para imprimir el paginador
@@ -231,6 +230,19 @@ class OwlPaginator{
         
         // Calculamos las páginas
         $this->pagesCount = ceil($this->itemsCount / $this->itemsPorPagina);
+        
+        /**
+         * Si la página actual es mayor que el número de páginas totales, volvemos a la primera.
+         * Aunque parezca raro, un ejemplo de este caso sería:
+         * 1. El usuario está en la página 3
+         * 2. El usuario realiza una busqueda estando en esa página, y el resultado de la nueva búsqueda
+         *    sólo tiene 2 páginas. El paginador intenta buscar elementos hasta la tercera 
+         *    y al no existir tantos elementos, devuelve vacío.
+         */
+        if ( $this->paginaActual > $this->pagesCount ){
+        	$this->paginaActual = 1;
+        }
+        
 
         // Generamos el array con los metadatos        
         $metadataARR = array();
@@ -271,7 +283,7 @@ class OwlPaginator{
      * Imprime el paginador en código html
      */
     public function getPaginatorHtml(){
-        
+    	
         // Si no llegamos a la cantidad de items por página no hay nada que paginar
         if ($this->itemsCount <= $this->itemsPorPagina){
             return;
@@ -285,26 +297,34 @@ class OwlPaginator{
         echo '<ul class="paginador">';
         
             if ($metadata['anterior']){
+            	
+            	$this->extraParams['p'] = $this->paginaActual - 1;
                 echo '<li>';
-                echo '<a class="anterior" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual - 1))) . '&amp;' . $this->extraParams . '"><span>anterior</span></a>';
+//                	echo '<a class="anterior" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual - 1))) . ( empty($this->extraParams) ? '' : '&amp;' . $this->extraParams ) . '"><span>anterior</span></a>';
+                	echo '<a class="anterior" href="' . $this->helper->getQueryString($this->extraParams) . '"><span>anterior</span></a>';
                 echo '</li>';        
             }
             
             for ($x=1; $x<=$paginas; $x++){
-                echo '<li>';
-                
+
+            	$this->extraParams['p'] = $x;
+            	echo '<li>';
                     if ($this->paginaActual == $x){
                         echo '<strong>' . $x . '</strong>';
                     } else {
-                        echo '<a class="pagina" href="' . $this->helper->getQueryString(array('p'=>$x)) . '&amp;' . $this->extraParams . '">' . $x . '</a>';
+//                        echo '<a class="pagina" href="' . $this->helper->getQueryString(array('p'=>$x)) . ( empty($this->extraParams) ? '' : '&amp;' . $this->extraParams ) . '">' . $x . '</a>';
+                        echo '<a class="pagina" href="' . $this->helper->getQueryString($this->extraParams) . '">' . $x . '</a>';
                     }
                             
                 echo '</li>';
             }
     
             if ($metadata['siguiente']){
+            	
+            	$this->extraParams['p'] = $this->paginaActual + 1;
                 echo '<li>';
-                echo '<a class="siguiente" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual + 1))) . '&amp;' . $this->extraParams . '"><span>siguiente</span></a>';        
+//                	echo '<a class="siguiente" href="' . $this->helper->getQueryString(array('p'=>($this->paginaActual + 1))) . ( empty($this->extraParams) ? '' : '&amp;' . $this->extraParams ) . '"><span>siguiente</span></a>';        
+                	echo '<a class="siguiente" href="' . $this->helper->getQueryString($this->extraParams) . '"><span>siguiente</span></a>';        
                 echo '</li>';
             }        
         
@@ -337,11 +357,11 @@ class OwlPaginator{
     
     /**
      * Añade parámetros extra a la url 
-     * @param string $params
+     * @param array $params
      */
     public function setExtraParams($params){
         
-        $this->extraParams = trim($params);
+        $this->extraParams = $params;
         
     }
     

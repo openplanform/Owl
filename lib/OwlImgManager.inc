@@ -137,7 +137,7 @@ class OwlImgManager{
 	
 	/**
 	 * Mueve la imagen de origen al directorio de salida,
-	 * la renombra a $newName y conserva la extensión original
+	 * la renombra a $newName 
 	 * @param string $newName
 	 */
 	public function moveImage($newName){
@@ -353,6 +353,18 @@ class OwlImgManager{
 
 		return false;
 		
+		
+	}
+	
+	
+	/**
+	 * Devuelve la extensión del archivo actual.
+	 * (Si no se ha especificado el archivo actual, devuelve null)
+	 * @return boolean
+	 */
+	public function getExtension(){
+		
+		return $this->_ext ? $this->_ext : null;
 		
 	}
 	
