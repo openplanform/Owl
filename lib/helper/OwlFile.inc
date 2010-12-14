@@ -221,6 +221,7 @@ class OwlFile{
     
     /**
      * Devuelve un booelano indicando si el mime es soportado
+     * 
      * @param string $mime
      * @return boolean
      */
@@ -232,6 +233,7 @@ class OwlFile{
     
     /**
      * Devuelve un booleano indicando si la extensión es doportada
+     * 
      * @param string $ext
      * @return boolean
      */
@@ -246,7 +248,9 @@ class OwlFile{
     /**
      * Devuelve la extensión del mime indicado.
      * En caso de no encontrarlo devuelve null.
+     * 
      * @param string $mime
+     * @return string
      */
     public function getExtension($mime){
         
@@ -274,6 +278,7 @@ class OwlFile{
     /**
      * Devuelve el mime de la extensión indicada.
      * En caso de no encontrarlo devuelve null.
+     * 
      * @param string $ext
      */
     public function getMime($ext){
@@ -288,6 +293,37 @@ class OwlFile{
     }
     
     
+    /**
+     * 
+     * Envia los encabezados adecuados para el archivo que se mostrará. 
+     * También lee el archivo. Si los encabezados se enviaron devuelve false.
+     * 
+     * @param string $mime
+     * @param integer $size
+     * @param string $name
+     * @param string $path
+     * 
+     * @return boolean
+     */
+    public function outputFile($mime, $size, $name, $path){
+    	
+    	if (headers_sent() || file_exists($path)){
+    	
+			// Encabezados
+			header("Content-type: " . $mime);
+			header("Content-Length: $size"); 
+			header("Content-Disposition: inline; filename=" . $name);
+			
+			// Mostramos el documento
+			return @readfile($path);
+
+    	} 
+    		
+    	// El archivo no existe o los encabezados ya se enviaron
+    	return false;
+    		
+    	
+    }
     
     
 }

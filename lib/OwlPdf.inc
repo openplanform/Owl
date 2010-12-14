@@ -95,7 +95,12 @@ class OwlPdf{
      */
     private $_outputEncoding = 'ISO-8859-1';
     
-    
+    /**
+     * Flag para activar/desactivar el debug
+     * @var boolean
+     */
+    private $_debug = false;
+        
     /**
      * Establece el path del archivo pdf a tratar
      * @throws OwlException
@@ -257,6 +262,11 @@ class OwlPdf{
         // Se actualiza el buffer
         $this->_content = $resultado;
         
+        // Debug
+        if ($this->_debug){
+        	$this->_echoDebugLine("Reemplazando campo de texto ($name) - $cuenta reemplazos.");
+        }
+        
         // Se devuelve la cantidad de reemplazos
         return $cuenta;
         
@@ -284,6 +294,12 @@ class OwlPdf{
         
         // Se actualiza el buffer
         $this->_content = $resultado;
+        
+		// Debug
+        if ($this->_debug){
+        	$this->_echoDebugLine("Reemplazando campo checkbox ($name) - $cuenta reemplazos.");
+        }
+                
         
         // Se devuelve la cantidad de reemplazos
         return $cuenta;
@@ -365,6 +381,28 @@ class OwlPdf{
         
         $this->_outputEncoding = $encoding;
         
+    }
+    
+    
+    /**
+     * Establece un booleano que activa/desactiva el debug
+     * @param boolean $value
+     */
+    public function setDebug($value){
+    	
+    	$this->_debug = $value;
+    	
+    }
+    
+    
+    /**
+     * Imprime una línea de debug
+     * @param string $cadena
+     */
+    private function _echoDebugLine($cadena){
+    	
+    	echo $cadena . ' <br />';
+    	
     }
     
       
