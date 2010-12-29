@@ -428,9 +428,9 @@ class OwlController{
 	    // Obtendremos la clave del request
         $params = $this->getParams();
         
-        if (is_array($params) && array_key_exists($clave, $params) && intval($params[$clave]) != 0){
+        if ( is_array($params) && array_key_exists($clave, $params) && !empty($params[$clave]) ){
             return $params[$clave];            
-        } 
+        }
         
         return null;
 	    
@@ -482,7 +482,7 @@ class OwlController{
 	
 	
     /**
-     * Establece un nombre alternativo para el controlador actual
+     * Establece un *nombre* alternativo para el controlador actual
      * utilizado por el módulo de breadcrumbs
      * @param string $label
      */

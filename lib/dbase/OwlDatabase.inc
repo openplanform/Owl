@@ -47,7 +47,8 @@ class OwlDatabase{
     }
     
     /**
-     * Agrupa dataobjects que
+     * Agrupa dataobjects por la columna pasada en el campo.
+     * $campo es el nombre de la columna tal y como aparece en la base de datos
      * @param string $campo
      * @param array $coleccionCOL
      */

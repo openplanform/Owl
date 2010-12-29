@@ -104,7 +104,7 @@ class OwlConnection{
     public function getLogHTML(){
         
         $log = '<p>SQL Log: '.count($this->_log) .' consultas.</p>';
-        $log .= '<ul>'.implode( null, $this->_log ).'</ul>';
+        $log .= empty($this->_log) ? '' : '<ul>' . implode( null, $this->_log ) . '</ul>';
         
         return $log;
         

@@ -51,7 +51,7 @@ class OwlGenericDO{
      * @param string $sql
      * @param string $className
      */
-    public function createCollection( $db, $sql, $className ){
+    public static function createCollection( $db, $sql, $className ){
         
         $elemsCOL = array();
         $db->executeQuery($sql);
@@ -69,7 +69,7 @@ class OwlGenericDO{
      * @param string $className
      * @return OwlGenericDO
      */
-    public function createDO( $db, $data, $className){
+    public static function createDO( $db, $data, $className){
         
         if( !empty($data) ){
             return new $className( $db, $data );
@@ -85,7 +85,7 @@ class OwlGenericDO{
      * @param string $className
      * @return OwlGenericDO
      */
-    public function createFromQuery( $db, $sql, $className ){
+    public static function createFromQuery( $db, $sql, $className ){
         
         $db->executeQuery($sql);
         if( $row = $db->fetchRow() ){
@@ -117,7 +117,7 @@ class OwlGenericDO{
      * @param array $col Array de data objects.
      * @param string $lang Iso del idioma.
      */
-    public function setCollectionLang( $col, $lang ){
+    public static function setCollectionLang( $col, $lang ){
         
         $length = count($col);
         for($i=0; $i<$length; $i++){

@@ -101,6 +101,7 @@ class OwlPdf{
      */
     private $_debug = false;
         
+    
     /**
      * Establece el path del archivo pdf a tratar
      * @throws OwlException
@@ -121,6 +122,9 @@ class OwlPdf{
         
         $this->pdfPath = $pdfPath;
         
+        // Se comprueba la integridad del documento
+        $this->_loadForEdit();
+        
     }
     
     
@@ -140,7 +144,7 @@ class OwlPdf{
     /**
      * Carga el pdf con permiso de escritura
      */
-    public function loadForEdit(){
+    private function _loadForEdit(){
         
         if (!is_writable($this->pdfPath)){
             throw new OwlException('El pdf abierto para edición <strong>(' . $this->pdfPath . ')</strong> no tiene permisos de escritura.', 500);
@@ -168,11 +172,17 @@ class OwlPdf{
         
     }
     
+    
     /**
      * Añade un array a la pila de reemplazos, con los valores asignados.
      * Notar que si nombre ya existe en la pila, su contenido será reemplazado.
+     * 
+     * @param string $nombre
+     * @param string $valor
+     * @param string $tipo
+     * @throws OwlException
      */
-    public function addFieldValue($nombre, $valor, $tipo){
+    public function addFieldValue($nombre, $valor, $tipo = 'text'){
 
         if (!$this->_isSupportedType($tipo)){
             throw new OwlException('El tipo de campo <strong>' . $tipo . '</strong>, no está soportado.', 500);
@@ -184,6 +194,7 @@ class OwlPdf{
         );
         
     }
+    
     
     /**
      * Verifica la integridad del documento pdf.
@@ -227,7 +238,7 @@ class OwlPdf{
             }
             
             if (!$correcto){
-                throw new OwlException('Ha ocurrido un error al efectuar reemplazos.', 500);
+                throw new OwlException('Ha ocurrido un error al efectuar reemplazos.<br/> El campo <strong>' . $key . '</strong> del tipo <strong>' . $data['tipo'] . '</strong> con el valor <strong>' . $data['valor'] .'</strong> no ha podido ser rellenado.', 500);
                 return false;
             }
             
@@ -284,22 +295,21 @@ class OwlPdf{
         // Valor
         $value = $value ? 'Yes' : 'Off';
         
-        // Cadena de reemplazo, no hace falta propagar ningún gruo para el checkbox
+        // Cadena de reemplazo, no hace falta propagar ningún grupo para el checkbox
         $reemplazo = '/T(' . $name . ')' . chr(self::PDF_LINEBREAK) . '/TU<FEFF>' . chr(self::PDF_LINEBREAK) . '/V /' . $value . chr(self::PDF_LINEBREAK) . '/DV /' . $value;
         
         // Se reemplaza el patrón
         if (!$resultado = preg_replace('%/T\(' . $name . '\)\n/TU<FEFF>\n/V\s/.+\n/DV\s/.+%', $reemplazo, $this->_content, -1, $cuenta)){
             return false;
         }
-        
+                
         // Se actualiza el buffer
         $this->_content = $resultado;
         
 		// Debug
         if ($this->_debug){
         	$this->_echoDebugLine("Reemplazando campo checkbox ($name) - $cuenta reemplazos.");
-        }
-                
+        }       
         
         // Se devuelve la cantidad de reemplazos
         return $cuenta;

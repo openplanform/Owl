@@ -117,14 +117,13 @@ class OwlControllerHelper{
                     }
                 }
             }
-            
         }
         
         // add new data
         foreach($rewrites as $key => $value) {
             if($value && !preg_match('-'.$key.'=-', $url)) {
                 if ( $params ) {
-                    $url .= '&'.$key.'='.$value;
+                    $url .= '&amp;'.$key.'='.$value;
                 } else {
                     $url .= '?'.$key.'='.$value;
                     $params = true;
