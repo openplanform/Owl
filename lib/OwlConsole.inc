@@ -11,7 +11,7 @@
  * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
  * mas información en /doc/LICENSE
  * 
- * Definicion de clase que implementa el helper de consola
+ * Definición de clase que implementa el entorno de consola
  * 
  * @category Owl
  * @package Owl
@@ -23,8 +23,23 @@
  * 
  */
  
+require_once 'dbase/OwlConnection.inc';
+
 
 class OwlConsole{
+
+	/**
+	 * Referencia a la base de datos
+	 * @var OwlConnection
+	 */
+	public $db;
+	
+	/**
+	 * Configuración de la aplicación
+	 * @var OwlApplicationConfig
+	 */
+	protected $appConfig;
+	
 	
 	/**
 	 * Imprime una cadena en una línea
@@ -36,11 +51,14 @@ class OwlConsole{
 		
 	}
 	
+	
 	/**
 	 * Devuelve el argumento en la posición de clave
 	 * @param string $clave
 	 */
 	public function getArg($clave){
+		
+		global $argv;
 		
 		if (array_key_exists($clave, $argv)){
 			
@@ -49,6 +67,48 @@ class OwlConsole{
 		}
 		
 		return null;
+		
+	}
+	
+	
+	/**
+	 * Devuelve el entorno de aplicación OWL
+	 */
+	public function getOwlEnvironment(){
+		
+		// Se instancia la aplicación
+		require_once 'OwlApplication.inc';
+		$application = new OwlApplication();
+		
+		// Se carga la configuración de la aplicacion
+		$this->appConfig = $application->applicationConfig;
+		
+		// Se inica el entorno de applicacion
+		$this->_loadOwlEnvironment($this->appConfig);
+		
+	}
+	
+	
+	/**
+	 * Carga el entorno de OWL
+	 * @param OwlApplicationConfig $appConfig
+	 */
+	private function _loadOwlEnvironment(OwlApplicationConfig $appConfig){
+
+		// Base de datos
+		$dbConfig = $appConfig->getDatabaseConfiguration();
+		$this->db = new OwlConnection($dbConfig);
+		
+	}
+	
+	
+	/**
+	 * Devuelve la configuración de la aplicación
+	 * @return OwlApplicationConfig
+	 */
+	public function getApplicationConfig(){
+		
+		return $this->appConfig;
 		
 	}
 	

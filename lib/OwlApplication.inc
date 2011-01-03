@@ -64,6 +64,14 @@ class OwlApplication{
 	protected $owlSession;
 	
 	/**
+	 * Flag que indica si la 
+	 * applicación se ejecuta en una consola
+	 * @var booelan
+	 */
+	protected $cliMode = false;
+	
+	
+	/**
 	 * Reune la información necesaria para decidir si es posible 
 	 * iniciar la aplicación 
 	 * @return void
@@ -71,8 +79,10 @@ class OwlApplication{
 	public function __construct(){
 		
 		try{
+			// Se detecta si la aplicación se encuentra en CLI
+			$this->_detectCliMode();
 			
-			//Se establece el nivel de error
+			// Se establece el nivel de error
 			$this->_setErrorLevel();
 			
 			// Se inicia la configuración de la aplicación
@@ -92,6 +102,7 @@ class OwlApplication{
 		
 	}
 	
+	
 	/**
 	 * Establece el nivel de errores que se mostrarán
 	 * dependiendo de si el servidor es de desarrollo
@@ -107,6 +118,18 @@ class OwlApplication{
 		}		
 		
 	}
+	
+	
+	/**
+	 * Detecta si la aplicación actual, 
+	 * se está llamando desde la consola.
+	 */
+	private function _detectCliMode(){
+		
+		$this->cliMode = isset($_ENV['SSH_CLIENT']);
+		
+	}
+	
 	
 	/**
 	 * Carga la configuración inicial de la aplicación 
@@ -148,6 +171,12 @@ class OwlApplication{
 	 */	
 	private function _loadApplicationRouter(){
 		
+		// Si estamos en una consola, el entorno de applicación
+		// será controlado por el helper CLI
+		if ($this->cliMode){
+			return;
+		}		
+		
 		// Se inicializa el router
 		$this->_applicationRouter = new OwlRouter($_SERVER['REQUEST_URI']);
 		
@@ -156,11 +185,18 @@ class OwlApplication{
 		
 	}
 	
+	
 	/**
 	 * Ordena a router iniciar el proceso de bootstrap
 	 * @return void
 	 */
 	private function _initApplication(){
+		
+		// Si estamos en una consola, el entorno de applicación
+		// será controlado por el helper CLI
+		if ($this->cliMode){
+			return;
+		}
 		
 		// Se verificará si la aplicación no se encuetra en mantenimiento
 		if ($this->applicationConfig->isMantenimiento()){

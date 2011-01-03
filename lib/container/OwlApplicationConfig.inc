@@ -332,6 +332,20 @@ class OwlApplicationConfig{
 	}
 	
 	/**
+	 * Devuelve el nombre de la aplicación
+	 * @return string
+	 */
+	public function getApplicationName(){
+		
+		if (array_key_exists('name', $this->_configDataArray['app'])){
+			return $this->_configDataArray['app']['name'];
+		}
+		
+		return null;		
+		
+	}
+	
+	/**
 	 * Devuelve las palabras clave de la aplicación, si han sido configuradas
 	 * @return string
 	 */

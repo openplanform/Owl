@@ -88,11 +88,38 @@ class OwlSession{
 	 */
 	public static function destroyValue($clave){
 	    
-	   if (array_key_exists('OWL', $_SESSION) && array_key_exists($clave, $_SESSION['OWL'])){
+	    if (array_key_exists('OWL', $_SESSION) && array_key_exists($clave, $_SESSION['OWL'])){
             unset($_SESSION['OWL'][$clave]);
         }
 	    
 	}
+	
+	
+	/**
+	 * Devuelve la configuración global de la aplicación.
+	 * En caso de no poder obtenerla, devuelve null.
+	 * @return OwlApplicationConfig
+	 */
+	public static function getGlobalConfig(){
+		
+		if (array_key_exists('OWL', $GLOBALS)){
+			
+			if (array_key_exists('app_config', $GLOBALS['OWL'])){
+				
+				if ($GLOBALS['OWL']['app_config'] instanceof OwlApplicationConfig){
+					
+					return $GLOBALS['OWL']['app_config'];
+					
+				}
+				
+			}
+			
+		}
+		
+		return null;
+		
+	}
+	
 	
 }
 

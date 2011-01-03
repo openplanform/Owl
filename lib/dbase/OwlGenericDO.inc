@@ -50,14 +50,17 @@ class OwlGenericDO{
      * @param Connection $db
      * @param string $sql
      * @param string $className
+     * @return array
      */
     public static function createCollection( $db, $sql, $className ){
         
         $elemsCOL = array();
         $db->executeQuery($sql);
+        
         while( $row = $db->fetchRow() ){
             $elemsCOL[] = OwlGenericDO::createDO( $db, $row, $className );
         }
+        
         return $elemsCOL;
         
     }
