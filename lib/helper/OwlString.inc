@@ -26,7 +26,8 @@ class OwlString{
 	
     /**
      * Método que limita la longitud de un texto
-     * al llegar a límite corta por el espacio entre palabras
+     * al llegar a límite corta por el espacio entre palabras,
+     * nunca cortará una palabra.
      * @param string $cadena
      * @param integer $longitud
      * @return string

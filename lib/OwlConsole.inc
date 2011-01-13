@@ -24,6 +24,7 @@
  */
  
 require_once 'dbase/OwlConnection.inc';
+require_once 'helper/OwlFileSystem.inc';
 
 
 class OwlConsole{
@@ -39,6 +40,22 @@ class OwlConsole{
 	 * @var OwlApplicationConfig
 	 */
 	protected $appConfig;
+	
+	/**
+	 * Helper para filesystem
+	 * @var OwlFileSystem
+	 */
+	public $fileSystem;
+	
+	
+	/**
+	 * Instancia algunos objetos necesarios
+	 */
+	public function __construct(){
+		
+		$this->fileSystem = new OwlFileSystem();
+		
+	}
 	
 	
 	/**

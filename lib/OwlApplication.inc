@@ -11,7 +11,7 @@
  * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
  * mas información en /doc/LICENSE
  * 
- * Clase que implementan las aplicaciones webs compatibles con NOWL
+ * Clase que implementan las aplicaciones webs compatibles con OWL
  * 
  * @category Owl
  * @package Owl
@@ -126,7 +126,7 @@ class OwlApplication{
 	 */
 	private function _detectCliMode(){
 		
-		$this->cliMode = isset($_ENV['SSH_CLIENT']);
+		$this->cliMode = !isset($_SERVER['SERVER_SOFTWARE']);
 		
 	}
 	

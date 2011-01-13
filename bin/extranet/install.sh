@@ -78,7 +78,15 @@ if [ -d "$OWL_TARGETDIR" ]; then
 	mkdir app/modules
 		
 	cp -R $OWL_DIR"bin/extranet/resources/views/" app/views/
-	
+
+    # Directorio de log
+
+    mkdir app/log
+
+    chown -R www-data:www-data app/log
+
+    chmod -R 755 app/log
+
 	echo -e "[" "\033[32mOK\033[0m" "] Archivos copiados"
 	
 	

@@ -64,6 +64,14 @@ else
 		mkdir app/models
 
 		chmod 777 app/models
+
+        # Directorio de log
+
+        mkdir app/log
+
+        chown -R www-data:www-data app/log
+
+        chmod -R 755 app/log
 		
 		mkdir app/layouts
 		
