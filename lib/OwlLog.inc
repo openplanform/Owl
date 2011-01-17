@@ -150,7 +150,7 @@ class OwlLog{
 		$timeStamp = date('M d H:i:s');
 		$author = $this->_searchAuthor();
 		$breakLine = "\n";
-		$errorStr = $error ? ' (ERROR) ' : '';
+		$errorStr = $error ? ' (ERROR)' : '';
 		
 		fwrite($this->file, $timeStamp . $errorStr . ' [' . $author . '] - ' . trim($content) . $breakLine);
 		

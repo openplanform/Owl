@@ -26,9 +26,17 @@
 
 require_once 'helper/OwlHtmlHelper.inc';
 require_once 'OwlServerResponses.inc';
+require_once 'OwlLog.inc';
 
 
 class OwlException extends Exception{
+	
+	/**
+	 * Manejador de logs 
+	 * @var OwlLog
+	 */
+	protected $log;
+	
 	
 	/**
 	 * Prepara el mensaje de debug
@@ -40,16 +48,34 @@ class OwlException extends Exception{
 		
 	}
 	
+	
 	/**
 	 * Errores comprometidos con el servidor se mostraran en la 
-	 * correspondiente página de error
+	 * correspondiente página de error, si el servidor se encuentra
+	 * en producción, el error será logeado y no se mostrará  
+	 * ningún tipo de debug.
 	 */
 	public function echoCmsMessage(){
 		
-		$response = new OwlServerResponses(500, $this->getDebugMessage());
-		$response->sendResponse();
+		if (DEVELOPMENT){
+		
+			// Se muestra la página de error con información de debug
+			$response = new OwlServerResponses(500, $this->getDebugMessage());
+			$response->sendResponse();
+			
+		} else {
+			
+			// Se almacena el error en el archivo de log
+			$this->logMessage('[' . $_SERVER['REMOTE_ADDR'] . '] - ' . $this->getMessage() . ' - ' . $this->getFile() . ':' . $this->getLine());
+			
+			// Se muestra una página de error sin información de depurado
+			$response = new OwlServerResponses(500, $this->getFormatedMessage('Ha ocurrido un error, el administrador ya ha sido notificado, intente nuevamente mas tarde. Disculpe las molestias.'));
+			$response->sendResponse();
+			
+		}
 		
 	}
+	
 	
 	/**
 	 * Devuelve el mensaje en un párrafo, si no hay mensaje devuelve null
@@ -61,6 +87,17 @@ class OwlException extends Exception{
 		
 	}
 	
+	
+	/**
+	 * Imprime el mensaje de la excepción en el log de errores
+	 * @param string $msg
+	 */
+	protected function logMessage($msg){
+		
+		$this->log = new OwlLog('errors');
+		$this->log->addLine($msg, true);
+		
+	}
 	
 
  	

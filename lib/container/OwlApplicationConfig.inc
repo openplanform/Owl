@@ -459,7 +459,7 @@ class OwlApplicationConfig{
 	 */
 	public function getIpDesarrollo(){
 		
-		if (array_key_exists('ip_desarrollo', $this->_configDataArray['system']) && is_array($this->_configDataArray['system']['ip_desarrollo'])){
+		if (array_key_exists('ip_desarrollo', $this->_configDataArray['system']) && !is_null($this->_configDataArray['system']['ip_desarrollo'])){
 			
 			$ips = $this->_configDataArray['system']['ip_desarrollo'];
 			$ipsARR = explode(',', $ips);
