@@ -71,6 +71,7 @@ class OwlServerResponses{
 		
 	}
 	
+	
 	/**
 	 * Inicia el array de mensajes de servidor
 	 * @return void
@@ -108,6 +109,7 @@ class OwlServerResponses{
 		
 	}
 	
+	
 	/**
 	 * Envía la página de error al buffer
 	 * @return void
@@ -119,6 +121,7 @@ class OwlServerResponses{
 		
 	}
 
+	
 	/**
 	 * Envia los headers solo si ya no han sido enviados
 	 * @return void
@@ -131,6 +134,7 @@ class OwlServerResponses{
 		}
 				
 	}
+	
 	
 	/**
 	 * Crea el código html para mostrar la página de error
