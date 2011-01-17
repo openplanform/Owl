@@ -408,16 +408,35 @@ class OwlApplicationConfig{
 		
 	}
 	
+	
 	/**
 	 * Devuelve el flag que indica si se debe activar el debug del sistema
 	 * @return boolean
 	 */
 	public function getDebugFlag(){
 
+		// Si el cliente pertenece al grupo de desarrollo
+		// Mostraremos el debug
+		$ipsDesarrollo = $this->getIpDesarrollo();
+		
+		if (!is_null($ipsDesarrollo)){
+			if (is_array($ipsDesarrollo)){
+				if (in_array($_SERVER['REMOTE_ADDR'], $ipsDesarrollo)){
+					return true;
+				}
+			} else {
+				if ($ipsDesarrollo == $_SERVER['REMOTE_ADDR']){
+					return true;
+				}
+			}
+		}
+		
+		// Se evalua el flag de debug (resto de clientes)
 	    $systemConfig = $this->getSystemConfig();
 	    return intval($systemConfig->owl_debug);
 	    
 	}
+	
 	
 	/**
 	 * Devuelve el título base de la aplicación, si no fué configurado, devuelve null
@@ -432,6 +451,31 @@ class OwlApplicationConfig{
 	    return null;
 	    
 	}
+
+	
+	/**
+	 * Devuelve las ips que han sido indicadas bajo la clave ip_desarrollo, si no hay ninguna configurada, devuelve null
+	 * @return string | array
+	 */
+	public function getIpDesarrollo(){
+		
+		if (array_key_exists('ip_desarrollo', $this->_configDataArray['system']) && is_array($this->_configDataArray['system']['ip_desarrollo'])){
+			
+			$ips = $this->_configDataArray['system']['ip_desarrollo'];
+			$ipsARR = explode(',', $ips);
+			
+			return $ipsARR;
+			
+		} else {
+			
+			return null;
+			
+		}		
+		
+	}
+	
+	
+	
 	
 	
 	
