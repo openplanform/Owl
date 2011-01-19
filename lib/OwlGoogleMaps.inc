@@ -87,6 +87,22 @@ class OwlGoogleMaps{
 	private $_contenedorCoordenadas = '';
 	
 	/**
+	 * Nombre del mapa
+	 * @var string
+	 */
+	private $_nombreMapa;
+	
+	/**
+	 * Constructor. Se le pasa el nombre del mapa
+	 * @param string $mapa
+	 */
+	public function __construct($nombreMapa = 'map'){
+		
+		$this->_nombreMapa = $nombreMapa;
+		
+	}
+	
+	/**
 	 * Imprime la cabecera con los recursos para mostrar el mapa
 	 */
 	static public function echoCabeceraMapa(){
@@ -101,17 +117,17 @@ class OwlGoogleMaps{
 	 * Devuelve el código javascript del mapa
 	 * @param string $funcion
 	 * <p>El nombre de la función es necesario ya que si se
-	 * crea más de un mapa, se sobreescribirían. Por defecto
-	 * es "initialize"
-	 * unos a otros</p>
+	 * crea más de un mapa, se sobreescribirían unos a otros.
+	 * Por defecto es "initialize"</p>
 	 * @return string $googleMap
 	 */
-	public function echoMapa($funcion = 'initialize'){
+	public function echoMapa(){
 		
 		$googleMap = 
 		'<script type="text/javascript">
+			
 			//<![CDATA[
-			function ' . $funcion . '() {
+			function initialize' . $this->_nombreMapa . '() {
 				
 				var latlng = new google.maps.LatLng(' . $this->_latitud . ', ' . $this->_longitud . ');
 				var myOptions = {
@@ -119,8 +135,8 @@ class OwlGoogleMaps{
 					center: latlng,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				};
-				var map = new google.maps.Map(document.getElementById("' . $this->_contenedor . '"), myOptions);';
-		
+				' . $this->_nombreMapa . ' = new google.maps.Map(document.getElementById("' . $this->_contenedor . '"), myOptions);';
+				
 				// Devolución de coordenadas
 				if ( $this->_marcadorCoordenadas ) {
 					
@@ -135,8 +151,8 @@ class OwlGoogleMaps{
 			
 			jQuery(document).ready(function(){
 
-				//mapa
-				' . $funcion . '();
+				//inicializa el mapa
+				initialize' . $this->_nombreMapa . '();
 							
 			});
 			//]]>
@@ -159,7 +175,7 @@ class OwlGoogleMaps{
 				var latlngMarcador = new google.maps.LatLng(' . $marcadorDO->getLatitud() . ', ' . $marcadorDO->getLongitud() . ');
 				var ' . $marcadorDO->getNombre() . ' = new google.maps.Marker({
 					position: latlngMarcador,
-					map		: map
+					map		: ' . $this->_nombreMapa . '
 				});
 				' . $marcadorDO->getInfoWindow();
 			
@@ -253,7 +269,7 @@ class OwlGoogleMaps{
 					// Marcador en el punto en el que han clicado
 					puntoSeleccionado.setOptions({
 						position: evento.latLng,
-						map: map,
+						map: ' . $this->_nombreMapa . ',
 						visible: true
 					});
 					
@@ -264,7 +280,7 @@ class OwlGoogleMaps{
 			$marcadorCoordenadas .= '
 				var contenedorCoordenadas = document.getElementById("' . $this->_contenedorCoordenadas . '");
 				var contadorCoordenadas = 0;
-				google.maps.event.addListener(map, "click", function(evento) {
+				google.maps.event.addListener(' . $this->_nombreMapa . ', "click", function(evento) {
 					
 					if ( contenedorCoordenadas != null ){
 					
@@ -303,7 +319,7 @@ class OwlGoogleMaps{
 					// Marcador en el punto en el que han clicado
 					puntoSeleccionado.setOptions({
 						position: evento.latLng,
-						map: map
+						map: ' . $this->_nombreMapa . '
 					});
 					
 					contadorCoordenadas++;

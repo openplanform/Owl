@@ -497,11 +497,40 @@ class OwlController{
      * Detiene la ejecución actual del controlador
      */
     protected function stopExecution(){
-    	
+
+    	// Hace un bypass tanto de layout como de la vista
     	$this->bypassLayout();
     	$this->view->bypassView();
     	
+    	// Se activa el flag de parada
     	$this->_stop = true;
+    	
+    }
+    
+    
+    /**
+     * Devuelve el objeto de configuración de aplicación, si no lo logra devuelve null
+     * @return OwlApplicationConfig
+     */
+    protected final function getApplicationConfig(){
+    	
+    	// Objeto global del framework
+    	if (array_key_exists('OWL', $GLOBALS)){
+    		
+    		// Configuración 
+    		if (array_key_exists('app_config', $GLOBALS['OWL'])){
+    			
+    			$appConfig = $GLOBALS['OWL']['app_config'];
+    			
+    			if ($appConfig instanceof OwlApplicationConfig){
+    				return $appConfig;
+    			}
+    			
+    		}
+    		
+    	}
+    	
+    	return null;
     	
     }
 	 

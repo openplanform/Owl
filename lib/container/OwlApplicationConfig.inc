@@ -415,26 +415,32 @@ class OwlApplicationConfig{
 	 */
 	public function getDebugFlag(){
 
-		// Si el cliente pertenece al grupo de desarrollo
-		// Mostraremos el debug
-		$ipsDesarrollo = $this->getIpDesarrollo();
-		
-		if (!is_null($ipsDesarrollo)){
-			if (is_array($ipsDesarrollo)){
-				if (in_array($_SERVER['REMOTE_ADDR'], $ipsDesarrollo)){
-					return true;
-				}
-			} else {
-				if ($ipsDesarrollo == $_SERVER['REMOTE_ADDR']){
-					return true;
-				}
-			}
-		}
-		
 		// Se evalua el flag de debug (resto de clientes)
 	    $systemConfig = $this->getSystemConfig();
-	    return intval($systemConfig->owl_debug);
-	    
+	    if (intval($systemConfig->owl_debug)){
+	    	
+			return true;
+	    	
+	    } else {
+		
+			// Si el cliente pertenece al grupo de desarrollo
+			// Mostraremos el debug
+			$ipsDesarrollo = $this->getIpDesarrollo();
+			
+			if (!is_null($ipsDesarrollo)){
+				if (is_array($ipsDesarrollo)){
+					if (in_array($_SERVER['REMOTE_ADDR'], $ipsDesarrollo)){
+						return true;
+					}
+				} else {
+					if ($ipsDesarrollo == $_SERVER['REMOTE_ADDR']){
+						return true;
+					}
+				}
+			}
+			
+	    }
+		
 	}
 	
 	
