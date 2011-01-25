@@ -156,10 +156,17 @@ class OwlConnection{
 
 	/**
 	 * Obtiene una nueva fila del conjunto de resultados obtenidos en la última consulta.
+	 * Si no hay filas, devuelve false.
 	 * @return array
 	 */
 	public function fetchRow(){
-		return mysql_fetch_assoc( $this->_lastResource );
+		
+		// Se previene un warning
+		if (is_resource($this->_lastResource)){
+			return mysql_fetch_assoc( $this->_lastResource );
+		} 
+		
+		return false;
 	}
 
 	/**
