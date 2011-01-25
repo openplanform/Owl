@@ -89,18 +89,8 @@ class OwlLog{
 		// Nombre de la aplicacion
 		$appName = strtolower($this->appConfig->getApplicationName());
 		
-		// Verificaremos si existe el directorio de aplicacion bajo log/
-		if (!file_exists(LOGDIR . $appName)){
-
-			// Si no existe, se crea
-			if (!mkdir(LOGDIR . $appName)){
-				throw new OwlException('No ha sido posible crear el directorio de log para la aplicación ' . $appName, 500);
-			}
-			
-		}
-
 		// Se construye el nombre de archivo y se carga
-		$this->logPath = LOGDIR . $appName . '/' . $this->logName . '.log';
+		$this->logPath = LOGDIR . $this->logName . '.log';
 		
 		if (false == @$this->file = fopen($this->logPath, 'a')){
 			throw new OwlException('No ha sido posible abrir el archivo de log para la aplicación actual: ' . $appName, 500);
@@ -152,7 +142,12 @@ class OwlLog{
 		$breakLine = "\n";
 		$errorStr = $error ? ' (ERROR)' : '';
 		
-		fwrite($this->file, $timeStamp . $errorStr . ' [' . $author . '] - ' . trim($content) . $breakLine);
+		$ip = '';
+		if (array_key_exists('REMOTE_ADDR', $_SERVER)){
+			$ip = ' - ' . $_SERVER['REMOTE_ADDR'];
+		}
+		
+		fwrite($this->file, $timeStamp . $errorStr . ' [' . $author . $ip . '] - ' . trim($content) . $breakLine);
 		
 	}
 	
