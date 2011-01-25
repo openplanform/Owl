@@ -112,9 +112,8 @@ class OwlAclManager{
         $sql = "SELECT * FROM tblUsuario WHERE LOWER(vNombre) = '$username' AND vPassword = '$password'";
         $this->db->executeQuery($sql);
         
-        
         $row = $this->db->fetchRow();
-            
+        
         if ($row === false){
             return false;
         }

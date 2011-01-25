@@ -74,7 +74,7 @@ DEFAULT CHARACTER SET = utf8$$
 -- INSERTS
 
 -- USUARIO
-INSERT INTO `tblUsuario` (idUsuario,vNombre,vPassword,vEmail) VALUES (1,'admin','563566b348459042881bc33f336211a3','info@ningen.es');
+INSERT INTO `tblUsuario` (idUsuario,vNombre,vPassword,vEmail) VALUES (1,'admin','5be85bb62f6a70ae4cb776734251a459','info@ningen.es');
 
 -- ROL
 INSERT INTO `tblRol` (idRol,vNombre,vDescripcion) VALUES (1,'Administrador','Administrador del Sistema');

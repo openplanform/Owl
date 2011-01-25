@@ -160,13 +160,14 @@ class OwlConnection{
 	 * @return array
 	 */
 	public function fetchRow(){
-		
+
 		// Se previene un warning
 		if (is_resource($this->_lastResource)){
 			return mysql_fetch_assoc( $this->_lastResource );
 		} 
 		
 		return false;
+		
 	}
 
 	/**

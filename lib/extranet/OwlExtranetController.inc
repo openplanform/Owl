@@ -83,13 +83,17 @@ class OwlExtranetController extends OwlController{
         $this->aclManager->getAclData($this->usuario, true);
         
     	// ROLES
-	    if (!$this->aclManager->hasPerms($this->controllerName, $this->actionName)){
-	    	
-	    	$this->stopExecution();
-	    	echo OwlHtmlHelper::getHtmlErrorPage('Forbidden', 403, 'Acceso no autorizado', '<p>No dispone de los privilegios necesarios para acceder a este área.</p>');
-	    	
-	    	return;
-	    }        
+        if ($this->actionName != 'login'){
+        
+		    if (!$this->aclManager->hasPerms($this->controllerName, $this->actionName)){
+		    	
+		    	$this->stopExecution();
+		    	echo OwlHtmlHelper::getHtmlErrorPage('Forbidden', 403, 'Acceso no autorizado', '<p>No dispone de los privilegios necesarios para acceder a este área.</p>');
+		    	
+		    	return;
+		    }        
+		    
+        }
         
         
         // ------------ MÓDULO - MENÚ PRINCIPAL -----------
@@ -136,7 +140,6 @@ class OwlExtranetController extends OwlController{
             
             
         // Casos especiales en los que no es necesario un layout
-    	//if ( $this->actionName == "eliminar" || $this->actionName == "duplicar" ){
     	if ( $this->actionName == "duplicar" ){
     		$this->bypassLayout();
     	}
