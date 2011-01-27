@@ -212,7 +212,7 @@ class OwlMailer{
 	
 	/**
 	 * Establece el modo del mail
-	 * @param string (text|html)
+	 * @param string (plain|html)
 	 * @return void
 	 */
 	private function _setMode($mode){
@@ -370,6 +370,17 @@ class OwlMailer{
 	    $this->_subject = $subject;
 	    
 	}
+
+    /**
+    * Establece el modo de envío de mail (plain | html)
+    * (Llamar antes de send()
+    * @param string $mode
+    */
+    public function setMode($mode){
+
+        $this->_setMode($mode);
+
+    }
 	
 	
 }
