@@ -24,6 +24,8 @@
  */
 
 require_once 'OwlController.inc';
+require_once 'OwlTheme.inc';
+require_once 'helper/OwlExtranetHelper.inc';
 
 require_once 'extranet/OwlExtranetController.inc';
 require_once 'extranet/OwlAclManager.inc';
@@ -60,7 +62,7 @@ class OwlExtranetController extends OwlController{
      * @see extranet.planespime.es/owl/lib/OwlController::initController()
      */
     public function initController(){
-        
+    	
         /**
          * El usuario deberá tener una cuenta para poder ejecutar 
          * cualquier acción del controlador
@@ -127,7 +129,7 @@ class OwlExtranetController extends OwlController{
         
         // ------------ MÓDULO - POPUP ----------------------
         $popupModule = new popupModule('contenedor_popup');
-
+        
             $this->addModule($popupModule);
             
             
@@ -143,6 +145,17 @@ class OwlExtranetController extends OwlController{
     	if ( $this->actionName == "duplicar" ){
     		$this->bypassLayout();
     	}
+    	
+    	// Tema de la extranet
+    	if ( array_key_exists( OwlTheme::CLAVE_TEMA, $_COOKIE ) ){
+			$tema = new OwlTheme($_COOKIE[OwlTheme::CLAVE_TEMA]);
+		} else {
+    		$tema = new OwlTheme($this->getApplicationConfig()->getDefaultTheme());
+		}
+    	$this->layout->setThemeCss($tema);
+    	
+    	// Se instancia el helper de extranet
+    	$this->view->helper = new OwlExtranetHelper();
     	
     }
 }

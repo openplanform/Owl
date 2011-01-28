@@ -83,6 +83,12 @@ class OwlApplicationConfig{
 	private $_defaultLayout = null;
 	
 	/**
+	 * Nombre del tema por defecto a utilizar
+	 * @var string
+	 */
+	private $_defaultTheme = null;
+	
+	/**
 	 * Hash con la configuración de los distintos 
 	 * menues del sitio (si hay)
 	 * @var array
@@ -165,6 +171,10 @@ class OwlApplicationConfig{
 			$this->_defaultLayout = $defaultLayout;
 		}
 		
+		if ($defaultTheme = $this->_configData->app->default_theme){
+			$this->_defaultTheme = $defaultTheme;
+		}
+		
 		if ($menuesConfig = $this->_configData->app->menu){
 			$this->_menuesConfigurationContainer = $menuesConfig;
 		}
@@ -240,6 +250,14 @@ class OwlApplicationConfig{
 	 */
 	public function getDefaultLayout(){
 		return $this->_defaultLayout;
+	}
+	
+	/**
+	 * Devuelve el nombre del tema por defecto
+	 * @return string
+	 */
+	public function getDefaultTheme(){
+		return $this->_defaultTheme;
 	}
 	
 	/**

@@ -54,6 +54,12 @@ class OwlLayout{
 	protected $layoutPath;
 	
 	/**
+	 * Path al estilo del tema
+	 * @var string
+	 */
+	protected $themeCssPath = null;
+	
+	/**
 	 * Pila de slots
 	 * @var array
 	 */
@@ -296,10 +302,14 @@ class OwlLayout{
 			
 			foreach ($cssResources as $cssPath) {
 				
-				echo '<link rel="stylesheet" type="text/css" href="' . $cssPath . '" />' . "\n"; 
+				echo '<link rel="stylesheet" type="text/css" href="' . $cssPath . '" />' . "\n";
 				
 			}
 			
+		}
+		
+		if ( !is_null($this->themeCssPath) ){
+			echo '<link rel="stylesheet" type="text/css" href="' . $this->themeCssPath . '" />' . "\n";
 		}
 		
 	}
@@ -471,6 +481,15 @@ class OwlLayout{
 	    
 	}
 	
+	/**
+	 * Establece el archivo css del tema actual
+	 * @param OwlTheme $tema
+	 */
+	public function setThemeCss( OwlTheme $tema ){
+		
+		$this->themeCssPath = $tema->getCssPath();
+		
+	}
 	
 	
 }
