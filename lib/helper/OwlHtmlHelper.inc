@@ -68,7 +68,7 @@ class OwlHtmlHelper{
 					<td><?= $traceLine['file'] ?></td>
 					<td><?= $traceLine['line'] ?></td>
 					<td><?= $traceLine['function'] ?></td>
-					<td><?= $traceLine['class'] ?></td>
+					<td><?= array_key_exists('class', $traceLine) ? $traceLine['class'] : 'NO CLASS'?></td>
 				</tr><?
 				
 			}
@@ -171,7 +171,7 @@ class OwlHtmlHelper{
 			</div>
 			
 			<div id="c">
-				<p>Si el problema continúa, por favor contacte al administrador: <a href="">nobody@nobody.net</a></p>
+				<p>Si el problema continúa, por favor contacte al administrador: <a href="mailto:<?= $_SERVER['SERVER_ADMIN'] ?>"><?= $_SERVER['SERVER_ADMIN'] ?></a></p>
 			</div>
 			
 		</body>
