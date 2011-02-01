@@ -211,7 +211,12 @@ class administradorController extends OwlExtranetController{
                        $accesoDO->setVNombre($nombre);
                        $accesoDO->setBMenu($activo);
                        $accesoDO->setVControlador($controlador);
-                       $accesoDO->setVAccion(!empty($accion) ? $accion : null);
+                       
+                       // Solo se podrá asignar una accion a un elemento que no sea patriarca
+                       if (intval($padre) != 0){
+					   		$accesoDO->setVAccion(!empty($accion) ? $accion : null);
+                       }
+                       
                        $accesoDO->setIOrden($orden);
                        $accesoDO->setVRoles(intval($padre) == 0 ? null : $roles);
                        
