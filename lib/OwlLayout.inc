@@ -464,15 +464,15 @@ class OwlLayout{
 	 * Imprime el log de base de datos si está diponible
 	 */
 	public function echoDatabaseLog(){
-	    
+		    
 	    // Obtendremos el log sql
-	    if (array_key_exists('dbLog', $GLOBALS) && $appConfig = $this->_getApplicationConfig()){
-	    
+	    if (array_key_exists('OWL', $GLOBALS) && array_key_exists('app_dblog', $GLOBALS['OWL']) && $appConfig = $this->_getApplicationConfig()){
+	    	
 	        // Comprobaremos que el debug está activado
 	        if ($appConfig->getDebugFlag()){
 	        
     	        echo '<div id="logSql">' . "\n";
-                echo $GLOBALS['dbLog'];
+                echo $GLOBALS['OWL']['app_dblog'];
                 echo '</div>' . "\n";
                 
 	        }

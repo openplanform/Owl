@@ -45,6 +45,12 @@ class OwlExtranetController extends OwlController{
      */
     protected $aclManager;
 	
+    /**
+     * Gestor de temas visuales
+     * @var OwlTheme
+     */
+    protected $theme;
+    
 	/**
      * Añado el soporte de AclManager
      */
@@ -147,12 +153,8 @@ class OwlExtranetController extends OwlController{
     	}
     	
     	// Tema de la extranet
-    	if ( array_key_exists( OwlTheme::CLAVE_TEMA, $_COOKIE ) ){
-			$tema = new OwlTheme($_COOKIE[OwlTheme::CLAVE_TEMA]);
-		} else {
-    		$tema = new OwlTheme($this->getApplicationConfig()->getDefaultTheme());
-		}
-    	$this->layout->setThemeCss($tema);
+		$this->theme = new OwlTheme($this->getApplicationConfig());
+    	$this->layout->setThemeCss($this->theme);
     	
     	// Se instancia el helper de extranet
     	$this->view->helper = new OwlExtranetHelper();

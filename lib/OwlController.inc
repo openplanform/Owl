@@ -265,7 +265,7 @@ class OwlController{
 	    
 	    // Si hay base de datos activa, se propaga el log sql
 	    if ($this->db instanceof OwlConnection){
-	        $GLOBALS['dbLog'] = $this->db->getLogHTML();
+	        $GLOBALS['OWL']['app_dblog'] = $this->db->getLogHTML();
 	    }
 		
 		// Si no hay layout o si se ha deshabilitado se llamara directamente a la acción
@@ -532,6 +532,51 @@ class OwlController{
     	
     	return null;
     	
+    }
+    
+    
+    /**
+     * Devuelve el objeto de locale, si no lo logra devuelve null
+     * @return OwlLocale
+     */
+    protected final function getLocale(){
+    	
+    	// Objeto global del framework
+    	if (array_key_exists('OWL', $GLOBALS)){
+    		
+    		// Locale 
+    		if (array_key_exists('app_locale', $GLOBALS['OWL'])){
+    			
+    			$locale = $GLOBALS['OWL']['app_locale'];
+    			
+    			if ($locale instanceof OwlLocale){
+    				return $locale;
+    			}
+    			
+    		}
+    		
+    	}
+    	
+    	return null;
+    	
+    }
+    
+    
+    /**
+     * Establece el nuevo idioma y recarga la página
+     * 
+     * @param string $lang
+     */
+    protected final function changeLang($lang){
+    	
+    	// Se detiene la ejecución del script
+    	$this->stopExecution();
+    	
+    	// Se guarda el valor del nuevo idioma temporalmente en la sesión
+    	OwlSession::setValue('new_lang', $lang);
+    	
+    	// Se recarga la página
+    	$this->redirectTo($this->controllerName, $this->actionName);
     }
 	 
 	
