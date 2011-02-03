@@ -499,6 +499,55 @@ class OwlApplicationConfig{
 	}
 	
 	
+	/**
+	 * Devuelve un array con todos los idiomas disponibles para 
+	 * la aplicación actual. Si no hay ninguno devuelve null. 
+	 * 
+	 * @return array
+	 */
+	public function getLangs(){
+		
+		if (array_key_exists('app', $this->_configDataArray) && array_key_exists('langs', $this->_configDataArray['app'])){
+	        
+			$langs = $this->_configDataArray['app']['langs'];
+			$langsARR = explode(',', $langs);
+			
+			// Esto sucede si existe la clave sin valor
+			if (empty($langsARR[0])){
+				return null;
+			}
+
+			// Se quitan los espacios
+			$retARR = array();
+			foreach ($langsARR as $lang) {
+				array_push($retARR, trim($lang));
+			}
+			
+			return $retARR;
+			
+	    }
+	    
+	    return null;		
+		
+	}
+	
+	
+	/**
+	 * Retorna un flag indicando si el autolang
+	 * (Detección de idioma mediante el navegador)
+	 * Se encuentra activado
+	 * 
+	 * @return boolean
+	 * 
+	 */
+	public function isAutolang(){
+		if (array_key_exists('app', $this->_configDataArray) && array_key_exists('autolang', $this->_configDataArray['app'])){
+			return intval($this->_configDataArray['app']['autolang']);
+		}
+		return false;
+	}
+	
+	
 	
 	
 	

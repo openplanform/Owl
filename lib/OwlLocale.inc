@@ -23,7 +23,8 @@
  * 
  */
 
-class OwlLocaleManager{
+
+class OwlLocale{
 
     /**
      * Iso del idioma actual
@@ -35,218 +36,212 @@ class OwlLocaleManager{
      * Isos de los idiomas disponibles
      * @var array
      */
-    private $_idiomas;
+    private $_idiomasARR;
     
     /**
-     * Path hacia el directorio de locales
+     * Idioma por defecto de la aplicación
      * @var string
      */
-    private $_localePath = 'locale/';
+    private $_defaultLang;
     
     /**
-     * Iso del idioma por defecto
+     * Array con el locale
+     * @var array
+     */
+    private $_localeARR = null;
+    
+    /**
+     * Identificador de la cookie de idioma
+     * MD5 de la cadena "lang"
      * @var string
      */
-    private $_langDefecto = 'es';
+    const COOKIE_LANG_ID = 'owl_7572559ca86e781ba8fe8073a0b725c6';
     
     /**
-     * Hash con el locale 
-     * @var array
+     * Tiempo de expiración de la cookie, 2 años
+     * @var integer
      */
-    private $_localeArray = null;
+    const COOKIE_LANG_TIME = 63072000;
     
-    /**
-     * Hash con la metadata del locale actual
-     * @var array
-     */
-    private $_metadataArray = null;
-    
+
     /**
      * Constructora, inicializa el objeto 
      * y las opciones básicas.
+     * @param OwlApplicationConfig $appConfig
      */
-    public function __construct( $lang = '' ){
-        
-        $this->_setIdiomasDisponibles();
-        
-        $this->_setLang($lang);
-        
-        $this->_loadLocale();
-        
+    public function __construct(OwlApplicationConfig $appConfig){
+
+    	// Se obtienen los idiomas configurados para la aplicación
+  		$this->_idiomasARR = $appConfig->getLangs();
+
+  		// 1 - Idioma por defecto
+  		$this->_langActual = $this->_defaultLang = $appConfig->getDefaultLang();
+  		
+  		// 2 - Si autolang se encuentra activo, se intentará obtener el idioma preferido del navegador
+  		if ($appConfig->isAutolang() && $browserLang = $this->_detectBrowserLang()){
+  			$this->_langActual = $browserLang;
+  		}
+  		
+  		// 3 - Idioma elegido por el usuario
+  		if ($userLang = $this->_detectUserLang()){
+  			$this->_langActual = $userLang;
+  		}
+  		
+  		// 4 - Cambio de idioma
+  		if ($newLang = OwlSession::getValue('new_lang')){
+  			
+  			$this->_langActual = $newLang;
+  			
+  			// Se almacena en un cookie
+  			$this->setUserLang($newLang);
+  			
+  			// Se borra de la sesión
+  			OwlSession::destroyValue('new_lang');
+  			
+  		}
+  		
+  		// 5 - Se carga el locale (Sólo si se han definido idiomas para la aplicación)
+  		if (!is_null($this->_idiomasARR)){
+  			$this->_loadLocale();
+  		}
+  		
     }
     
+   
     /**
-     * Establece los idiomas en los que estará disponible 
-     * el gestor de locale.
-     */
-    private function _setIdiomasDisponibles(){
-        
-        $this->_idiomas = array( 'es', 'ca', 'en', 'de');
-        
-    }
-    
-    /**
-     * Establece el idioma actual
-     * @param unknown_type $lang
-     */
-    private function _setLang($lang){
-        
-        if ($lang != ''){
-            if (in_array($lang, $this->_idiomas)){
-                $this->_langActual = $lang;
-            } else {
-                throw new Exception('El idioma sugerido no se encuentra disponible');
-            }
-        } else {
-            $this->_langActual = $this->_langDefecto;
-        }        
-        
-    }
-    
-    /**
-     * Carga el hash de locale
-     * y la metadata del mismo
-     */
-    private function _loadLocale(){
-        
-        $fileTarget = $this->_localePath . $this->_langActual . '.inc';
-        
-        if (file_exists($fileTarget)){
-            include $fileTarget;
-        } else {
-            throw new Exception('No se ha encontrado el archivo de locale: ' . $fileTarget);
-        }
-        
-        $this->_metadataArray = $metadata;
-        $this->_localeArray = $locale;
-        
-    }
-    
-    /**
-     * Extrae un valor del locale, ya sea una clave, un subgrupo o 
-     * una sub clave o false en caso de error
-     * @param string $key
+     * Detecta y devuelve el idioma del navegador del usuario,
+     * si no lo logra devuelve n ull
+     * 
      * @return string
      */
-    private function _extractFromLocale($key){
-        
-        //Se busca la clave en el primer nivel
-        if (array_key_exists($key, $this->_localeArray)){
-            return $this->_localeArray[$key];
-        }
-        
-        //Se busca en los subgrupos, segundo nivel
-        //no se buscara en niveles de mas profundidad
-        foreach($this->_localeArray as $clave => $valor){
-            if (is_array($valor)){
-                foreach($valor as $subclave => $subvalor){
-                    if ($subclave == $key){
-                        return $subvalor;
-                    }
-                }
-            }
-        }
-        
-        //no se ha encontrado la clave
-        return null;
-        
-    }
-    
-    /**
-     * Detecta el idioma del navegador del usuario,
-     * si todo va bien lo establece como el idioma actual
-     * de lo contrario devuelve false
-     * @return boolean
-     */
-    public function detectLang(){
+    private function _detectBrowserLang(){
         
         if ($tmp = $_SERVER['HTTP_ACCEPT_LANGUAGE']){
             $detectedLang = substr($tmp, 0, 2);
-            if (in_array($detectedLang, $this->_idiomas)){
-                
-                $this->_langActual = $detectedLang;
-                $this->_loadLocale();
-                
-                return true;
+            if ($this->_isLangAllowed($detectedLang)){
+                return $detectedLang;
             }    
         } 
 
-        return false;
-        
-    }
-    
-    
-    /**
-     * Devuelve el locale si $key no es enviado, de lo contrario se buscará
-     * $key en el locale y se devolverá su valor.
-     * @param string $key
-     * @return mixed
-     */
-    public function get($key = ''){
-
-        //Se obtiene todo el locale
-        if ($key == '' && !is_null($this->_localeArray)){
-            return $this->_localeArray;
-        } else {
-        //Se busca la clave indicada
-            return $this->_extractFromLocale($key); 
-        }
-        
         return null;
         
     }
     
+    
     /**
-     * Establece un nuevo idioma y vuelve a cargar el locale
+     * Detecta el idioma del usuario, si ha elegido alguno.
+     * 
+     * @return string
+     */
+    private function _detectUserLang(){
+    	
+    	if (array_key_exists(self::COOKIE_LANG_ID, $_COOKIE)){
+    		
+    		if ($this->_isLangAllowed($_COOKIE[self::COOKIE_LANG_ID])){
+    			return $_COOKIE[self::COOKIE_LANG_ID];
+    		}
+    		
+    	}
+    	
+    	return null;
+    	
+    }
+    
+    
+    /**
+     * Establece el nuevo idioma y lo almacena en una cookie
+     * 
+     * @param string $lang
+     * @return boolean
+     */
+    public function setUserLang($lang){
+    	
+    	if (!$this->_isLangAllowed($lang)){
+    		return false;
+    	}
+    	
+    	$this->_langActual = $lang;
+    	
+    	return setcookie(self::COOKIE_LANG_ID, $lang, time() + self::COOKIE_LANG_TIME, '/');
+    	
+    }
+    
+    
+    /**
+     * Devuelve un booleano indicando si el idioma
+     * está activo en el sitio
+     * 
      * @param string $lang
      */
-    public function setLangAndReloadLocale($lang){
-        
-        $this->_setLang($lang);
-        $this->_loadLocale();
-        
+    private function _isLangAllowed($lang){
+    	
+    	if (is_null($this->_idiomasARR)){
+    		return false;
+    	}
+    	
+    	return in_array($lang, $this->_idiomasARR);
+    	
+    }
+    
+    /**
+     * Devuelve el idioma actual
+     * @return string
+     */
+    public function getLangActual(){
+    	
+    	return $this->_langActual;
+    	
     }
     
     
     /**
-     * Devuelve el hash de metadatos del actual locale
-     * @param $key
-     * @return mixed
+     * Carga los archivos de locale necesarios
+     * @throws OwlException
      */
-    public function getMetadata($key = ''){
+    private function _loadLocale(){
+    	
+    	// Se carga $default_locale
+    	include LIBDIR . 'locale/' . $this->_langActual . '.inc';
+    	
+    	if (!file_exists(LOCALEDIR . $this->_langActual . '.inc')){
+    		throw new OwlException('No existe el archivo de locale para la aplicación en el idioma actual: <strong>' . $this->_langActual . '</strong>', 500);
+    	}
+    	
+    	// Se carga el locale de aplicación ($locale)
+    	include LOCALEDIR . $this->_langActual . '.inc';
+    	
+    	// Se mezclan los dos locales obtenidos
+    	$this->_localeARR = array_merge($default_locale, $locale);
+    	
+    }
+    
+    
+    /**
+     * Devuelve el array completo de locale o si $clave es especificado
+     * la sección correspondiente a dicha clave, si no la encuentra 
+     * devuelve null
+     * 
+     * @param string $clave
+     * @return array
+     */
+    public function getLocale($clave = null){
+    	
+    	// Se intentará retornar una sección
+    	if (!is_null($clave)){
 
-        //No hay metadata
-        if (is_null($this->_metadataArray)){
-            return null;
-        }
-        
-        //Una clave en particular
-        if ($key != '' && array_key_exists($key, $this->_metadataArray)){
-            return $this->_metadataArray[$key];
-        } 
-        
-        //Todo el hash de metadatos
-        return $this->_metadataArray; 
-        
+    		if (array_key_exists($clave, $this->_localeARR)){
+	    		return $this->_localeARR[$clave];
+    		} else {
+    			return null;
+    		}
+    		
+    	}
+    	
+    	// Se retorna el locale completo
+    	return $this->_localeARR;
     }
     
-    /**
-     * Devuelve el locale como un objeto, null en caso que
-     * no consiga lograrlo
-     * @experimental 
-     * @return object
-     */
-    public function getLocaleObject(){
-        
-        //Sin datos se devuelve null
-        if (is_null($this->_localeArray)){
-            return null;
-        }
-        
-        require_once 'helper/OwlArray.inc';
-        return OwlArrayHelper::createObjectFromArray($this->_localeArray);
-        
-    }
+   
     
     
 }

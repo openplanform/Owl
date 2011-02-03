@@ -67,8 +67,8 @@ class OwlConnection{
 		}
 		
 		// Se vaciará cualquier log existente
-		if (array_key_exists('dbLog', $GLOBALS)){
-		    $GLOBALS['dbLog'] = null;
+		if (array_key_exists('OWL', $GLOBALS) && array_key_exists('app_dblog', $GLOBALS['OWL'])){
+		    $GLOBALS['OWL']['app_dblog'] = null;
 		}
 		
 	}
@@ -123,8 +123,8 @@ class OwlConnection{
      */
     private function _updateLog(){
         
-        if (array_key_exists('dbLog', $GLOBALS)){
-            $GLOBALS['dbLog'] = $this->getLogHTML();
+        if (array_key_exists('OWL', $GLOBALS) && array_key_exists('app_dblog', $GLOBALS['OWL'])){
+            $GLOBALS['OWL']['app_dblog'] = $this->getLogHTML();
         }
         
     }

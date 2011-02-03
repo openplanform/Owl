@@ -28,6 +28,7 @@ require_once 'Zend/Config/Ini.php';
 
 require_once 'OwlException.inc';
 require_once 'OwlRouter.inc';
+require_once 'OwlLocale.inc';
 require_once 'OwlSession.inc';
 require_once 'container/OwlApplicationConfig.inc';
 require_once 'helper/OwlHtmlHelper.inc';
@@ -87,6 +88,9 @@ class OwlApplication{
 			
 			// Se inicia la configuración de la aplicación
 			$this->_loadApplicationConfig();
+			
+			// Se carga el objeto de locale
+			$this->_loadLocale();
 			
 			// Se inicia el enrutador
 			$this->_loadApplicationRouter();
@@ -161,6 +165,17 @@ class OwlApplication{
 		
 		// Se hace global la configuración
 		$GLOBALS['OWL']['app_config'] = $this->applicationConfig;
+		
+	}
+	
+	
+	/**
+	 * Carga el locale y lo propaga en GLOBALS
+	 */
+	private function _loadLocale(){
+
+		$locale = new OwlLocale($this->applicationConfig);
+		$GLOBALS['OWL']['app_locale'] = $locale;
 		
 	}
 	

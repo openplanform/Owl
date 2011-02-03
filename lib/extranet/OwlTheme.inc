@@ -25,19 +25,20 @@
 
 require_once 'OwlException.inc';
 
+
 class OwlTheme{
 	
 	/**
 	 * Clave para almacenar el tema en el array de cookies
 	 * La clave es owl_md5('tema')
 	 */
-	const CLAVE_TEMA = 'owl_c5f3de31f3a2c4018f39966fa6563659';
+	const COOKIE_THEME_ID = 'owl_c5f3de31f3a2c4018f39966fa6563659';
 	
 	/**
 	 * Tiempo de expiración de la cookie. 2 años
 	 * @var string
 	 */
-	const TIEMPO_EXPIRACION = 63072000;
+	const COOKIE_THEME_TIME = 63072000;
 	
 	/**
 	 * Ruta al css del tema
@@ -47,11 +48,18 @@ class OwlTheme{
 	
 	/**
 	 * Constructor
-	 * @param string $tema Nombre del tema
+	 * @param OwlApplicationConfig $appConfig
 	 * @throws OwlException
 	 */
-	public function __construct($tema){
+	public function __construct(OwlApplicationConfig $appConfig){
 
+		// Comprobamos si existe la cookie del tema
+		if ( array_key_exists( self::COOKIE_THEME_ID, $_COOKIE ) ){
+			$tema = ($_COOKIE[self::COOKIE_THEME_ID]);
+		} else {
+    		$tema = $appConfig->getDefaultTheme();
+		}
+		
 		// Si no existe el tema, por defecto toma el general
 		if ( !is_dir( THEMEDIR . $tema ) || !is_file( THEMEDIR . $tema . '/css/' . $tema . '.css' ) ){
 			$this->_cssPath = '/css/general.css';
@@ -67,6 +75,22 @@ class OwlTheme{
 	 */
 	public function getCssPath(){
 		return $this->_cssPath;	
+	}
+
+	
+	/**
+	 * Establece el tema actual, y lo almacena en una coockie
+	 * 
+	 * @param string $tema
+	 * @return boolean
+	 */
+	public function setTheme($tema){
+	
+		if (!empty($tema)){
+			return setcookie(self::COOKIE_THEME_ID, $tema, time() + self::COOKIE_THEME_TIME, '/');
+		}		
+		return false;
+		
 	}
 	
 }
