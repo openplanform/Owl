@@ -2,6 +2,7 @@
 
 require_once 'extranet/OwlExtranetController.inc';
 require_once 'helper/OwlString.inc';
+require_once 'helper/OwlExtranetHelper.inc';
 require_once 'OwlMailerTemplate.inc';
 require_once 'OwlMailer.inc';
 

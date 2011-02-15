@@ -99,7 +99,7 @@ class OwlExtranetController extends OwlController{
 		    	echo OwlHtmlHelper::getHtmlErrorPage('Forbidden', 403, 'Acceso no autorizado', '<p>No dispone de los privilegios necesarios para acceder a este área.</p>');
 		    	
 		    	return;
-		    }        
+		    }     
 		    
         }
         

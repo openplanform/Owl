@@ -480,7 +480,7 @@ class usuarioController extends OwlExtranetController{
             // ID
             if (!empty($id)){
                 $where[] = "idUsuario = $id";
-                $this->view->id = id;
+                $this->view->id = $id;
                 $queryString .= '&amp;idUsuario=' . $id;
             }
             

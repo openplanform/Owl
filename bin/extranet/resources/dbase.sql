@@ -97,6 +97,8 @@ INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAcc
 INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (10,8,'Roles',1,1,'administrador','roles','1');
 INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (11,8,'Configuración',1,2,'administrador','configuracion','1');
 INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (12,8,'Panel',0,3,'index','panel','1,2');
+INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (13,0,'Ajax',0,20,'ajax',NULL,NULL);
+INSERT INTO `tblAcceso` (idAcceso,fkPadre,vNombre,bMenu,iOrden,vControlador,vAccion,vRoles) VALUES (12,13,'Comprobar usuario',0,0,'ajax','comprobarUsuario','1,2');
 
 
 SET FOREIGN_KEY_CHECKS = 1;

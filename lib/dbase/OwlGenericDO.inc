@@ -66,7 +66,7 @@ class OwlGenericDO{
     }
 
     /**
-     * Genera un Data Object de la clase $className utilizando un array indexado con los datos.
+     * Genera un Data Object de la clase $className utilizando un array indexado con los datos, devuelve false en caso de no tener datos.
      * @param Connection $db
      * @param array $data
      * @param string $className

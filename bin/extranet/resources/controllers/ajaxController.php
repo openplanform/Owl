@@ -1,12 +1,12 @@
 <?php
 
-require_once 'extranet/NingenExtranetController.inc';
+require_once 'extranet/OwlExtranetController.inc';
 
 /**
  * Controlador encargado de responder las peticiones asíncronas
  * de la a aplicacióm
  */
-class ajaxController extends NingenExtranetController{
+class ajaxController extends OwlExtranetController{
 
     
     public function initController(){
@@ -71,15 +71,7 @@ class ajaxController extends NingenExtranetController{
 			
     	}
     	
-    }
-    
-    /**
-     * Devuelve los profesores que existan para una categoría
-     */
-    public function profesoresCategoria(){
-    	
-    }
-    
+    }    
     
 }
 

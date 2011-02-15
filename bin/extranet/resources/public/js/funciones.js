@@ -57,11 +57,12 @@ function comprobarVacio( idCampo, mensaje ) {
 		var idError = '#error' + ucfirst(idCampo);
 		if ( $j('#' + idCampo).val() == '' ){
 			$j(idError).html(mensaje);
-			$j('#' + idCampo).focus();
+			$j(idError).css("display","block");
 			$j('#' + idCampo).css("borderColor","#F00");
 			return false;
 		} else {
 			$j('#' + idCampo).css("borderColor","#A6A6A6");
+			$j(idError).css("display","none");
 			$j(idError).html('');
 			return true;
 		}
@@ -87,11 +88,12 @@ function comprobarRegExp( idCampo, regExp, mensaje ) {
 		var idError = '#error' + ucfirst(idCampo);
 		if ( !$j('#' + idCampo).val().match(regExp) ){
 			$j(idError).html(mensaje);
-			$j('#' + idCampo).focus();
+			$j(idError).css("display","block");
 			$j('#' + idCampo).css("borderColor","#F00");
 			return false;
 		} else {
 			$j('#' + idCampo).css("borderColor","#A6A6A6");
+			$j(idError).css("display","none");
 			$j(idError).html('');
 			return true;
 		}
@@ -116,11 +118,12 @@ function compararCon( idCampo, valorComprobacion, mensaje ) {
 		var idError = '#error' + ucfirst(idCampo);
 		if ( $j('#' + idCampo).val() != valorComprobacion ){
 			$j(idError).html(mensaje);
-			$j('#' + idCampo).focus();
+			$j(idError).css("display","block");
 			$j('#' + idCampo).css("borderColor","#F00");
 			return false;
 		} else {
 			$j('#' + idCampo).css("borderColor","#A6A6A6");
+			$j(idError).css("display","block");
 			$j(idError).html('');
 			return true;
 		}
@@ -166,10 +169,11 @@ function comprobarUsuario(idCampo, editar) {
 				arrRespuesta = $j.parseJSON(data);
 	        	if ( arrRespuesta.resultado == 'ko' ) {
 	        		$j(idError).html(arrRespuesta.mensaje);
-	    			$j('#' + idCampo).focus();
+	        		$j(idError).css("display","block");
 	    			$j('#' + idCampo).css("borderColor","#F00");
 	            } else {
 	            	$j('#' + idCampo).css("borderColor","#A6A6A6");
+	            	$j(idError).css("display","none");
 	    			$j(idError).html('');
 	            }
 	        }
@@ -177,6 +181,7 @@ function comprobarUsuario(idCampo, editar) {
 		
 	} else if ( editar ){
 		$j('#' + idCampo).css("borderColor","#A6A6A6");
+		$j(idError).css("display","none");
 		$j(idError).html('');
 	}
 }

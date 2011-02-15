@@ -83,10 +83,6 @@ if [ -d "$OWL_TARGETDIR" ]; then
 
     mkdir app/log
 
-    chown -R www-data:www-data app/log
-
-    chmod -R 755 app/log
-
 	echo -e "[" "\033[32mOK\033[0m" "] Archivos copiados"
 	
 	
@@ -101,13 +97,15 @@ if [ -d "$OWL_TARGETDIR" ]; then
 	
 	# Se establecen los permisos y propietarios
 	
-	chmod -R 775 $OWL_TARGETDIR
-	
 	if [ "$HOSTNAME" = "ldes" ]; then
 		chown -R smbuser:desarrollo $OWL_TARGETDIR
 	fi
+		
+	chmod -R 775 $OWL_TARGETDIR		
 	
-	chmod 777 app/models	
+    chown -R www-data:www-data app/log
+
+    chmod -R 755 app/log	
 	
 	echo -e "[" "\033[32mOK\033[0m" "] Permisos establecidos"
 	

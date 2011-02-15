@@ -26,7 +26,7 @@ class OwlDate{
     
     /**
      * @see OwlDate::getDiaMesAno()
-     * @param $fecha
+     * @param time $fecha
      * @return string
      */
     public static function getDMA($fecha){
@@ -38,7 +38,7 @@ class OwlDate{
     /**
      * Devuelve la fecha en formato DD/MM/AAAA, 
      * si la fecha pasada no es reconocible devuelve null
-     * @param $fecha
+     * @param time $fecha
      * @return string
      */
     public static function getDiaMesAno($fecha){
@@ -50,7 +50,7 @@ class OwlDate{
     }
     
     /**
-     * Convierte una fecha del formato europeo(dd/mm/aaaa) al formato americano (MySql). 
+     * Convierte una fecha del formato europeo(dd/mm/aaaa) al formato americano (MySql aaaa-mm-dd). 
      * Si se produce algún error durante la conversión, devuelve null. 
      * @param string $fecha
      * @param string $sepOriginal
@@ -73,6 +73,61 @@ class OwlDate{
     	return null;
         
     }    
+    
+    /**
+     * <p>Devuelve una fecha en un formato determinado</p>
+     * <p>El formato se adapta al idioma de la página</p>
+     * <p>Si no existe el formato devuelve null</p>
+     * formato 'a': "01 de febrero de 2011"
+     * formato 'b': "1 de febrero de 2011"
+     * 
+     * @param date $fecha
+     * @param string $formato ['a', 'b']
+     * @param array $locale
+     * @param string $lang
+     */
+    public static function formatDate($fecha, $formato, $locale, $lang = null){
+    	
+    	$date = null;
+    	
+    	is_null($lang) ? $lang = 'es' : '';
+    	
+    	switch ($formato) {
+    		
+    		// 01 de enero de 2000
+    		case 'a':
+    			
+    			$datetime = strtotime($fecha);
+    			if ( $lang == 'es' || $lang == 'ca' ){
+    				$date = date('d', $datetime) . ' ' . $locale['de'] . ' ' . $locale['lista_meses'][date('n', $datetime)] . ' ' . $locale['de'] . ' ' . date('Y', $datetime);
+    			}
+    			if ( $lang == 'en' ){
+    				$date = $locale['lista_meses'][date('d', $datetime)] . ', ' . date('j', $datetime) . ' '  . date('Y', $datetime);
+    			}
+    			
+    		break;
+
+    		// 1 de enero de 2000
+    		case 'b':
+    			
+    			$datetime = strtotime($fecha);
+    			if ( $lang == 'es' || $lang == 'ca' ){
+    				$date = date('j', $datetime) . ' ' . $locale['de'] . ' ' . $locale['lista_meses'][date('n', $datetime)] . ' ' . $locale['de'] . ' ' . date('Y', $datetime);
+    			}
+    			if ( $lang == 'en' ){
+    				$date = $locale['lista_meses'][date('n', $datetime)] . ' ' . date('j', $datetime) . ', '  . date('Y', $datetime);
+    			}
+    			
+    		break;
+    		
+    		default:
+    			;
+    		break;
+    	}
+    	
+    	return $date;
+    	
+    }
     
 
     /**

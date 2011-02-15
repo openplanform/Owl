@@ -1,85 +1,55 @@
-/* Estilos Generales */
-.separadorH{
-	clear: both;
-	float: none;
-	overflow: hidden;
-	height: 0px;
-}
-fieldset, p, h1, h2, h3, h4, h5, body, html, form, ul, li, legend{
-	margin: 0;
-	padding: 0;
-	border: none;
-}
-li{
-	list-style: none;
-}
-#layout{
-	margin: 140px 25px 25px 25px;
-}
-#layout.alternativo{
-	margin: 0px 25px 25px 25px;
-}
-body{
-	font: normal 12px Verdana, Arial, Helvetica, sans-serif;
-	color: #000;
-}
-body#principal{
-	background-color: #F2F2F2;
-}
-body#libre{
-	background-color: #F2F2F2;
-}
-h2, h3, h4, h5{
-	color: #4A95EF;
-	margin: 0 0 10px 0;
-}
-h2{
-	background-color: #D1DFEF;
-	border-bottom: 1px solid #A0C4EF;
-	color: #444444;
-	font: bolder 17px/34px Verdana,Helvetica,sans-serif;
-	height: 34px;
-	letter-spacing: 3px;
-	margin-bottom: 25px;
-	padding-left: 5px;
-	text-transform: uppercase;
-}
-h3{
-	color: #000;
-	margin-bottom: 15px;
-	margin-top: 25px;
-	font-weight: bold;
-}
-a{
-	text-decoration: underline;
-	/*color: #4A95EF;*/
-	color: #1764BF;
-}
-a:hover{
-	color: #4A95EF;
-}
-#contenedorFijo{
-    position: fixed;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    z-index: 5000;
-    -moz-box-shadow:0 1px 5px #BBBBBB;
-}
+/* ----------- Controles ----------- */
+@import url("controles.css");
 
-/* Estilos generales */
+/* ----------- Estilos Generales ----------- */
 
-.error,
-.errorInput{
-	color: #F00;
-}
-.errorInput{
-	height:15px;
-	margin-top: 1px;
-	font-size: 10px;
-	line-height: 10px;
-}
-.oculto{
+p, h1, h2, h3, h4, h5, body, html, form, ul, li{ margin: 0; padding: 0; }
+.separadorH{ clear: both; float: none; overflow: hidden; height: 0px; }
+li{ list-style: none; }
+
+/* ----------- Layout ----------- */
+
+body{ font: normal 12px Verdana, Arial, Helvetica, sans-serif; color: #000; }
+body#principal{ background-color: #F2F2F2; }
+body#libre{ background-color: #F2F2F2; }
+
+#layout{ margin: 140px 25px 25px 25px; }
+#layout.alternativo{ margin: 0px 25px 25px 25px; }
+
+#contenedorFijo{ position: fixed; width: 100%; top: 0px; left: 0px; z-index: 5000; -moz-box-shadow:0 1px 5px #BBBBBB; }
+
+/* ----------- Theme por defecto ----------- */
+
+h2, h3, h4, h5{ color: #4A95EF; margin: 0 0 10px 0; }
+h2{ background-color: #D1DFEF; border-bottom: 1px solid #A0C4EF; color: #444444; font: bolder 17px/34px Verdana,Helvetica,sans-serif; height: 34px;
+	letter-spacing: 3px; margin-bottom: 25px; padding-left: 5px; text-transform: uppercase; }
+h3{ color: #000; margin-bottom: 15px; margin-top: 25px; font-weight: bold; }
+h3.separador{ font-size: 12px; border-bottom: 1px solid #AFAFAF; color: #0E75EF; margin-bottom: 20px; padding-bottom: 4px; }
+
+a{ text-decoration: underline; color: #1764BF; }
+a:hover{ color: #4A95EF; }
+
+/* ----------- Selector de temas ----------- */
+
+.selectorTemas{ overflow: hidden; margin: 15px 0 15px 0; text-align: center;}
+.selectorTemas label{ font-weight: bold}
+.selectorTemas .tema{ float: left; margin: 0 15px 0 0; width: 302px;}
+.selectorTemas .tema img{ margin: 3px 0 0 0;border: 1px solid #000;}
+
+/* ----------- Log SQL ----------- */
+
+#logSql{ font-family: courier; padding: 25px; }
+#logSql p{ font-weight: bold; border-bottom: 2px solid #5F5F5F; padding-bottom: 3px; }
+#logSql li{ padding-top: 3px; padding-bottom: 3px; border-bottom: 1px solid #5F5F5F; }
+#logSql li.correct{ color: #1A4F0A; }
+#logSql li.error{ color: #FF0000; }
+
+/* ----------- Formularios ----------- */
+.formBuscar{ margin-bottom: 20px; }
+
+/* ============================== AÚN NO REVISADO ====================================== */
+
+.oculto{ 
 	display: none;
 }
 .info{
@@ -120,65 +90,7 @@ a:hover{
 	vertical-align: bottom;
 }
 /* Componentes Formulario */
-legend{
-	color: #4A95EF;
-	display: block;
-	font: bold 26px Arial,Helvetica,sans-serif;
-	margin-bottom: 20px;
-}
-label{
-	display: block;
-	font-family: Verdana, "BitStream vera Sans", Tahoma, Helvetica, Sans-serif;
-	font-size: 13px;
-	color: #6F6F6F;
-	font-weight: bold;
-}
-label.alter{
-	display: inline;
-}
-select,
-input.campoTexto, 
-textarea {
-    background: url("/img/layout/textfield.gif") repeat-x center top #FFFFFF;
-    border: 1px solid #A6A6A6;
-    font-family: Verdana, "BitStream vera Sans", Tahoma, Helvetica, Sans-serif;
-    font-size: 12px;
-    padding: 2px 1px;
-}
-select{
-	padding: 0px;
-}
-select.desplegable{
-	padding: 0px;
-	height: 20px;
-}
-input.campoTexto{
-	width: 300px;
-}
-textarea{
-	width: 450px;
-	height: 120px;
-}
-textarea.doble{
-	width: 800px;
-	height: 250px;
-}
-.campo{
-	margin-bottom: 18px;
-	position: relative;
-}
-.campo.controlado{
-    margin-bottom: 0;
-}
-.campo.clear{
-	clear: both;
-	float: none;
-	overflow: hidden;
-}
-.campo.multi{
-    float: left;
-    margin-right: 15px;
-}
+
 .checkbox,
 .radioOpt{
 	margin: 0 15px 0 0;
@@ -186,32 +98,7 @@ textarea.doble{
 	left: 0;
 	bottom: -3px;
 }
-select.mini,
-input.mini{
-	width: 40px;
-}
-select.pequeno,
-input.pequeno{
-	width: 100px;
-}
-select.mediano,
-input.mediano{
-    width: 150px;
-}
-select.fecha,
-input.fecha{
-    width:80px;
-}
-.grande{
-    width: 300px;
-}
-select.grande{ 
-	width: 304px;
-}
-select.enorme,
-input.enorme{
-    width: 450px;
-}
+
 .tooltip{
 	font-size: 10px;
 	width: 220px;
@@ -227,31 +114,6 @@ input.enorme{
     -moz-box-shadow:2px 3px 5px 0 #777777;	
 }
 
-/* Log sql */
-#logSql{
-	font-family: courier;
-	padding: 25px;
-}
-#logSql p{
-	font-weight: bold;
-	border-bottom: 2px solid #5F5F5F;
-	padding-bottom: 3px;
-}
-#logSql ul{
-	
-}
-
-#logSql li{
-	padding-top: 3px;
-	padding-bottom: 3px;
-	border-bottom: 1px solid #5F5F5F;
-}
-#logSql li.correct{
-	color: #1A4F0A;
-}
-#logSql li.error{
-	color: #FF0000;
-}
 
 /* Barra Navegacion */
 #barraNavegacion{

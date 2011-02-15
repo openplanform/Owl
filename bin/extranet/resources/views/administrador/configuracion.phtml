@@ -1,3 +1,34 @@
-<?php
-
-?>
+<form method="post" action="/administrador/tema.html" >
+	<fieldset>
+		
+		<legend>Selecciona el tema de la aplicación</legend>
+	
+		<input type="hidden" value="1" name="send" />
+	
+		<p class="descripcion">El tema que escojas sólo lo verás tú, no afectará al resto de usuarios.</p>
+		<div class="selectorTemas">
+			<div class="tema">
+				<label for="general" >
+					general
+					<img src="/img/general.jpg" alt="general" title="general" width="300" height="185" />
+				</label>
+				<input type="radio" id="general" name="tema" value="general" <?= ( $this->temaSeleccionado == 'general' ) ? 'checked="checked"' : '' ?>>
+			</div><?php
+			
+			foreach ($this->temasARR as $tema) {
+				
+				?><div class="tema">
+					<label for="<?= $tema ?>" >
+						<?= $tema ?>
+						<img src="/themes/<?= $tema ?>/img/<?= $tema ?>.jpg" alt="<?= $tema ?>" title="<?= $tema ?>" width="300" height="185"/>
+					</label>
+					<input type="radio" id="<?= $tema ?>" name="tema" value="<?= $tema ?>" <?= ( $this->temaSeleccionado == $tema ) ? 'checked="checked"' : '' ?>>
+				</div><?
+			}
+		
+		?></div>
+	
+		<input class="btnSubmit" type="submit" value="Guardar"/>
+			
+	</fieldset>
+</form>

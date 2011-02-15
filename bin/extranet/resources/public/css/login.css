@@ -1,46 +1,14 @@
-#wrapper{
-	text-align: center;
-}
-#login{
-	width: 250px;
-	height: 250px;
-	margin: 0 auto;
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	margin-left: -125px;
-	margin-top: -125px;
-	border: 1px solid #808080;
-	background-color: #E4E4E4; 
-	-moz-box-shadow: 3px 4px 6px 0 #BBBBBB;
-}
-#login.recordatorio{
-	height: 275px;
-	width: 300px;
-}
-#login p{
-	margin: 0 0 10px 0;
-}
-#login .mensaje{
-    margin: 0;
-    color: #F00;
-}
-#login .inner{
-	width: 200px;
-	margin-left: 25px;
-	margin-top: 25px;
-	text-align: left;
-}
-#login.recordatorio .inner{
-	width: 250px;
-}
-#login .campo{
-	text-align: left;
-}
-#login .campo .campoTexto{
-	width: 195px;
-}
-
-#login.recordatorio .campo .campoTexto{
-    width: 245px;
-}
+#wrapper{ text-align: center; }
+#login{ width: 250px; height: 265px; margin: 0 auto; position: absolute; top: 40%; left: 50%; margin-left: -125px; margin-top: -132px; border: 1px solid #808080; background-color: #E4E4E4; -moz-box-shadow: 3px 4px 6px 0 #BBBBBB; }
+#login.recordatorio{ height: 295px; }
+#login p{ margin: 0 0 10px 0; }
+#login .mensaje{ margin: 0; color: #F00; top: 30px; left: 0px; font-size: 11px; top: 30px; position: relative; }
+#login .inner{ width: 200px; margin-left: 15px; margin-top: 15px; text-align: left; }
+#recordatorioLogin .inner .field, 
+#login .inner .field{ margin-right: 0; }
+#login .loginIput{ width: 169px; }
+#login .btnSubmit{ margin-bottom: 10px; clear: both; float: none;}
+#login .campo{ text-align: left; }
+#login .campo .campoTexto{ width: 195px; }
+#login.recordatorio .campo .campoTexto{ width: 245px; }
+#login fieldset { float: left; }

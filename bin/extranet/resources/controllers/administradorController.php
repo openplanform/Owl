@@ -1,6 +1,7 @@
 <?php
 
 require 'extranet/OwlExtranetController.inc';
+require_once 'extranet/OwlTheme.inc';
 require_once 'OwlPaginator.inc';
 
 require_once MODELDIR . 'TblRol.inc';
@@ -22,6 +23,9 @@ class administradorController extends OwlExtranetController{
     public function initController(){
         
         parent::initController();
+        if ( $this->actionName == 'tema' ){
+        	$this->bypassLayout();
+        }
         
     }
     
@@ -501,9 +505,39 @@ class administradorController extends OwlExtranetController{
      * Administrar configuración
      */
     public function configuracionAction(){
-        
-        
-        
+
+    	// Listado de temas
+    	$temasARR = array();
+	    if ( $handle = opendir( THEMEDIR ) ) {
+		    while (false !== ($file = readdir($handle))) {
+		        if ($file != "." && $file != "..") {
+		            array_push($temasARR, $file);
+		        }
+		    }
+		    closedir($handle);
+		}
+		
+		// Enviamos los temas a la vista
+		$this->view->temasARR = $temasARR;
+		
+		// Tema seleccionado
+		if ( array_key_exists( OwlTheme::COOKIE_THEME_ID, $_COOKIE ) ){
+			$this->view->temaSeleccionado = $_COOKIE[OwlTheme::COOKIE_THEME_ID];
+		}
+    }
+    
+    /**
+     * Setea el tema de la aplicación
+     */
+    public function temaAction(){
+    	
+    	$sent = $this->helper->getAndEscape('send');
+    	if ( !empty($sent) ){
+    		$this->theme->setTheme($this->helper->getAndEscape('tema'));
+    	}
+    	
+    	$this->redirectTo('administrador', 'configuracion');
+    	
     }
     
 }

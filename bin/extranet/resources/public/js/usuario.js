@@ -72,11 +72,13 @@ function comprobarCampos() {
 	if ( roles ){
 		if ( $j('#selectorRol').val() == null ){
 			$j('#errorSelectorRol').html('Debe seleccionar como mínimo un rol.');
+			$j('#errorSelectorRol').css("display","block");
 			$j('#selectorRol').focus();
 			$j('#selectorRol').css("borderColor","#F00");
 			return false;
 		} else {
 			$j('#selectorRol').css("borderColor","#A6A6A6");
+			$j('#errorSelectorRol').css("display","block");
 			$j('#errorSelectorRol').html('');
 		}
 	}
@@ -173,9 +175,5 @@ $j(document).ready(function(){
 		}
 		
 	});
-	
-    $(function() {
-        $("#nacimientoPersona" ).datepicker();
-    });	
 	
 });

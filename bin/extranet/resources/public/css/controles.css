@@ -1,0 +1,42 @@
+/* Campos de datos */
+.field{ float: left; margin-right: 20px; position: relative; margin-bottom: 15px; }
+.field input[type="text"],
+.field input[type="password"],
+.field select, 
+.field textarea{ background: url("/img/layout/textfield.gif") repeat-x center top #FFFFFF; border: 1px solid #A6A6A6;
+ font-family: Verdana, "BitStream vera Sans", Tahoma, Helvetica, Sans-serif; font-size: 12px; padding: 2px 1px; height: 16px }
+ .field textarea{ height: 150px; width: 600px; }
+ .field select{ height: 23px }
+ .field.checkbox{padding-top:17px}
+.field.checkbox input{ margin: 0; vertical-align: middle;}
+
+/* Elementos formulario */
+fieldset{ border: 1px solid #CFCFCF; max-width: 960px; padding: 20px; background-color: #EFEFEF; -moz-border-radius: 4px; border-radius: 4px; }
+legend{ color: #0E75EF; font-weight: bold; font-size: 13px; padding: 0px 5px; }
+
+/* Etiquetas */
+.field label{ margin-bottom: 2px; display: block; font-size: 13px; color: #6F6F6F; font-weight: bold;}
+.field.required label{ color: #1F1F1F }
+.field label.alter{display: inline;}
+
+/* Anchos controles */
+.field .t1{ width: 50px; }
+.field .t2{ width: 100px; }
+.field .t25{ width: 150px; }
+.field .t3{ width: 200px; }
+.field .t4{ width: 300px; }
+.field .t5{ width: 400px; }
+.field .t6{ width: 500px; }
+.field .t7{ width: 600px; }
+.field .t8{ width: 800px; }
+
+.field .ta1{ width: 200px; height: 100px; }
+.field .ta2{ width: 300px; height: 150px; }
+.field .ta3{ width: 400px; height: 150px; }
+.field .ta4{ width: 500px; height: 150px; }
+.field .ta5{ width: 600px; height: 150px; }
+
+/* Mensajes de error */
+.error_auto{ color: #000; min-height:20px; font-size: 10px; line-height: 20px; position: absolute; left: 0; bottom: -25px; width: 230px;
+ border: 1px solid #DF5E45; z-index: 4000; background: #FFD7CF url(/img/iconos/error16.png) 2px 2px no-repeat; padding-left: 20px; display: none; -moz-border-radius: 4px; border-radius: 4px;}
+.error_auto.active{ display: block; }

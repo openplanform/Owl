@@ -1,7 +1,7 @@
 <?php
 
-//$this = new NingenView;
 $this->addCssInclude('/css/login.css');
+$this->addCssInclude('/css/general.css');
 
 ?><div id="wrapper">
     <div id="login" class="recordatorio">
@@ -9,7 +9,7 @@ $this->addCssInclude('/css/login.css');
         <div class="inner">
             <form id="recordatorioLogin" action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
                 <fieldset>
-                    <div class="campo">
+                    <!-- <div class="campo">
                         <label for="username">Nombre de usuario</label>
                         <input type="text" name="username" id="username" class="campoTexto" />
                     </div>
@@ -19,11 +19,19 @@ $this->addCssInclude('/css/login.css');
                     </div>
                     <div class="campo">
                         <input type="submit" value="Enviar" class="btnSubmit" />
-                    </div>
-                    <p>Introduzca su usuario y su correo y le enviaremos una nueva contraseña</p>
-                    <p class="mensaje"><?= $this->mensaje ?></p>
+                    </div> --><?
+                    
+                    OwlExtranetHelper::echoTextField('username', 'Nombre de usuario', true, 'loginIput');
+                    
+                    OwlExtranetHelper::echoTextField('email', 'Correo electrónico', true, 'loginIput');
+                    
+                    OwlExtranetHelper::echoSubmitButton('Entrar');
+                    
+                    ?><p>Introduzca su usuario y su correo y le enviaremos una nueva contraseña</p>
                 </fieldset>
             </form>
         </div>
+        <div class="separadorH"></div>
+        <p class="mensaje"><?= $this->mensaje ?></p>
     </div>
 </div>

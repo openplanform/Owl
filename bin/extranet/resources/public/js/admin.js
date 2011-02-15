@@ -31,11 +31,13 @@ jQuery(document).ready(function(){
 		if ($j('#padre').val() != '' && $j('#padre').val() != 0){
 			if ( $j('#selectorRol').val() == null ){
 				$j('#errorSelectorRol').html('Debe seleccionar como mínimo un rol.');
+				$j('#errorSelectorRol').css("display","block");
 				$j('#selectorRol').focus();
 				$j('#selectorRol').css("borderColor","#F00");
 				return false;
 			} else {
 				$j('#selectorRol').css("borderColor","#A6A6A6");
+				$j('#errorSelectorRol').css("display","none");
 				$j('#errorSelectorRol').html('');
 			}
 		}

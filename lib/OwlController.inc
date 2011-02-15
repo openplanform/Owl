@@ -575,8 +575,14 @@ class OwlController{
     	// Se guarda el valor del nuevo idioma temporalmente en la sesión
     	OwlSession::setValue('new_lang', $lang);
     	
+    	// Obtenemos los posibles parámetros
+    	$params = $this->getParams();
+    	if ( !is_null($params) ){
+    		$params = implode('/', $params);
+    	}
+    	
     	// Se recarga la página
-    	$this->redirectTo($this->controllerName, $this->actionName);
+    	$this->redirectTo($this->controllerName, $this->actionName, $params );
     }
 	 
 	
