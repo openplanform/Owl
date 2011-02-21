@@ -151,7 +151,7 @@ class OwlDate{
 			array_push($aryRange,date('Y-m-d',$iDateFrom)); // first entry
 		
 			while ($iDateFrom<$iDateTo) {
-				$iDateFrom+=86400; // add 24 hours
+				$iDateFrom += 86400; // add 24 hours
 				array_push($aryRange,date('Y-m-d',$iDateFrom));
 			}
 			
@@ -295,6 +295,35 @@ class OwlDate{
     
     }     
     
+    /**
+     * Obtiene los años desde una fecha hasta hoy
+     */
+    static function getAnyos($fecha){
+    	
+    	//fecha actual
+		$dia = date('j');
+		$mes = date('n');
+		$ano = date('Y');
+		 
+		//fecha de nacimiento
+		list($anonac,$mesnac,$dianac) = explode("-",$fecha);
+		 
+		//si el mes es el mismo pero el día inferior aun no ha cumplido años, le quitaremos un año al actual
+		if ( ($mesnac == $mes) && ($dianac > $dia) ){
+			$ano = ($ano-1);
+		}
+		 
+		//si el mes es superior al actual tampoco habrá cumplido años, por eso le quitamos un año al actual
+		if ($mesnac > $mes){
+			$ano = ($ano-1);
+		}
+		 
+		//ya no habría mas condiciones, ahora simplemente restamos los años y mostramos el resultado como su edad
+		$anyos = ($ano-$anonac);
+		 
+		return $anyos;
+		
+    }
     
 }
 

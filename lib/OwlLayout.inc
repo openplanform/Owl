@@ -296,6 +296,10 @@ class OwlLayout{
 	 */
 	public function echoCssIncludes(){
 
+		if ( !is_null($this->themeCssPath) ){
+			echo '<link rel="stylesheet" type="text/css" href="' . $this->themeCssPath . '" />' . "\n";
+		}
+		
 		if(array_key_exists('css', $this->_resourcesStack)){
 			
 			$cssResources = $this->_resourcesStack['css'];
@@ -308,9 +312,6 @@ class OwlLayout{
 			
 		}
 		
-		if ( !is_null($this->themeCssPath) ){
-			echo '<link rel="stylesheet" type="text/css" href="' . $this->themeCssPath . '" />' . "\n";
-		}
 		
 	}
 	

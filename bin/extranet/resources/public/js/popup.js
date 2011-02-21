@@ -42,7 +42,7 @@ function preparePopup(estado, titulo, mensaje, url, confirmacion){
 // Muestra la ventana de ok
 function ventanaOk(titulo, mensaje, url){
 	
-	if (url == null){
+	if (url == null || url == ''){
 		url = "javascript:hidePopups()";
 	}
 	
@@ -55,7 +55,7 @@ function ventanaOk(titulo, mensaje, url){
 // Muestra la ventana de ko
 function ventanaKo(titulo, mensaje, url){
 	
-	if (url == null){
+	if (url == null || url == ''){
 		url = "javascript:hidePopups()";
 	}
 	
@@ -68,7 +68,7 @@ function ventanaKo(titulo, mensaje, url){
 //Muestra la ventana de confirmación
 function ventanaConfirmacion(titulo, mensaje, url){
 	
-	if (url == null){
+	if (url == null || url == ''){
 		url = "javascript:hidePopups()";
 	}
 	

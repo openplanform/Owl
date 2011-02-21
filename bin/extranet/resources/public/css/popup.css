@@ -22,6 +22,8 @@
 	margin-left: -225px;
 	margin-top: -80px;
     -moz-box-shadow: 3px 4px 6px 0 #333;
+    -webkit-box-shadow: 3px 4px 6px 0 #333;
+    box-shadow: 3px 4px 6px 0 #333;
     display: none;
 }
 #layoutContent{

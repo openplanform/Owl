@@ -16,7 +16,7 @@ body#libre{ background-color: #F2F2F2; }
 #layout{ margin: 140px 25px 25px 25px; }
 #layout.alternativo{ margin: 0px 25px 25px 25px; }
 
-#contenedorFijo{ position: fixed; width: 100%; top: 0px; left: 0px; z-index: 5000; -moz-box-shadow:0 1px 5px #BBBBBB; }
+#contenedorFijo{ position: fixed; width: 100%; top: 0px; left: 0px; z-index: 5000; -moz-box-shadow:0 1px 5px #BBB; -webkit-box-shadow: 0 1px 5px #BBB; box-shadow: 0 1px 5px #BBB; }
 
 /* ----------- Theme por defecto ----------- */
 
@@ -47,6 +47,50 @@ a:hover{ color: #4A95EF; }
 /* ----------- Formularios ----------- */
 .formBuscar{ margin-bottom: 20px; }
 
+/* ----------- Pestañas ----------- */
+.pestanyas{ float: left; margin: 0 0 20px 0; }
+.pestanyas li{ float: left; margin: 0 5px 0 0; background-color: #FFF; text-align: center; color: #6F6F6F; font-weight: bold; -moz-box-shadow: 0 1px 5px #BBB; -webkit-box-shadow: 0 1px 5px #BBB; box-shadow: 0 1px 5px #BBB;}
+.pestanyas li.ultimo{ margin: 0; }
+.pestanyas li.actual{ color: #FFF; background-color: #4A95EF; }
+.pestanyas li a, .pestanyas li strong{ text-decoration: none; color: #6F6F6F; display: block; padding: 5px 10px; }
+.pestanyas li a:hover{ background-color: #4A95EF; color: #FFF; }
+.pestanyas li.actual a, .pestanyas li.actual strong{ color: #FFF; }
+
+/* ----------- Listado ----------- */
+table.listado{ background-color: #fff; border: 1px solid #808080;border-collapse: collapse; margin-bottom: 20px; }
+table.listado thead th, table.listado tbody td{ padding: 5px 10px; }
+table.listado tbody td.accion{ text-align: center; }
+table.listado thead th{ text-align: left; }
+table.listado thead th a{ color: #FFF; text-decoration: none; }
+table.listado thead{ background-color: #6F6F6F; font: bold 12px Verdana, Arial, Helvetica, sans-serif; border-bottom: 1px solid #808080; color: #fff; }
+.scroll .listado{ margin-bottom: 0; border: none; }
+a.ordenado.asc{ padding: 0 12px 0 0; background: url(/img/asc.gif) right 8px no-repeat; }
+a.ordenado.desc{ padding: 0 12px 0 0; background: url(/img/desc.gif) right 7px no-repeat; }
+a.btnAnadir, a.btnDuplicar, a.btnEditar, a.btnEliminar, a.btnFicha{ display: block; width: 16px; height: 16px; margin: 0 auto; background: url(/img/iconos/eliminar16.png) top center no-repeat; }
+a.btnEliminar.usuario{ background: url(/img/iconos/borrarUsuario.png) top center no-repeat; }
+a.btnAnadir span, a.btnDuplicar span, a.btnEditar span, a.btnEliminar span, a.btnFicha span{ display: none; }
+a.btnEditar{ background: url(/img/iconos/editar16.png) top center no-repeat; }
+a.btnDuplicar{ background: url(/img/iconos/duplicar16.png) top center no-repeat; }
+a.btnAnadir{ background: url(/img/iconos/anadir16.png) top center no-repeat; }
+a.btnFicha{ background: url(/img/iconos/file16.png) top center no-repeat; }
+table.listado tbody tr.alter{background-color: #EFEFEF;}
+
+.contenedorMultiselect{ position: relative; }
+.contenedorMultiselect a.btnEliminar{position: absolute; top: -16px; right: 0; }
+.contenedorMultiselect a.btnFicha{ position: absolute; top: -17px; right: 20px; }
+.botonesMultiselect{ margin: 45px 0 0 0; }
+.botonesMultiselect li{ margin: 0 0 10px 0; }
+
+/* ----------- Paginador ----------- */
+#paginadorContainer{margin-bottom: 40px;}
+#paginadorContainer .paginador{clear: both;float: none;overflow: hidden;}
+#paginadorContainer .paginador li{float: left; margin-right: 4px;}
+#paginadorContainer .paginador .siguiente, #paginadorContainer .paginador .anterior{color: #000;text-decoration: none;}
+#paginadorContainer .paginador strong, #paginadorContainer .paginador a{line-height: 16px;}
+#paginadorContainer .paginador a span{display: none;}
+#paginadorContainer .paginador .siguiente{background: url(/img/iconos/siguiente16.png) center right no-repeat;padding-right: 20px;}
+#paginadorContainer .paginador .anterior{background: url(/img/iconos/anterior16.png) center left no-repeat;padding-left: 20px;}
+
 /* ============================== AÚN NO REVISADO ====================================== */
 
 .oculto{ 
@@ -76,7 +120,9 @@ a:hover{ color: #4A95EF; }
 	margin: 0 -25px 20px -25px;
 	padding: 5px 0 2px 55px;
 	border-bottom: 1px solid #777;
-	-moz-box-shadow:0 1px 5px #BBBBBB;
+	-moz-box-shadow:0 1px 5px #BBB;
+	-webkit-box-shadow: 0 1px 5px #BBB;
+    box-shadow: 0 1px 5px #BBB;
 	overflow: hidden;
 	height: 18px;
 }
@@ -214,101 +260,6 @@ a:hover{ color: #4A95EF; }
 }
 .boton.ko a .dec2{
 	background: url(/img/boton/koDer.png) top right no-repeat;
-}
-
-/* Listados */
-table.listado{
-	background-color: #fff;
-	border: 1px solid #808080;
-	border-collapse: collapse;
-	margin-bottom: 40px;
-}
-table.listado thead th,
-table.listado tbody td{
-	padding: 5px 10px;
-}
-table.listado tbody td.accion{
-	text-align: center;
-}
-table.listado thead th{
-	text-align: left;
-}
-table.listado thead th a{
-    color: #FFF;
-    text-decoration: none;
-}
-table.listado thead{
-	background-color: #6F6F6F;
-	font: bold 12px Verdana, Arial, Helvetica, sans-serif;
-	border-bottom: 1px solid #808080;
-	color: #fff;
-}
-.scroll .listado{
-    margin-bottom: 0;
-    border: none;
-}
-a.ordenado.asc{
-	padding: 0 12px 0 0;
-	background: url(/img/asc.gif) right 8px no-repeat;
-}
-a.ordenado.desc{
-    padding: 0 12px 0 0;
-    background: url(/img/desc.gif) right 7px no-repeat;
-}
-a.btnAnadir,
-a.btnDuplicar,
-a.btnEditar,
-a.btnEliminar,
-a.btnFicha{
-	display: block;
-	width: 16px;
-	height: 16px;
-	margin: 0 auto;
-	background: url(/img/iconos/eliminar16.png) top center no-repeat;
-}
-a.btnEliminar.usuario{
-    background: url(/img/iconos/borrarUsuario.png) top center no-repeat;	
-}
-a.btnAnadir span,
-a.btnDuplicar span,
-a.btnEditar span,
-a.btnEliminar span,
-a.btnFicha span{
-	display: none;
-}
-a.btnEditar{
-	background: url(/img/iconos/editar16.png) top center no-repeat;
-}
-a.btnDuplicar{
-    background: url(/img/iconos/duplicar16.png) top center no-repeat;
-}
-a.btnAnadir{
-    background: url(/img/iconos/anadir16.png) top center no-repeat;
-}
-a.btnFicha{
-    background: url(/img/iconos/file16.png) top center no-repeat;
-}
-table.listado tbody tr.alter{
-	background-color: #EFEFEF;
-}
-.contenedorMultiselect{
-	position: relative;
-}
-.contenedorMultiselect a.btnEliminar{
-	position: absolute;
-	top: -16px;
-	right: 0;
-}
-.contenedorMultiselect a.btnFicha{
-    position: absolute;
-    top: -17px;
-    right: 20px;
-}
-.botonesMultiselect{
-	margin: 45px 0 0 0;
-}
-.botonesMultiselect li{
-	margin: 0 0 10px 0;
 }
 
 /* Ficha */

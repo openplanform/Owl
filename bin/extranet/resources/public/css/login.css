@@ -6,7 +6,7 @@
 #login .inner{ width: 200px; margin-left: 15px; margin-top: 15px; text-align: left; }
 #recordatorioLogin .inner .field, 
 #login .inner .field{ margin-right: 0; }
-#login .loginIput{ width: 169px; }
+#login .loginInput{ width: 169px; }
 #login .btnSubmit{ margin-bottom: 10px; clear: both; float: none;}
 #login .campo{ text-align: left; }
 #login .campo .campoTexto{ width: 195px; }

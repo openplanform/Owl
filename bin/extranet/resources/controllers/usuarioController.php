@@ -476,12 +476,15 @@ class usuarioController extends OwlExtranetController{
             
             $where = array();
             $queryString = '&amp;sent=1';
+            $queryARR['sent'] = 1;
             
             // ID
             if (!empty($id)){
                 $where[] = "idUsuario = $id";
                 $this->view->id = $id;
                 $queryString .= '&amp;idUsuario=' . $id;
+            } else {
+            	$queryARR['idUsuario'] = '';
             }
             
             // NOMBRE DE USUARIO
@@ -489,6 +492,8 @@ class usuarioController extends OwlExtranetController{
                 $where[] = "LOWER(vNombre) LIKE '%$username%'";
                 $this->view->username = $username;
                 $queryString .= '&amp;username=' . $username;
+            } else {
+            	$queryARR['username'] = '';
             }
             
             // EMAIL
@@ -496,6 +501,8 @@ class usuarioController extends OwlExtranetController{
                 $where[] = "vEmail LIKE '%$email%'";
                 $this->view->email = $email;
                 $queryString .= '&amp;email=' . $email;
+            } else {
+            	$queryARR['email'] = '';
             }
             
             // ROLES
@@ -504,6 +511,8 @@ class usuarioController extends OwlExtranetController{
                 $where[] = " EXISTS (SELECT null FROM trelRolUsuario WHERE tblUsuario.idUsuario = trelRolUsuario.fkUsuario AND trelRolUsuario.fkRol IN($rolesStr))";
                 $this->view->roles = $roles;
                 $queryString .= '&amp;roles=' . $rolesStr;
+            } else {
+            	$queryARR['roles'] = '';
             }
             
             // Se constuye el where
@@ -521,7 +530,7 @@ class usuarioController extends OwlExtranetController{
             $paginador->setPaginaActual($paginaActual);
             $paginador->setOrderBy($orderBy);
             $paginador->setOrder($order);
-            $paginador->setExtraParams($queryString);
+            $paginador->setExtraParams($queryARR);
         
             // Obtengo las convocatorias
             $usuariosCOL = $paginador->getItemCollection();
@@ -530,7 +539,10 @@ class usuarioController extends OwlExtranetController{
             $this->view->paginador = $paginador->getPaginatorHtml();
             
             // Se propagan las clausulas de búsqueda en el paginador
-            $this->view->querystring = $queryString;    
+        	foreach ( $queryARR as $clave => $valor ){
+	        	$queryString .= '&amp;' . $clave . '=' . $valor;
+	        }
+	        $this->view->querystring = $queryString;
 
             // Obtengo todos los roles 
             $rolesCOL = $this->aclManager->getRoles();
