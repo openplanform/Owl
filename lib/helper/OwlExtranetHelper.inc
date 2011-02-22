@@ -221,7 +221,7 @@ class OwlExtranetHelper{
 		// Se imprime el control
 		echo '<div class="field ' . $required_class .'">
 				<label for="' . $name . '">' . $label . '</label>
-				<select name="' . $name . '" class="' . $css_class . '">
+				<select name="' . $name . '" class="' . $css_class . '" id="' . $id . '">
 					<option value="">' . $defaultItemText . '</option>';
 		
 					foreach ($elements as $element){

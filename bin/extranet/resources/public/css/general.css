@@ -46,6 +46,7 @@ a:hover{ color: #4A95EF; }
 
 /* ----------- Formularios ----------- */
 .formBuscar{ margin-bottom: 20px; }
+.adminOpts{background-color: #C3D0DF;background: #C3D0DF url(/img/iconos/admin48.png) center left no-repeat;padding: 10px 10px 0px 10px;border: 1px solid #819DCF; margin-bottom: 25px;	padding-left: 70px;float: left;}
 
 /* ----------- Pestañas ----------- */
 .pestanyas{ float: left; margin: 0 0 20px 0; }
@@ -66,13 +67,15 @@ table.listado thead{ background-color: #6F6F6F; font: bold 12px Verdana, Arial, 
 .scroll .listado{ margin-bottom: 0; border: none; }
 a.ordenado.asc{ padding: 0 12px 0 0; background: url(/img/asc.gif) right 8px no-repeat; }
 a.ordenado.desc{ padding: 0 12px 0 0; background: url(/img/desc.gif) right 7px no-repeat; }
-a.btnAnadir, a.btnDuplicar, a.btnEditar, a.btnEliminar, a.btnFicha{ display: block; width: 16px; height: 16px; margin: 0 auto; background: url(/img/iconos/eliminar16.png) top center no-repeat; }
+a.btnAnadir, a.btnDuplicar, a.btnEditar, a.btnEliminar, a.btnFicha, a.btnConsumo, a.btnDocumentacion{ display: block; width: 16px; height: 16px; margin: 0 auto; background: url(/img/iconos/eliminar16.png) top center no-repeat; }
 a.btnEliminar.usuario{ background: url(/img/iconos/borrarUsuario.png) top center no-repeat; }
-a.btnAnadir span, a.btnDuplicar span, a.btnEditar span, a.btnEliminar span, a.btnFicha span{ display: none; }
+a.btnAnadir span, a.btnDuplicar span, a.btnEditar span, a.btnEliminar span, a.btnFicha span, a.btnConsumo span, a.btnDocumentacion span{ display: none; }
 a.btnEditar{ background: url(/img/iconos/editar16.png) top center no-repeat; }
 a.btnDuplicar{ background: url(/img/iconos/duplicar16.png) top center no-repeat; }
 a.btnAnadir{ background: url(/img/iconos/anadir16.png) top center no-repeat; }
 a.btnFicha{ background: url(/img/iconos/file16.png) top center no-repeat; }
+a.btnConsumo{ background: url(/img/iconos/alimentos16.png) top center no-repeat; }
+a.btnDocumentacion{background: url(/img/iconos/pdf16.png) top center no-repeat;}
 table.listado tbody tr.alter{background-color: #EFEFEF;}
 
 .contenedorMultiselect{ position: relative; }
