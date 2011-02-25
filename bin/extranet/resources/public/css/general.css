@@ -24,7 +24,7 @@ h2, h3, h4, h5{ color: #4A95EF; margin: 0 0 10px 0; }
 h2{ background-color: #D1DFEF; border-bottom: 1px solid #A0C4EF; color: #444444; font: bolder 17px/34px Verdana,Helvetica,sans-serif; height: 34px;
 	letter-spacing: 3px; margin-bottom: 25px; padding-left: 5px; text-transform: uppercase; }
 h3{ color: #000; margin-bottom: 15px; margin-top: 25px; font-weight: bold; }
-h3.separador{ font-size: 12px; border-bottom: 1px solid #AFAFAF; color: #0E75EF; margin-bottom: 20px; padding-bottom: 4px; }
+h3.separador{ font-size: 12px; border-bottom: 1px solid #AFAFAF; color: #0E75EF; margin-bottom: 20px; padding-bottom: 4px;max-width: 1000px; }
 
 a{ text-decoration: underline; color: #1764BF; }
 a:hover{ color: #4A95EF; }
@@ -49,8 +49,8 @@ a:hover{ color: #4A95EF; }
 .adminOpts{background-color: #C3D0DF;background: #C3D0DF url(/img/iconos/admin48.png) center left no-repeat;padding: 10px 10px 0px 10px;border: 1px solid #819DCF; margin-bottom: 25px;	padding-left: 70px;float: left;}
 
 /* ----------- Pestañas ----------- */
-.pestanyas{ float: left; margin: 0 0 20px 0; }
-.pestanyas li{ float: left; margin: 0 5px 0 0; background-color: #FFF; text-align: center; color: #6F6F6F; font-weight: bold; -moz-box-shadow: 0 1px 5px #BBB; -webkit-box-shadow: 0 1px 5px #BBB; box-shadow: 0 1px 5px #BBB;}
+.pestanyas{ float: left; margin: 0 0 15px 0; }
+.pestanyas li{ float: left; margin: 0 5px 5px 0; background-color: #FFF; text-align: center; color: #6F6F6F; font-weight: bold; -moz-box-shadow: 0 1px 5px #BBB; -webkit-box-shadow: 0 1px 5px #BBB; box-shadow: 0 1px 5px #BBB;}
 .pestanyas li.ultimo{ margin: 0; }
 .pestanyas li.actual{ color: #FFF; background-color: #4A95EF; }
 .pestanyas li a, .pestanyas li strong{ text-decoration: none; color: #6F6F6F; display: block; padding: 5px 10px; }
@@ -83,6 +83,11 @@ table.listado tbody tr.alter{background-color: #EFEFEF;}
 .contenedorMultiselect a.btnFicha{ position: absolute; top: -17px; right: 20px; }
 .botonesMultiselect{ margin: 45px 0 0 0; }
 .botonesMultiselect li{ margin: 0 0 10px 0; }
+
+.estado{width: 16px;height: 16px;}
+.estado.pendiente{background: url("/img/iconos/amarillo16.png") top left no-repeat;}
+.estado.realizada{background: url("/img/iconos/verde16.png") top left no-repeat;}
+.estado.anulada{background: url("/img/iconos/rojo16.png") top left no-repeat;}
 
 /* ----------- Paginador ----------- */
 #paginadorContainer{margin-bottom: 40px;}

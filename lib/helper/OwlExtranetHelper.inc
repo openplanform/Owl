@@ -459,6 +459,15 @@ class OwlExtranetHelper{
 		
 	}
 	
+	/**
+	 * Imprime el título de una sección
+	 * @param string $titulo
+	 */
+	public static function echoSeccion($titulo){
+		
+		echo '<h3 class="seccion">' . $titulo . '</h3>';
+		
+	}
 	
 }
 

@@ -37,6 +37,6 @@ legend{ color: #0E75EF; font-weight: bold; font-size: 13px; padding: 0px 5px; }
 .field .ta5{ width: 600px; height: 150px; }
 
 /* Mensajes de error */
-.error_auto{ color: #000; min-height:20px; font-size: 10px; line-height: 20px; position: absolute; left: 0; bottom: -25px; width: 230px;
+.error_auto{ color: #000; min-height:20px; font-size: 10px; line-height: 20px; position: absolute; left: 0; bottom: -25px; width: 230px; cursor:pointer;
  border: 1px solid #DF5E45; z-index: 4000; background: #FFD7CF url(/img/iconos/error16.png) 2px 2px no-repeat; padding-left: 20px; display: none; -moz-border-radius: 4px; border-radius: 4px;}
 .error_auto.active{ display: block; }

@@ -31,6 +31,19 @@ jQuery(document).ready(function(){
 		
 	});
 	
+	// Oculta mensajes error
+	jQuery('.error_auto').each ( function(){
+		
+		jQuery(this).bind({
+			
+			click: function(){
+				jQuery(this).hide();
+			}
+			
+		});
+		
+	});
+	
 });
 
 /**
