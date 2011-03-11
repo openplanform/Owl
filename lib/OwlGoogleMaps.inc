@@ -373,7 +373,7 @@ class OwlGoogleMaps{
 	}
 	
 	/**
-	 * Setea la latitud
+	 * Setea la latitud, por defecto es 2.653813809156418.
 	 * @param integer $latitud
 	 */
 	public function setLatitud( $latitud ){
@@ -381,7 +381,7 @@ class OwlGoogleMaps{
 	}
 	
 	/**
-	 * Setea la longitud
+	 * Setea la longitud, por defecto es 39.575826904309494
 	 * @param integer $longitud
 	 */
 	public function setLongitud( $longitud ){
@@ -389,7 +389,7 @@ class OwlGoogleMaps{
 	}
 	
 	/**
-	 * Setea el zoom del mapa
+	 * Setea el zoom del mapa, por defecto es 15.
 	 * @param integer $zoom
 	 */
 	public function setZoom($zoom){

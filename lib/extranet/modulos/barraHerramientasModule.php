@@ -501,7 +501,15 @@ class barraHerramientasModule extends OwlModule{
             
     }    
 	
-	
+
+    /**
+     * Imprime un separador para la barra de herramientas
+     */
+    public function echoSeparador(){
+
+    	echo '<li class="separador"><span></span></li>';
+    	
+    }    
 }
 
 ?>
