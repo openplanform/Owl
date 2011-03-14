@@ -57,7 +57,7 @@ class barraHerramientasModule extends OwlModule{
     	 * alta: limpiar, guardar y listado
     	 * ficha: eliminar, editar y duplicar
     	 * buscar: listado
-    	 * 
+    	 *
     	 */
     	
         ?><div id="toolbarPrincipal">
@@ -285,7 +285,7 @@ class barraHerramientasModule extends OwlModule{
 			
 			$url = '';
 			if ( !empty($this->param ) ){
-				$url = '/' . $this->controller . '/editar.html/' . $this->param;	
+				$url = '/' . $this->controller . '/editar.html/' . $this->param;
 			}
 			
 			echo '<li class="editar">
@@ -333,7 +333,7 @@ class barraHerramientasModule extends OwlModule{
 			
 			$url = '';
 			if ( !empty($this->param ) ){
-				$url = '/' . $this->controller . '/duplicar.html/' . $this->param;	
+				$url = '/' . $this->controller . '/duplicar.html/' . $this->param;
 			}
 			
 			echo '<li class="duplicar">
@@ -382,7 +382,7 @@ class barraHerramientasModule extends OwlModule{
 			
 			$url = '';
 			if ( !empty($this->param ) ){
-				$url = "javascript:ventanaConfirmacion('Confirmar','¿Está seguro que desea &lt;strong&gt;eliminar&lt;/strong&gt; este elemento?','/" . $this->controller . "/eliminar.html/" . $this->param  . "')";	
+				$url = "javascript:ventanaConfirmacion('Confirmar','¿Está seguro que desea &lt;strong&gt;eliminar&lt;/strong&gt; este elemento?','/" . $this->controller . "/eliminar.html/" . $this->param  . "')";
 				echo '<li class="eliminar">
 		          	<a href="' . $url . '" title="Elimina un elemento">Eliminar</a>
 	             </li>';
@@ -423,7 +423,7 @@ class barraHerramientasModule extends OwlModule{
         }
             
             
-    }	
+    }
 	
 	
     /**
@@ -445,7 +445,7 @@ class barraHerramientasModule extends OwlModule{
             
         }
             
-    }	
+    }
 	
     /**
      * Imprime el botón de roles
@@ -499,7 +499,7 @@ class barraHerramientasModule extends OwlModule{
                 <a href="/index/panel.html" title="Panel de inicio">Panel</a>
              </li>';
             
-    }    
+    }
 	
 
     /**
@@ -509,7 +509,32 @@ class barraHerramientasModule extends OwlModule{
 
     	echo '<li class="separador"><span></span></li>';
     	
-    }    
+    }
+
+	
+	
+	/**
+	 * Imprime el botón de imprimir
+	 * @param boolean $activo
+	 */
+	public function echoBotonImprimir($activo = true){
+
+	    if ( $activo ){
+		
+			echo '<li class="imprimir">
+	          	<a href="javascript:void(0)" onclick="window.print();" title="Imprimir">Imprimir</a>
+             </li>';
+		
+		} else {
+			
+			echo '<li class="imprimir inactivo">
+	          	<a href="javascript:void(0)" title="Imprimir">Imprimir</a>
+             </li>';
+			
+		}
+	    
+	}
+    
 }
 
 ?>
