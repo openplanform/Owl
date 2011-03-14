@@ -2,25 +2,25 @@
 
 /* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-/**																			 
- *  ,_,  
- * (o,o) 
+/**
+ *  ,_,
+ * (o,o)
  * {`"'}   OWL (Open Web Library)
  * -"-"-
- * 
- * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ *
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3",
  * mas información en /doc/LICENSE
- * 
+ *
  * Controlador genérico, todos los controladores deben heredar de esta clase
- * 
+ *
  * @category Owl
  * @package Owl
  * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
- * @author Nicolás Daniel Palumbo <npalumbo@xinax.net> 
- * @author Aaron Amengual Arranz <aaron.amengual@gmail.com> 
+ * @author Nicolás Daniel Palumbo <npalumbo@xinax.net>
+ * @author Aaron Amengual Arranz <aaron.amengual@gmail.com>
  * @version 0.5.4
  * @since 0.3
- * 
+ *
  */
 
 
@@ -56,7 +56,7 @@ class OwlController{
 	protected $defaultSlot = 'contenido_principal';
 	
 	/**
-	 * Nombre del controlador actual 
+	 * Nombre del controlador actual
 	 * @var string
 	 */
 	protected $controllerName;
@@ -102,7 +102,7 @@ class OwlController{
      * Reescritura de la etiqueta de controlador
      * @var string
      */
-    protected $controllerRewrite = null;	
+    protected $controllerRewrite = null;
     
     /**
      * Objeto de sesión de usuario
@@ -119,7 +119,7 @@ class OwlController{
     
 	
 	/**
-	 * Constructor, instancia algunos objetos necesarios 
+	 * Constructor, instancia algunos objetos necesarios
 	 */
 	public function __construct(){
 	    
@@ -184,7 +184,7 @@ class OwlController{
             
         }
         
-	} 
+	}
 	
 	/**
 	 * Agrega un modulo a la pila, este método siempre debe llamarse antes del dispatch
@@ -296,7 +296,7 @@ class OwlController{
             
             $this->layout = new OwlLayout($this->alternateLayout);
             
-        }		
+        }
 		
 		// Se carga el contenido
 		$this->layout->prepareContentForSlot($this->defaultSlot, $actionCode);
@@ -419,7 +419,7 @@ class OwlController{
 	}
 	
 	/**
-	 * Devuelve un parámetro almacenado en la clave numérica del 
+	 * Devuelve un parámetro almacenado en la clave numérica del
 	 * array de parámetros, si no existe devuelve null
 	 * @param integer $clave
 	 */
@@ -429,7 +429,7 @@ class OwlController{
         $params = $this->getParams();
         
         if ( is_array($params) && array_key_exists($clave, $params) && !empty($params[$clave]) ){
-            return $params[$clave];            
+            return $params[$clave];
         }
         
         return null;
@@ -440,7 +440,7 @@ class OwlController{
 	 * Redirecciona a un controlador y a una accion, siempre y
 	 * cuando no se hayan enviado las cabeceras, de lo contrari
 	 * intentará hacerlo mediante javascript
-	 * 
+	 *
 	 * @param string $controllerName
 	 * @param string $actionName
 	 * @param string $params
@@ -456,7 +456,7 @@ class OwlController{
 	    
 	    // Se verifican los parámetros
 	    if (!is_null($params)){
-	       $headerString = $headerString . '/' . $params;    
+	       $headerString = $headerString . '/' . $params;
 	    }
 	    
 	    if (!headers_sent()){
@@ -490,7 +490,7 @@ class OwlController{
         
         $this->controllerRewrite = $label;
         
-    }	
+    }
     
     
     /**
@@ -517,7 +517,7 @@ class OwlController{
     	// Objeto global del framework
     	if (array_key_exists('OWL', $GLOBALS)){
     		
-    		// Configuración 
+    		// Configuración
     		if (array_key_exists('app_config', $GLOBALS['OWL'])){
     			
     			$appConfig = $GLOBALS['OWL']['app_config'];
@@ -544,7 +544,7 @@ class OwlController{
     	// Objeto global del framework
     	if (array_key_exists('OWL', $GLOBALS)){
     		
-    		// Locale 
+    		// Locale
     		if (array_key_exists('app_locale', $GLOBALS['OWL'])){
     			
     			$locale = $GLOBALS['OWL']['app_locale'];
@@ -564,7 +564,7 @@ class OwlController{
     
     /**
      * Establece el nuevo idioma y recarga la página
-     * 
+     *
      * @param string $lang
      */
     protected final function changeLang($lang){
@@ -585,6 +585,50 @@ class OwlController{
     	$this->redirectTo($this->controllerName, $this->actionName, $params );
     }
 	 
+    
+    /**
+     * Devuelve el referer que ha solicitado la página actual.
+     * Solo rútas sin dominio ni protocolo, ejemplo: /pagina/index.html
+     *
+     * @return string;
+     */
+    protected function getReferer(){
+
+       $httpReferer = $_SERVER['HTTP_REFERER'];
+       $httpHost = $_SERVER['HTTP_HOST'];
+       
+       if (preg_match('%(http://)?' . $httpHost . '(.*)%', $httpReferer, $resultARR)) {
+           if (array_key_exists(2, $resultARR)){
+               return $resultARR[2];
+           }
+       }
+       
+       return null;
+        
+    }
+    
+    
+    /**
+     * Redirige a una url, para redirigir a un controlador
+     * y una acción determinados, utilizar redirectTo
+     *
+     * @param string $url
+     */
+    protected function redirectToUrl($url){
+        
+        if (!headers_sent()){
+	    	
+	        header('Location: ' . $url);
+	        
+	    } else {
+	    	
+	        echo '<script type="text/javascript">window.location="' . $url . '"</script>';
+	        
+	    }
+        
+    }
+    
+    
 	
 }
 
