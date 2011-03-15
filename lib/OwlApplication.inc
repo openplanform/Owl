@@ -2,25 +2,25 @@
 
 /* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-/**																			 
- *  ,_,  
- * (o,o) 
+/**
+ *  ,_,
+ * (o,o)
  * {`"'}   OWL (Open Web Library)
  * -"-"-
- * 
- * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ *
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3",
  * mas información en /doc/LICENSE
- * 
+ *
  * Clase que implementan las aplicaciones webs compatibles con OWL
- * 
+ *
  * @category Owl
  * @package Owl
  * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
- * @author Nicolás Palumbo <npalumbo@xinax.net> 
- * @author Aaron Amengual Arranz <aaron.amengual@gmail.com> 
+ * @author Nicolás Palumbo <npalumbo@xinax.net>
+ * @author Aaron Amengual Arranz <aaron.amengual@gmail.com>
  * @version 0.5.4
  * @since 0.3
- * 
+ *
  */
 
 
@@ -39,8 +39,8 @@ class OwlApplication{
 	/**
 	 * Instancia del manejador principal de la
 	 * configuración de la aplicación, por lo tanto
-	 * es privado y solo puede ser utilizado por 
-	 * application. 
+	 * es privado y solo puede ser utilizado por
+	 * application.
 	 * @var Zend_Config_Ini
 	 */
 	private $_configAdapter;
@@ -65,7 +65,7 @@ class OwlApplication{
 	protected $owlSession;
 	
 	/**
-	 * Flag que indica si la 
+	 * Flag que indica si la
 	 * applicación se ejecuta en una consola
 	 * @var booelan
 	 */
@@ -73,8 +73,8 @@ class OwlApplication{
 	
 	
 	/**
-	 * Reune la información necesaria para decidir si es posible 
-	 * iniciar la aplicación 
+	 * Reune la información necesaria para decidir si es posible
+	 * iniciar la aplicación
 	 * @return void
 	 */
 	public function __construct(){
@@ -119,13 +119,13 @@ class OwlApplication{
 			error_reporting(E_ALL);
 		} else {
 			error_reporting(!E_ALL);
-		}		
+		}
 		
 	}
 	
 	
 	/**
-	 * Detecta si la aplicación actual, 
+	 * Detecta si la aplicación actual,
 	 * se está llamando desde la consola.
 	 */
 	private function _detectCliMode(){
@@ -136,7 +136,7 @@ class OwlApplication{
 	
 	
 	/**
-	 * Carga la configuración inicial de la aplicación 
+	 * Carga la configuración inicial de la aplicación
 	 * @return boolean
 	 */
 	private function _loadApplicationConfig(){
@@ -151,13 +151,13 @@ class OwlApplication{
 			// Set to TRUE to allow subsequent modification of loaded configuration data in-memory. Defaults to NULL
 			'allowModifications' => NULL,
 		
-			// Set to the character to be used as the nest separator. Defaults to "." 
+			// Set to the character to be used as the nest separator. Defaults to "."
 			'nestSeparator' => '.'
 		
 		);
 		
 
-		// Se instancia el manejador de configuración		
+		// Se instancia el manejador de configuración
 		$this->_configAdapter = new Zend_Config_Ini(CONFIGDIR . 'application.ini', $configSection, $opcionesConfigManager);
 		
 		// Se crea el contenedor público que mantendrá la configuración de la aplicación
@@ -183,14 +183,14 @@ class OwlApplication{
 	/**
 	 * Inicializa el router
 	 * @return void
-	 */	
+	 */
 	private function _loadApplicationRouter(){
 		
 		// Si estamos en una consola, el entorno de applicación
 		// será controlado por el helper CLI
 		if ($this->cliMode){
 			return;
-		}		
+		}
 		
 		// Se inicializa el router
 		$this->_applicationRouter = new OwlRouter($_SERVER['REQUEST_URI']);
@@ -215,14 +215,23 @@ class OwlApplication{
 		
 		// Se verificará si la aplicación no se encuetra en mantenimiento
 		if ($this->applicationConfig->isMantenimiento()){
-			echo OwlHtmlHelper::getHtmlMantenimientoPage();
-			die();	
+		    
+		    if ($this->applicationConfig->isUserAllowed()){
+		        
+    			$this->_applicationRouter->deployAndBootstrap();
+    			return;
+    			
+		    } else {
+		        
+    			echo OwlHtmlHelper::getHtmlMantenimientoPage();
+    			die();
+    			
+		    }
+		    
 		}
-		
-		// Si el usuario tiene acceso se inicia el bootstrap
-		if ($this->applicationConfig->isUserAllowed()){
-			$this->_applicationRouter->deployAndBootstrap();
-		}
+
+        // Si el usuario tiene acceso se inicia el bootstrap
+		$this->_applicationRouter->deployAndBootstrap();
 		
 	}
 

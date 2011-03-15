@@ -2,17 +2,17 @@
 
 /* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-/**																			 
- *  ,_,  
- * (o,o) 
+/**
+ *  ,_,
+ * (o,o)
  * {`"'}   OWL (Open Web Library)
  * -"-"-
- * 
- * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ *
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3",
  * mas información en /doc/LICENSE
- * 
+ *
  * Helper genérico de extranet. Imprime los controles más utilizados.
- * 
+ *
  * @category Owl
  * @package Owl
  * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
@@ -20,16 +20,16 @@
  * @author Aaron Amengual Arranz <aaron.amengual@gmail.com>
  * @version 0.5.4
  * @since 0.3
- * 
+ *
  */
 
 class OwlExtranetHelper{
 
 	
 	/**
-	 * Imprime un campo de texto. Los parámetros opcionales 
+	 * Imprime un campo de texto. Los parámetros opcionales
 	 * sobreescribirán los valores por defecto.
-	 * 
+	 *
 	 * @param string $name
 	 * @param string $label
 	 * @param boolean $required
@@ -67,16 +67,16 @@ class OwlExtranetHelper{
 		echo '<div class="field' . $required_class . $tooltip_class . '">
 			<label for="' . $id . '">' . $label . '</label>
 			<input type="text" name="' . $name . '" id="' . $id . '" class="' . $css_class . '" ' . $value . $extra . '  />
-			<p class="error_auto' . $error_class . '" id="error' . ucfirst($id) . '">' . $error . '</p>' . 
+			<p class="error_auto' . $error_class . '" id="error' . ucfirst($id) . '">' . $error . '</p>' .
 			( !is_null($tooltip) ? '<a onmouseover="this.childNodes[0].style.display=\'block\'" onmouseout="this.childNodes[0].style.display=\'none\'"><span>' . $tooltip . '</span></a>' : '' ) .
 		'</div>';
 		
 	}
 	
 	/**
-	 * 
+	 *
 	 * Imprime un campo de contraseña
-	 * 
+	 *
 	 * @param string $name
 	 * @param string $label
 	 * @param boolean $required
@@ -115,15 +115,15 @@ class OwlExtranetHelper{
 		echo '<div class="field ' . $required_class . $tooltip_class . '">
 			<label for="' . $id . '">' . $label . '</label>
 			<input type="password" name="' . $name . '" id="' . $id . '" class="' . $css_class . '" ' . $value . $extra . ' />
-			<p class="error_auto' . $error_class . '" id="error' . ucfirst($id) . '">' . $error . '</p>' . 
+			<p class="error_auto' . $error_class . '" id="error' . ucfirst($id) . '">' . $error . '</p>' .
 			( !is_null($tooltip) ? '<a onmouseover="this.childNodes[0].style.display=\'block\'" onmouseout="this.childNodes[0].style.display=\'none\'"><span>' . $tooltip . '</span></a>' : '' ) .
-		'</div>';		
+		'</div>';
 		
 	}
 	
 	/**
-	 * Imprime un campo del tipo textearea. 
-	 * 
+	 * Imprime un campo del tipo textearea.
+	 *
 	 * @param string $name
 	 * @param string $label
 	 * @param boolean $required
@@ -158,9 +158,9 @@ class OwlExtranetHelper{
 	/**
 	 * Imprime el código html de control select. Este método
 	 * acepta como parámetro dos tipos de arrays ( de DataObjects o de Arrays Bidimensionales).
-	 * La clave o método indicada en $keyItem se empleará para los values de los options, 
+	 * La clave o método indicada en $keyItem se empleará para los values de los options,
 	 * y la de valueItem para el label de los options.
-	 * 
+	 *
 	 * @param string $name
 	 * @param string $label
 	 * @param array $elements
@@ -188,7 +188,7 @@ class OwlExtranetHelper{
 		is_null($id) ? $id = $name : $id;
 		
 		// Clase
-		is_null($css_class) ? $css_class = 't1' : $css_class;		
+		is_null($css_class) ? $css_class = 't1' : $css_class;
 		
 		// Error class
 		!is_null($error) ? $error_class = ' active' : $error_class = '';
@@ -206,7 +206,7 @@ class OwlExtranetHelper{
 		// Diferentes tipos soportados ( DO | Array )
 		if ($elemento_1 instanceof OwlGenericDO){
 			if (!method_exists($elemento_1, $keyItem) || !method_exists($elemento_1, $valueItem)){
-				throw new OwlException('La colección de elementos (DO) para el el selector, no contiene ninguno de los métodos esperados', 500); 
+				throw new OwlException('La colección de elementos (DO) para el el selector, no contiene ninguno de los métodos esperados', 500);
 			}
 			$mode = 'do';
 		} elseif (is_array($elemento_1)) {
@@ -250,7 +250,7 @@ class OwlExtranetHelper{
 	}
 	
 	/**
-	 * 
+	 *
 	 * Imprime el código html de un selector múltiple
 	 * @param string $name
 	 * @param string $label
@@ -302,7 +302,7 @@ class OwlExtranetHelper{
 		// Diferentes tipos soportados ( DO | Array )
 		if ($elemento_1 instanceof OwlGenericDO){
 			if (!method_exists($elemento_1, $keyItem) || !method_exists($elemento_1, $valueItem)){
-				throw new OwlException('La colección de elementos (DO) para el el selector, no contiene ninguno de los métodos esperados', 500); 
+				throw new OwlException('La colección de elementos (DO) para el el selector, no contiene ninguno de los métodos esperados', 500);
 			}
 			$mode = 'do';
 		} elseif (is_array($elemento_1)) {
@@ -339,17 +339,17 @@ class OwlExtranetHelper{
 					}
                 
             echo '</select>
-            <p class="error_auto' . $error_class . '" id="error' . ucfirst($id) . '">' . $error . '</p>' . 
+            <p class="error_auto' . $error_class . '" id="error' . ucfirst($id) . '">' . $error . '</p>' .
 			( !is_null($tooltip) ? '<a onmouseover="this.childNodes[0].style.display=\'block\'" onmouseout="this.childNodes[0].style.display=\'none\'"><span>' . $tooltip . '</span></a>' : '' ) .
 		'</div>';
 	}
 
 	/**
-	 * Imprime un campo de archivo. Los parámetros opcionales 
+	 * Imprime un campo de archivo. Los parámetros opcionales
 	 * sobreescribirán los valores por defecto.
 	 * Para maquetar el tamaño del campo en Firefox usar $size,
 	 * en IE usar $css_class
-	 * 
+	 *
 	 * @param string $name
 	 * @param string $label
 	 * @param boolean $required
@@ -387,7 +387,7 @@ class OwlExtranetHelper{
 		echo '<div class="field' . $required_class . $tooltip_class . '">
 			<label for="' . $id . '">' . $label . '</label>
 			<input type="file" name="' . $name . '" id="' . $id . '" size="' . $size . '"'  . $class .  $extra . '  />
-			<p class="error_auto' . $error_class . '" id="error' . ucfirst($id) . '">' . $error . '</p>' . 
+			<p class="error_auto' . $error_class . '" id="error' . ucfirst($id) . '">' . $error . '</p>' .
 			( !is_null($tooltip) ? '<a onmouseover="this.childNodes[0].style.display=\'block\'" onmouseout="this.childNodes[0].style.display=\'none\'"><span>' . $tooltip . '</span></a>' : '' ) .
 		'</div>';
 		
@@ -395,7 +395,7 @@ class OwlExtranetHelper{
 	
 	/**
 	 * Imprime un botón de submit
-	 * 
+	 *
 	 * @param string $value
 	 * @param string $fieldClass
 	 * @param string $inputClass
@@ -409,7 +409,7 @@ class OwlExtranetHelper{
 	}
 	
 	/**
-	 * 
+	 *
 	 * Imprime un campo checkbox
 	 * @param string $name
 	 * @param string $label
@@ -423,7 +423,7 @@ class OwlExtranetHelper{
 	public static function echoCheckbox($name, $label, $is_checked = false, $input_class = null, $label_class = null, $id = null, $value = null, $extra = null){
 
 		// Checked
-		$checked = ($is_checked) ? 'checked="checked"' : ''; 
+		$checked = ($is_checked) ? 'checked="checked"' : '';
 		
 		// Clase input
 		is_null($input_class) ? $input_class = '' : $input_class;
@@ -441,8 +441,8 @@ class OwlExtranetHelper{
 		!is_null($extra) ? $extra = ' ' . $extra : $extra = '';
 		
 		echo '<div class="field checkbox">
-            <label for="' . $id . '" class="' . $label_class . '">' . $label . '</label>
             <input type="checkbox" name="' . $name . '" ' . $value . 'id="' . $id . '" class="' . $input_class . '" ' . $checked . ' />
+            <label for="' . $id . '" class="' . $label_class . '">' . $label . '</label>
         </div>';
 	}
 	

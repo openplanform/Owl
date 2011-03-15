@@ -2,25 +2,25 @@
 
 /* vim: set syn=php expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-/**																			 
- *  ,_,  
- * (o,o) 
+/**
+ *  ,_,
+ * (o,o)
  * {`"'}   OWL (Open Web Library)
  * -"-"-
- * 
- * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3", 
+ *
+ * Software distribuido bajo la "GNU GENERAL PUBLIC LICENSE v3",
  * mas información en /doc/LICENSE
- * 
+ *
  * Clase contenedora que encapsula la configuración de una aplicación
- * 
+ *
  * @category Owl
  * @package Owl
  * @license GNU GPL V3 (http://www.gnu.org/licenses/gpl-3.0.txt)
- * @author Nicolás Daniel Palumbo <npalumbo@xinax.net> 
- * @author Aaron Amengual Arranz <aaron.amengual@gmail.com> 
+ * @author Nicolás Daniel Palumbo <npalumbo@xinax.net>
+ * @author Aaron Amengual Arranz <aaron.amengual@gmail.com>
  * @version 0.5.4
  * @since 0.3
- * 
+ *
  */
 
 require_once 'OwlException.inc';
@@ -89,7 +89,7 @@ class OwlApplicationConfig{
 	private $_defaultTheme = null;
 	
 	/**
-	 * Hash con la configuración de los distintos 
+	 * Hash con la configuración de los distintos
 	 * menues del sitio (si hay)
 	 * @var array
 	 */
@@ -149,7 +149,7 @@ class OwlApplicationConfig{
 		// REGLA 2 - Se obtienen los dátos básicos de configuración
 		if ($customController = $this->_configData->app->default_controller){
 			$this->_defaultController = $customController;
-		} 
+		}
 		
 		if ($customAction = $this->_configData->app->default_action){
 			$this->_defaultAction = $customAction;
@@ -289,7 +289,7 @@ class OwlApplicationConfig{
 	}
 	
 	/**
-	 * Devuelve el fag de canonize 
+	 * Devuelve el fag de canonize
 	 * @return boolean
 	 */
 	public function isCanonizeNames(){
@@ -305,7 +305,7 @@ class OwlApplicationConfig{
 	}
 	
 	/**
-	 * Se determinará si el usuario actual tiene acceso al sitio 
+	 * Se determinará si el usuario actual tiene acceso al sitio
 	 * @return boolean
 	 */
 	public function isUserAllowed(){
@@ -359,7 +359,7 @@ class OwlApplicationConfig{
 			return $this->_configDataArray['app']['name'];
 		}
 		
-		return null;		
+		return null;
 		
 	}
 	
@@ -378,7 +378,7 @@ class OwlApplicationConfig{
 	}
 	
 	/**
-	 * Obtiene la configuración del mailer si fue especificada, 
+	 * Obtiene la configuración del mailer si fue especificada,
 	 * si no es así devuelve null
 	 * @return array
 	 */
@@ -393,7 +393,7 @@ class OwlApplicationConfig{
 	}
 	
 	/**
-	 * Optiene la configuración del captcha si fue especificada, 
+	 * Optiene la configuración del captcha si fue especificada,
 	 * si no es así devuelve null
 	 * @return array
 	 */
@@ -403,12 +403,12 @@ class OwlApplicationConfig{
 			return $this->_configDataArray['system']['captcha'];
 		}
 		
-		return null;		
+		return null;
 		
 	}
 	
 	/**
-	 * Optiene la configuración de la base de datos si fue especificada, 
+	 * Optiene la configuración de la base de datos si fue especificada,
 	 * si no es así devuelve null
 	 * @return array
 	 */
@@ -422,7 +422,7 @@ class OwlApplicationConfig{
 		 * @TODO procesar la config, y verificar que todos los campos estan completos
 		 */
 		
-		return null;		
+		return null;
 		
 	}
 	
@@ -494,15 +494,15 @@ class OwlApplicationConfig{
 			
 			return null;
 			
-		}		
+		}
 		
 	}
 	
 	
 	/**
-	 * Devuelve un array con todos los idiomas disponibles para 
-	 * la aplicación actual. Si no hay ninguno devuelve null. 
-	 * 
+	 * Devuelve un array con todos los idiomas disponibles para
+	 * la aplicación actual. Si no hay ninguno devuelve null.
+	 *
 	 * @return array
 	 */
 	public function getLangs(){
@@ -527,7 +527,7 @@ class OwlApplicationConfig{
 			
 	    }
 	    
-	    return null;		
+	    return null;
 		
 	}
 	
@@ -536,9 +536,9 @@ class OwlApplicationConfig{
 	 * Retorna un flag indicando si el autolang
 	 * (Detección de idioma mediante el navegador)
 	 * Se encuentra activado
-	 * 
+	 *
 	 * @return boolean
-	 * 
+	 *
 	 */
 	public function isAutolang(){
 		if (array_key_exists('app', $this->_configDataArray) && array_key_exists('autolang', $this->_configDataArray['app'])){
